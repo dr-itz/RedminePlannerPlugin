@@ -1,3 +1,5 @@
 # English strings go here for Rails i18n
 en:
-  my_label: "My label"
+  permission_view_plan: View Resource Plan
+  permission_edit_plan: Edit Resource Plan
+  label_menu_main: Resource Planner

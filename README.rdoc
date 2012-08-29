@@ -1,3 +1,10 @@
-= planner
+= Redmine Planner Plugin
 
-Description goes here
+A Redmine plugin for resource planning with a request/confirm scheme.
+
+
+== Running Tests
+
+rake planner:test:functionals
+rake planner:test:integration
+rake planner:test:units
