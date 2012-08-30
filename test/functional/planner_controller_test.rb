@@ -10,7 +10,7 @@ class PlannerControllerTest < ActionController::TestCase
   end
 
   def test_index
-    get :index, :id => 1
+    get :index, :project_id => 1
 
     assert_response :success
     assert_template 'index'
@@ -18,7 +18,7 @@ class PlannerControllerTest < ActionController::TestCase
 
   def test_index_no_permission
     @request.session[:user_id] = 3
-    get :index, :id => 1
+    get :index, :project_id => 1
 
     assert_response 403
   end

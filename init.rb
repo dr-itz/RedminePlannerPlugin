@@ -15,5 +15,5 @@ Redmine::Plugin.register :planner do
 
   menu :project_menu, :planner,
     { :controller => 'planner', :action => 'index' },
-    :caption => :label_menu_main
+    :caption => :label_menu_main, :param => :project_id
 end
