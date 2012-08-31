@@ -5,7 +5,7 @@ class PlannerControllerTest < ActionController::TestCase
 
   def setup
     @request.session[:user_id] = 2
-    Role.find(1).add_permission! :view_plan
+    Role.find(1).add_permission! :planner_view
     Project.find(1).enabled_module_names = [:planner]
   end
 

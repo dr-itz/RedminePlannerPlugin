@@ -1,0 +1,31 @@
+<h1>Listing plan_groups</h1>
+
+<table>
+  <tr>
+    <th>Project</th>
+    <th>Name</th>
+    <th>Group type</th>
+    <th>Leader</th>
+    <th>Parent group</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @plan_groups.each do |plan_group| %>
+  <tr>
+    <td><%= plan_group.project_id %></td>
+    <td><%= plan_group.name %></td>
+    <td><%= plan_group.group_type %></td>
+    <td><%= plan_group.leader_id %></td>
+    <td><%= plan_group.parent_group %></td>
+    <td><%= link_to 'Show', plan_group %></td>
+    <td><%= link_to 'Edit', edit_plan_group_path(plan_group) %></td>
+    <td><%= link_to 'Destroy', plan_group, :method => :delete, :data => { :confirm => 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Plan group', new_project_plan_group_path %>

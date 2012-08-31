@@ -1,0 +1,8 @@
+<h1>Editing plan_group</h1>
+
+<%= form_for(@plan_group) do |f| %>
+  <%= render :partial => 'form', :locals => {:f => f} %>
+<% end %>
+
+<%= link_to 'Show', @plan_group %> |
+<%= link_to 'Back', project_plan_groups_path(@project) %>

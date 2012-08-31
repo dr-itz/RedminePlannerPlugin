@@ -10,7 +10,14 @@ Redmine::Plugin.register :planner do
   requires_redmine :version_or_higher => '2.0.2'
 
   project_module :planner do
-    permission :view_plan, :planner => :index
+    permission :planner_view, {
+      :planner => :index,
+      :plan_groups => [:index, :show]
+	  }
+
+    permission :planner_admin, {
+      :plan_groups => [:index, :show, :new, :create, :edit, :update, :destroy]
+    }
   end
 
   menu :project_menu, :planner,

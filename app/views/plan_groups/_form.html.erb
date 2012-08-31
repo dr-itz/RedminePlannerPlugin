@@ -1,0 +1,30 @@
+<% if @plan_group.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@plan_group.errors.count, "error") %> prohibited this plan_group from being saved:</h2>
+
+    <ul>
+    <% @plan_group.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+<div class="field">
+  <%= f.label :name %><br />
+  <%= f.text_field :name %>
+</div>
+<div class="field">
+  <%= f.label :group_type %><br />
+  <%= f.number_field :group_type %>
+</div>
+<div class="field">
+  <%= f.label :leader_id %><br />
+  <%= f.number_field :leader_id %>
+</div>
+<div class="field">
+  <%= f.label :parent_group %><br />
+  <%= f.number_field :parent_group %>
+</div>
+<div class="actions">
+  <%= f.submit %>
+</div>
