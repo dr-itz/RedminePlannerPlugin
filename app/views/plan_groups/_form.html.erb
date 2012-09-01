@@ -3,7 +3,11 @@
 
 <div class="box tabular">
   <p><%= f.text_field :name, :size => 60, :required => true %></p>
-  <p><%= f.text_field :group_type, :size => 3, :required => true, :label => :field_planner_group_type %></p>
+  <p>
+    <%= f.select :group_type,
+      [[ l(:label_planner_group_team), 1 ], [ l(:label_planner_group_group), 2 ]],
+      :label => :field_planner_group_type %>
+  </p>
   <p>
     <%= f.select :leader_id, @project.members.sort.collect {|p| [ p.name, p.user_id ] },
      :include_blank => true, :label => :field_planner_leader %>

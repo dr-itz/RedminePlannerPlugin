@@ -9,5 +9,8 @@ en:
   label_planner_group_edit: Edit Team/Group
   label_planner_group_new: New Team/Group
 
+  label_planner_group_team: Team
+  label_planner_group_group: Group
+
   field_planner_group_type: Group Type
   field_planner_leader: Leader

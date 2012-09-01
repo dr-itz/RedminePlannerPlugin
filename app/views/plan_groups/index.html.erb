@@ -20,7 +20,9 @@
   <% @plan_groups.each do |plan_group| %>
     <tr id="plan_goup-<%= plan_group.id %>" class="<%= cycle 'odd', 'even' %> member">
       <td><%= link_to plan_group.name, plan_group %></td>
-      <td><%= plan_group.group_type %></td>
+      <td>
+        <%= plan_group.group_type == 1 ? l(:label_planner_group_team) : l(:label_planner_group_group) %>
+      </td>
       <td><%= plan_group.team_leader ? link_to_user(plan_group.team_leader) : "-" %></td>
       <td class="buttons">
         <%= link_to(l(:button_edit), edit_plan_group_path(plan_group), :class => 'icon icon-edit') %>
