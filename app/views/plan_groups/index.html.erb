@@ -1,3 +1,7 @@
+<% content_for :header_tags do %>
+  <%= stylesheet_link_tag 'planner', :plugin => 'planner' %>
+<% end %>
+
 <div class="contextual">
 <%= link_to l(:label_planner_group_new), new_project_plan_group_path , :class => 'icon icon-add' %>
 </div>
@@ -5,7 +9,7 @@
 <h2><%= l(:label_planner_groups) %></h2>
 
 <div class="autoscroll">
-<table class="list members">
+<table class="list planner">
   <thead><tr>
     <th><%= l(:field_name) %></th>
     <th><%= l(:field_planner_group_type) %></th>
