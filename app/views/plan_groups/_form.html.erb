@@ -22,10 +22,6 @@
   <%= f.select :leader_id, @project.members.sort.collect {|p| [ p.name, p.user_id ] },
      :include_blank => true %>
 </div>
-<div class="field">
-  <%= f.label :parent_group %><br />
-  <%= f.number_field :parent_group %>
-</div>
 <div class="actions">
   <%= f.submit %>
 </div>

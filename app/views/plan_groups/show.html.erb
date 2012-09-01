@@ -1,11 +1,6 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <b>Project:</b>
-  <%= @plan_group.project_id %>
-</p>
-
-<p>
   <b>Name:</b>
   <%= @plan_group.name %>
 </p>
@@ -18,11 +13,6 @@
 <p>
   <b>Leader:</b>
   <%= @plan_group.team_leader ? link_to_user(@plan_group.team_leader) : "-" %>
-</p>
-
-<p>
-  <b>Parent group:</b>
-  <%= @plan_group.parent_group %>
 </p>
 
 
