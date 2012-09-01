@@ -1,7 +1,8 @@
-<h1>New plan_group</h1>
+<h2><%= l(:label_group_new) %></h2>
 
-<%= form_for([@project, @plan_group]) do |f| %>
+<%= labelled_form_for([@project, @plan_group]) do |f| %>
   <%= render :partial => 'form', :locals => {:f => f} %>
+  <%= submit_tag l(:button_create) %>
 <% end %>
 
-<%= link_to 'Back', project_plan_groups_path %>
+<%= link_to l(:button_cancel), project_plan_groups_path %>

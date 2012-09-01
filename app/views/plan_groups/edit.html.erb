@@ -1,8 +1,8 @@
-<h1>Editing plan_group</h1>
+<h2><%= l(:label_planner_group_edit) %></h2>
 
-<%= form_for(@plan_group) do |f| %>
+<%= labelled_form_for(@plan_group) do |f| %>
   <%= render :partial => 'form', :locals => {:f => f} %>
+  <%= submit_tag l(:button_save) %>
 <% end %>
 
-<%= link_to 'Show', @plan_group %> |
-<%= link_to 'Back', project_plan_groups_path(@project) %>
+<%= link_to l(:button_back), project_plan_groups_path(@project) %>

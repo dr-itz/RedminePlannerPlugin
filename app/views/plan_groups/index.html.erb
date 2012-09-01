@@ -1,15 +1,15 @@
 <div class="contextual">
-<%= link_to 'New Team/Group', new_project_plan_group_path , :class => 'icon icon-add' %>
+<%= link_to l(:label_planner_group_new), new_project_plan_group_path , :class => 'icon icon-add' %>
 </div>
 
-<h2>Teams and Groups</h2>
+<h2><%= l(:label_planner_groups) %></h2>
 
 <div class="autoscroll">
 <table class="list members">
   <thead><tr>
-    <th>Name</th>
-    <th>Group type</th>
-    <th>Leader</th>
+    <th><%= l(:field_name) %></th>
+    <th><%= l(:field_planner_group_type) %></th>
+    <th><%= l(:field_planner_leader) %></th>
     <th></th>
   </tr></thead>
   <tbody>

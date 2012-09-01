@@ -3,4 +3,11 @@ en:
   permission_planner_view: View Resource Plan
   permission_planner_edit: Edit Resource Plan
   permission_planner_admin: Administer Resource Plan
-  label_menu_main: Resource Planner
+
+  label_planner_menu_main: Resource Planner
+  label_planner_groups: Teams and Groups
+  label_planner_group_edit: Edit Team/Group
+  label_planner_group_new: New Team/Group
+
+  field_planner_group_type: Group Type
+  field_planner_leader: Leader

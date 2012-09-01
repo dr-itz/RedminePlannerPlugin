@@ -1,27 +1,11 @@
-<% if @plan_group.errors.any? %>
-  <div id="error_explanation">
-    <h2><%= pluralize(@plan_group.errors.count, "error") %> prohibited this plan_group from being saved:</h2>
+<%= back_url_hidden_field_tag %>
+<%= error_messages_for 'plan_group' %>
 
-    <ul>
-    <% @plan_group.errors.full_messages.each do |msg| %>
-      <li><%= msg %></li>
-    <% end %>
-    </ul>
-  </div>
-<% end %>
-<div class="field">
-  <%= f.label :name %><br />
-  <%= f.text_field :name %>
-</div>
-<div class="field">
-  <%= f.label :group_type %><br />
-  <%= f.number_field :group_type %>
-</div>
-<div class="field">
-  <%= f.label :leader_id %><br />
-  <%= f.select :leader_id, @project.members.sort.collect {|p| [ p.name, p.user_id ] },
-     :include_blank => true %>
-</div>
-<div class="actions">
-  <%= f.submit %>
+<div class="box tabular">
+  <p><%= f.text_field :name, :size => 60, :required => true %></p>
+  <p><%= f.text_field :group_type, :size => 3, :required => true, :label => :field_planner_group_type %></p>
+  <p>
+    <%= f.select :leader_id, @project.members.sort.collect {|p| [ p.name, p.user_id ] },
+     :include_blank => true, :label => :field_planner_leader %>
+  </p>
 </div>
