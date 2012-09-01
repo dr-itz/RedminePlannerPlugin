@@ -19,7 +19,8 @@
 </div>
 <div class="field">
   <%= f.label :leader_id %><br />
-  <%= f.number_field :leader_id %>
+  <%= f.select :leader_id, @project.members.sort.collect {|p| [ p.name, p.user_id ] },
+     :include_blank => true %>
 </div>
 <div class="field">
   <%= f.label :parent_group %><br />

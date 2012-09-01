@@ -17,7 +17,7 @@
 
 <p>
   <b>Leader:</b>
-  <%= @plan_group.leader_id %>
+  <%= @plan_group.team_leader ? link_to_user(@plan_group.team_leader) : "-" %>
 </p>
 
 <p>

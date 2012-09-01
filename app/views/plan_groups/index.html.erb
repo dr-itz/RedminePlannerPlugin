@@ -17,7 +17,7 @@
     <td><%= plan_group.project_id %></td>
     <td><%= plan_group.name %></td>
     <td><%= plan_group.group_type %></td>
-    <td><%= plan_group.leader_id %></td>
+    <td><%= plan_group.team_leader ? link_to_user(plan_group.team_leader) : "-" %></td>
     <td><%= plan_group.parent_group %></td>
     <td><%= link_to 'Show', plan_group %></td>
     <td><%= link_to 'Edit', edit_plan_group_path(plan_group) %></td>
