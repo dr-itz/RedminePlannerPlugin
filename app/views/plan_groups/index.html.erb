@@ -1,26 +1,29 @@
-<h1>Listing plan_groups</h1>
+<div class="contextual">
+<%= link_to 'New Team/Group', new_project_plan_group_path , :class => 'icon icon-add' %>
+</div>
 
-<table>
-  <tr>
+<h2>Teams and Groups</h2>
+
+<div class="autoscroll">
+<table class="list members">
+  <thead><tr>
     <th>Name</th>
     <th>Group type</th>
     <th>Leader</th>
     <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @plan_groups.each do |plan_group| %>
-  <tr>
-    <td><%= link_to plan_group.name, plan_group %></td>
-    <td><%= plan_group.group_type %></td>
-    <td><%= plan_group.team_leader ? link_to_user(plan_group.team_leader) : "-" %></td>
-    <td><%= link_to 'Edit', edit_plan_group_path(plan_group) %></td>
-    <td><%= link_to 'Destroy', plan_group, :method => :delete, :data => { :confirm => 'Are you sure?' } %></td>
-  </tr>
-<% end %>
+  </tr></thead>
+  <tbody>
+  <% @plan_groups.each do |plan_group| %>
+    <tr id="plan_goup-<%= plan_group.id %>" class="<%= cycle 'odd', 'even' %> member">
+      <td><%= link_to plan_group.name, plan_group %></td>
+      <td><%= plan_group.group_type %></td>
+      <td><%= plan_group.team_leader ? link_to_user(plan_group.team_leader) : "-" %></td>
+      <td class="buttons">
+        <%= link_to(l(:button_edit), edit_plan_group_path(plan_group), :class => 'icon icon-edit') %>
+        <%= link_to(l(:button_delete), plan_group, :confirm => l(:text_are_you_sure), :method => :delete, :class => 'icon icon-del') %>
+      </td>
+    </tr>
+  <% end %>
+  </tbody>
 </table>
-
-<br />
-
-<%= link_to 'New Plan group', new_project_plan_group_path %>
+</div>
