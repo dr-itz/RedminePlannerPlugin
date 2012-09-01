@@ -42,7 +42,7 @@ class PlanGroupsController < ApplicationController
 
     respond_to do |format|
       if @plan_group.save
-        format.html { redirect_to @plan_group, :notice => 'Plan group was successfully created.' }
+        format.html { redirect_to @plan_group, :notice => l(:notice_successful_create) }
         format.json { render :json => @plan_group, :status => :created, :location => @plan_group }
       else
         format.html { render :action => "new" }
@@ -54,7 +54,7 @@ class PlanGroupsController < ApplicationController
   def update
     respond_to do |format|
       if @plan_group.update_attributes(params[:plan_group])
-        format.html { redirect_to @plan_group, :notice => 'Plan group was successfully updated.' }
+        format.html { redirect_to @plan_group, :notice => l(:notice_successful_update)}
         format.json { head :no_content }
       else
         format.html { render :action => "edit" }
