@@ -1,0 +1,10 @@
+<%= back_url_hidden_field_tag %>
+<%= error_messages_for 'plan_group' %>
+
+<div class="box tabular">
+  <p><%= f.text_field :name, :size => 60, :required => true %></p>
+  <p>
+    <%= f.select :owner_id, @project.members.sort.collect {|p| [ p.name, p.user_id ] },
+     :include_blank => false, :label => :field_planner_owner %>
+  </p>
+</div>

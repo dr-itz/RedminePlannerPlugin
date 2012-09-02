@@ -1,0 +1,13 @@
+<p>
+  <b>Name:</b>
+  <%= @plan_task.name %>
+</p>
+
+<p>
+  <b>Owner:</b>
+  <%= @plan_task.owner ? link_to_user(@plan_task.owner) : "-" %>
+</p>
+
+
+<%= link_to l(:button_edit), edit_plan_task_path(@plan_task) %> |
+<%= link_to l(:button_back), project_plan_tasks_path(@project) %>

@@ -10,5 +10,6 @@ class CreatePlanGroups < ActiveRecord::Migration
     end
 
     add_index "plan_groups", ["project_id"], :name => "plan_groups_project_id"
+    add_index "plan_groups", ["leader_id"], :name => "plan_groups_leader_id"
   end
 end
