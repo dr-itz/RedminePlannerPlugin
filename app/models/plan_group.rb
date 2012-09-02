@@ -9,6 +9,10 @@ class PlanGroup < ActiveRecord::Base
   TYPE_TEAM = 1
   TYPE_GROUP = 2
 
+  validates_presence_of :name
+  validates_uniqueness_of :name, :scope => [:project_id]
+  validates_inclusion_of :group_type, :in => [TYPE_TEAM, TYPE_GROUP]
+
   # Returns all PlanGroups belonging to the specified +project+
   def self.all_project_groups(project)
     self.where(:project_id => project.is_a?(Project) ? project.id : project).order(:name)

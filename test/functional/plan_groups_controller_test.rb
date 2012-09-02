@@ -26,11 +26,10 @@ class PlanGroupsControllerTest < ActionController::TestCase
   test "should create plan_group" do
     assert_difference('PlanGroup.count') do
       post :create, :project_id => 1, :plan_group => {
-        :group_type => @plan_group.group_type,
+        :group_type => PlanGroup::TYPE_TEAM,
         :leader_id => @plan_group.leader_id,
-        :name => @plan_group.name,
-        :parent_group => @plan_group.parent_group,
-        :project_id => @plan_group.project_id
+        :name => "A new group",
+        :parent_group => @plan_group.parent_group
       }
     end
 
@@ -50,12 +49,11 @@ class PlanGroupsControllerTest < ActionController::TestCase
   end
 
   test "should update plan_group" do
-    put :update, :id => @plan_group, :plan_group => {
+    put :update, :id => @plan_group.id, :plan_group => {
       :group_type => @plan_group.group_type,
       :leader_id => @plan_group.leader_id,
       :name => @plan_group.name,
-      :parent_group => @plan_group.parent_group,
-      :project_id => @plan_group.project_id
+      :parent_group => @plan_group.parent_group
     }
     assert_redirected_to plan_group_path(assigns(:plan_group))
   end

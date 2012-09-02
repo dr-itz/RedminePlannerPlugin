@@ -1,23 +1,23 @@
 one:
   id: 1
   project_id: 1
-  name: MyString
+  name: Team 1
   group_type: 1
   leader_id: 1
-  parent_group: 1
+  parent_group: NULL
 
 two:
   id: 2
   project_id: 1
-  name: MyString
+  name: Group 1
   group_type: 2
   leader_id: 2
-  parent_group: 1
+  parent_group: NULL
 
 three:
   id: 3
   project_id: 2
-  name: MyString
+  name: Group 1
   group_type: 2
   leader_id: 2
-  parent_group: 1
+  parent_group: NULL
