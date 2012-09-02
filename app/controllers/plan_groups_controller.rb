@@ -7,7 +7,7 @@ class PlanGroupsController < ApplicationController
   before_filter :authorize
 
   def index
-    @plan_groups = PlanGroup.all
+    @plan_groups = PlanGroup.all_project_groups(@project)
 
     respond_to do |format|
       format.html # index.html.erb

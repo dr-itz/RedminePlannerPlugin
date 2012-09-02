@@ -15,7 +15,7 @@ class PlanGroupsControllerTest < ActionController::TestCase
   test "should get index" do
     get :index, :project_id => 1
     assert_response :success
-    assert_not_nil assigns(:plan_groups)
+    assert_equal PlanGroup.all_project_groups(1), assigns(:plan_groups)
   end
 
   test "should get new" do
@@ -38,13 +38,15 @@ class PlanGroupsControllerTest < ActionController::TestCase
   end
 
   test "should show plan_group" do
-    get :show, :id => @plan_group
+    get :show, :id => @plan_group.id
     assert_response :success
+    assert_equal @plan_group, assigns(:plan_group)
   end
 
   test "should get edit" do
-    get :edit, :id => @plan_group
+    get :edit, :id => @plan_group.id
     assert_response :success
+    assert_equal @plan_group, assigns(:plan_group)
   end
 
   test "should update plan_group" do
