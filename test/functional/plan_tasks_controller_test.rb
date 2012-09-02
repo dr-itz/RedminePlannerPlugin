@@ -32,7 +32,7 @@ class PlanTasksControllerTest < ActionController::TestCase
       }
     end
 
-    assert_redirected_to plan_task_path(assigns(:plan_task))
+    assert_redirected_to project_plan_tasks_url(assigns(:project))
   end
 
   test "should show plan_task" do
@@ -53,7 +53,7 @@ class PlanTasksControllerTest < ActionController::TestCase
       :name => @plan_task.name,
       :parent_task => @plan_task.parent_task
     }
-    assert_redirected_to plan_task_path(assigns(:plan_task))
+    assert_redirected_to project_plan_tasks_url(assigns(:project))
   end
 
   test "should destroy plan_task" do
