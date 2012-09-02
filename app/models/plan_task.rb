@@ -11,4 +11,8 @@ class PlanTask < ActiveRecord::Base
   def self.all_project_tasks(project)
     self.where(:project_id => project.is_a?(Project) ? project.id : project).order(:name)
   end
+
+  def can_edit?
+    User.current.admin? || owner == User.current
+  end
 end

@@ -13,6 +13,8 @@
   <thead><tr>
     <th><%= l(:field_name) %></th>
     <th><%= l(:field_planner_owner) %></th>
+    <th class="center"><%= l(:field_planner_is_open) %></th>
+    <th><%= l(:field_planner_wbs) %></th>
     <th></th>
   </tr></thead>
   <tbody>
@@ -20,9 +22,13 @@
     <tr id="plan_goup-<%= plan_task.id %>" class="<%= cycle 'odd', 'even' %> member">
       <td><%= link_to plan_task.name, plan_task %></td>
       <td><%= plan_task.owner ? link_to_user(plan_task.owner) : "-" %></td>
+      <td class="center"><%= checked_image plan_task.is_open? %></td>
+      <td><%= plan_task.wbs %></td>
       <td class="buttons">
-        <%= link_to(l(:button_edit), edit_plan_task_path(plan_task), :class => 'icon icon-edit') %>
-        <%= link_to(l(:button_delete), plan_task, :confirm => l(:text_are_you_sure), :method => :delete, :class => 'icon icon-del') %>
+        <%= link_to(l(:button_edit), edit_plan_task_path(plan_task),
+          :class => 'icon icon-edit') if plan_task.can_edit? %>
+        <%= link_to(l(:button_delete), plan_task, :confirm => l(:text_are_you_sure), :method => :delete,
+          :class => 'icon icon-del') if plan_task.can_edit? %>
       </td>
     </tr>
   <% end %>

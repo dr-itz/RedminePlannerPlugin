@@ -1,8 +1,11 @@
 <h2>Resource Planner</h2>
 This page is temporary
+<br/><br/>
 
 <h3>Admin</h3>
 
-<%= link_to l(:label_planner_groups), project_plan_groups_path(@project) %><br/>
-<%= link_to l(:label_planner_tasks), project_plan_tasks_path(@project) %><br/>
+<ul>
+  <li><%= link_to l(:label_planner_groups), project_plan_groups_path(@project) %></li>
+  <li><%= link_to l(:label_planner_tasks), project_plan_tasks_path(@project) %></li>
+</ul>
 

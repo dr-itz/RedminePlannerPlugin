@@ -1,13 +1,30 @@
-<p>
-  <b>Name:</b>
-  <%= @plan_task.name %>
-</p>
+<div class="contextual">
+  <%= link_to(l(:button_edit), edit_plan_task_path(@plan_task),
+      :class => 'icon icon-edit') if @plan_task.can_edit? %>
+</div>
 
-<p>
-  <b>Owner:</b>
-  <%= @plan_task.owner ? link_to_user(@plan_task.owner) : "-" %>
-</p>
+<h2><%= l(:label_planner_task)%>: <%= @plan_task.name %></h2>
 
 
-<%= link_to l(:button_edit), edit_plan_task_path(@plan_task) %> |
+<table class="attributes" style="width: 500px;">
+  <tr>
+    <th><%= l(:field_planner_owner) %></th>
+    <td><%= @plan_task.owner ? link_to_user(@plan_task.owner) : "-" %></td>
+  </tr>
+  <tr>
+    <th><%= l(:field_planner_is_open) %></th>
+    <td><%= checked_image @plan_task.is_open? %></td>
+  </tr>
+  <tr>
+    <th><%= l(:field_description) %></th>
+    <td><%= @plan_task.description %></td>
+  </tr>
+  <tr>
+    <th><%= l(:field_planner_wbs) %></th>
+    <td><%= @plan_task.wbs %></td>
+  </tr>
+</table>
+
+<hr/>
+
 <%= link_to l(:button_back), project_plan_tasks_path(@project) %>

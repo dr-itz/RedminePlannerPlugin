@@ -7,4 +7,7 @@
     <%= f.select :owner_id, @project.members.sort.collect {|p| [ p.name, p.user_id ] },
      :include_blank => false, :label => :field_planner_owner %>
   </p>
+  <p><%= f.check_box :is_open, :label => :field_planner_is_open %></p>
+  <p><%= f.text_field :description, :size => 60 %></p>
+  <p><%= f.text_field :wbs, :size => 60, :label => :field_planner_wbs%></p>
 </div>

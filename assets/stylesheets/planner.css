@@ -2,3 +2,7 @@ table.planner th {
   text-align: left;
   padding-left: 2px;
 }
+
+td.center, th.center {
+  text-align: center !important;
+}

@@ -6,12 +6,14 @@ en:
 
   label_planner_menu_main: Resource Planner
 
+  label_planner_group: Team/Group
   label_planner_groups: Teams and Groups
   label_planner_group_edit: Edit Team/Group
   label_planner_group_new: New Team/Group
   label_planner_group_team: Team
   label_planner_group_group: Group
 
+  label_planner_task: Task
   label_planner_tasks: Tasks
   label_planner_task_edit: Edit Task
   label_planner_task_new: New Task
@@ -19,3 +21,5 @@ en:
   field_planner_group_type: Group Type
   field_planner_leader: Leader
   field_planner_owner: Owner
+  field_planner_is_open: Is open?
+  field_planner_wbs: WBS Number

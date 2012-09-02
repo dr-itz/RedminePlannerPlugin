@@ -3,7 +3,8 @@
 <% end %>
 
 <div class="contextual">
-<%= link_to l(:label_planner_group_new), new_project_plan_group_path , :class => 'icon icon-add' %>
+  <%= link_to l(:label_planner_group_new), new_project_plan_group_path,
+   :class => 'icon icon-add' if User.current.admin? %>
 </div>
 
 <h2><%= l(:label_planner_groups) %></h2>
@@ -20,13 +21,13 @@
   <% @plan_groups.each do |plan_group| %>
     <tr id="plan_goup-<%= plan_group.id %>" class="<%= cycle 'odd', 'even' %> member">
       <td><%= link_to plan_group.name, plan_group %></td>
-      <td>
-        <%= plan_group.type_string %>
-      </td>
+      <td><%= plan_group.type_string %></td>
       <td><%= plan_group.team_leader ? link_to_user(plan_group.team_leader) : "-" %></td>
       <td class="buttons">
-        <%= link_to(l(:button_edit), edit_plan_group_path(plan_group), :class => 'icon icon-edit') %>
-        <%= link_to(l(:button_delete), plan_group, :confirm => l(:text_are_you_sure), :method => :delete, :class => 'icon icon-del') %>
+        <%= link_to(l(:button_edit), edit_plan_group_path(plan_group),
+          :class => 'icon icon-edit') if User.current.admin? %>
+        <%= link_to(l(:button_delete), plan_group, :confirm => l(:text_are_you_sure), :method => :delete,
+          :class => 'icon icon-del') if User.current.admin? %>
       </td>
     </tr>
   <% end %>
