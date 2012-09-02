@@ -14,46 +14,69 @@ class PlanTasksControllerTest < ActionController::TestCase
 
   test "should get index" do
     get :index, :project_id => 1
+
     assert_response :success
+    assert_template 'index'
     assert_equal PlanTask.all_project_tasks(1), assigns(:plan_tasks)
   end
 
   test "should get new" do
     get :new, :project_id => 1
+
     assert_response :success
+    assert_template 'new'
   end
 
   test "should create plan_task" do
     assert_difference('PlanTask.count') do
       post :create, :project_id => 1, :plan_task => {
         :owner_id => @plan_task.owner_id,
-        :name => "A new task",
+        :name => 'New name',
+        :description => 'New descr',
+        :wbs => 'New WBS',
         :parent_task => @plan_task.parent_task
       }
     end
 
     assert_redirected_to project_plan_tasks_url(assigns(:project))
+
+    tmp = assigns(:plan_task)
+    assert_equal 'New name', tmp.name
+    assert_equal 'New descr', tmp.description
+    assert_equal 'New WBS', tmp.wbs
   end
 
   test "should show plan_task" do
     get :show, :id => @plan_task.id
+
     assert_response :success
+    assert_template 'show'
     assert_equal @plan_task, assigns(:plan_task)
   end
 
   test "should get edit" do
     get :edit, :id => @plan_task.id
+
     assert_response :success
+    assert_template 'edit'
     assert_equal @plan_task, assigns(:plan_task)
   end
 
   test "should update plan_task" do
     put :update, :id => @plan_task.id, :plan_task => {
       :owner_id => @plan_task.owner_id,
-      :name => @plan_task.name,
+      :name => 'New name',
+      :description => 'New descr',
+      :wbs => 'New WBS',
       :parent_task => @plan_task.parent_task
     }
+
     assert_redirected_to project_plan_tasks_url(assigns(:project))
+
+    tmp = PlanTask.find(@plan_task.id)
+    assert_equal 'New name', tmp.name
+    assert_equal 'New descr', tmp.description
+    assert_equal 'New WBS', tmp.wbs
   end
 
   test "should destroy plan_task" do
