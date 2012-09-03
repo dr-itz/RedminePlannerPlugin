@@ -23,7 +23,7 @@ class PlanTasksController < ApplicationController
   end
 
   def new
-    render_403 unless can_create_task?
+    return render_403 unless can_create_task?
 
     @plan_task = PlanTask.new
     @plan_task.project = @project
@@ -39,7 +39,7 @@ class PlanTasksController < ApplicationController
   end
 
   def create
-    render_403 unless can_create_task?
+    return render_403 unless can_create_task?
 
     @plan_task = PlanTask.new(params[:plan_task])
     @plan_task.project = @project
@@ -56,7 +56,7 @@ class PlanTasksController < ApplicationController
   end
 
   def update
-    render_403 unless @plan_task.can_edit?
+    return render_403 unless @plan_task.can_edit?
 
     respond_to do |format|
       if @plan_task.update_attributes(params[:plan_task])
@@ -85,7 +85,6 @@ private
   end
 
   def can_create_task?
-    return true
     current = User.current
     current.admin? ||
       current.allowed_to?(:planner_task_create, @project) ||
