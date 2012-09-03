@@ -3,6 +3,7 @@ en:
   permission_planner_view: View Resource Plan
   permission_planner_edit: Edit Resource Plan
   permission_planner_admin: Administer Resource Plan
+  permission_planner_task_create: Create Task
 
   label_planner_menu_main: Resource Planner
 

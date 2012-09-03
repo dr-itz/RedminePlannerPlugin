@@ -14,7 +14,11 @@ Redmine::Plugin.register :planner do
       :planner => :index,
       :plan_groups => [:index, :show],
       :plan_tasks => [:index, :show]
-	  }
+    }
+
+    permission :planner_task_create, {
+      :plan_tasks => [:new, :create, :edit, :update]
+    }
 
     permission :planner_admin, {
       :plan_groups => [:index, :show, :new, :create, :edit, :update, :destroy],
