@@ -15,6 +15,17 @@
     <th><%= l(:field_planner_leader) %></th>
     <td><%= @plan_group.team_leader ? link_to_user(@plan_group.team_leader) : "-" %></td>
   </tr>
+  <% members = @plan_group.users.sort %>
+  <% if members.any? %>
+    <tr>
+      <th><%= l(:label_member_plural) %></th>
+      <td><ul>
+        <% members.each do |member| %>
+          <li><%= link_to_user(member) %></li>
+        <% end %>
+      </ul></td>
+    </tr>
+  <% end %>
 </table>
 
 <hr/>
