@@ -5,7 +5,7 @@ class PlanTasksControllerTest < ActionController::TestCase
     :enabled_modules, :plan_tasks
 
   setup do
-    @plan_task = plan_tasks(:one)
+    @plan_task = plan_tasks(:two)
 
     @request.session[:user_id] = 2
     Role.find(1).add_permission! :planner_admin
@@ -27,23 +27,38 @@ class PlanTasksControllerTest < ActionController::TestCase
     assert_template 'new'
   end
 
+  test "should deny get new" do
+    @request.session[:user_id] = 3
+
+    get :new, :project_id => 1
+
+    assert_response 403
+  end
+
   test "should create plan_task" do
-    assert_difference('PlanTask.count') do
-      post :create, :project_id => 1, :plan_task => {
-        :owner_id => @plan_task.owner_id,
-        :name => 'New name',
-        :description => 'New descr',
-        :wbs => 'New WBS',
-        :parent_task => @plan_task.parent_task
-      }
-    end
+    test_create_ok
+  end
 
-    assert_redirected_to project_plan_tasks_url(assigns(:project))
+  test "should get new with task_create role" do
+    set_create_only
 
-    tmp = assigns(:plan_task)
-    assert_equal 'New name', tmp.name
-    assert_equal 'New descr', tmp.description
-    assert_equal 'New WBS', tmp.wbs
+    get :new, :project_id => 1
+
+    assert_response :success
+    assert_template 'new'
+  end
+
+  test "should deny create" do
+    @request.session[:user_id] = 3
+
+    post_create
+
+    assert_response 403
+  end
+
+  test "should create with task_create role" do
+    set_create_only
+    test_create_ok
   end
 
   test "should show plan_task" do
@@ -62,21 +77,36 @@ class PlanTasksControllerTest < ActionController::TestCase
     assert_equal @plan_task, assigns(:plan_task)
   end
 
+  test "should deny edit" do
+    @request.session[:user_id] = 3
+
+    get :edit, :id => @plan_task.id
+
+    assert_response 403
+  end
+
+  test "should get edit own" do
+    set_create_only
+    get :edit, :id => 2
+
+    assert_response :success
+  end
+
   test "should update plan_task" do
-    put :update, :id => @plan_task.id, :plan_task => {
-      :owner_id => @plan_task.owner_id,
-      :name => 'New name',
-      :description => 'New descr',
-      :wbs => 'New WBS',
-      :parent_task => @plan_task.parent_task
-    }
+    test_update_ok
+  end
 
-    assert_redirected_to project_plan_tasks_url(assigns(:project))
+  test "should denty update" do
+    @request.session[:user_id] = 3
 
-    tmp = PlanTask.find(@plan_task.id)
-    assert_equal 'New name', tmp.name
-    assert_equal 'New descr', tmp.description
-    assert_equal 'New WBS', tmp.wbs
+    put_update
+
+    assert_response 403
+  end
+
+  test "should update own" do
+    set_create_only
+    test_update_ok
   end
 
   test "should destroy plan_task" do
@@ -85,5 +115,55 @@ class PlanTasksControllerTest < ActionController::TestCase
     end
 
     assert_redirected_to project_plan_tasks_path(@plan_task.project)
+  end
+
+private
+  def set_create_only
+    Role.find(1).remove_permission! :planner_admin
+    Role.find(1).add_permission! :planner_task_create
+  end
+
+  def post_create
+    post :create, :project_id => 1, :plan_task => {
+      :owner_id => @plan_task.owner_id,
+      :name => 'New name',
+      :description => 'New descr',
+      :wbs => 'New WBS',
+      :parent_task => @plan_task.parent_task
+    }
+  end
+
+  def test_create_ok
+    assert_difference('PlanTask.count') do
+      post_create
+    end
+
+    assert_redirected_to project_plan_tasks_url(assigns(:project))
+
+    tmp = assigns(:plan_task)
+    assert_equal 'New name', tmp.name
+    assert_equal 'New descr', tmp.description
+    assert_equal 'New WBS', tmp.wbs
+  end
+
+  def put_update
+    put :update, :id => @plan_task.id, :plan_task => {
+      :owner_id => @plan_task.owner_id,
+      :name => 'New name',
+      :description => 'New descr',
+      :wbs => 'New WBS',
+      :parent_task => @plan_task.parent_task
+    }
+  end
+
+  def test_update_ok
+    put_update
+
+    assert_redirected_to project_plan_tasks_url(assigns(:project))
+
+    tmp = PlanTask.find(@plan_task.id)
+    assert_equal 'New name', tmp.name
+    assert_equal 'New descr', tmp.description
+    assert_equal 'New WBS', tmp.wbs
   end
 end
