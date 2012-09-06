@@ -3,15 +3,11 @@
       :class => 'icon icon-edit') if User.current.admin? %>
 </div>
 
-<h2><%= l(:label_planner_group)%>: <%= @plan_group.name %></h2>
+<h2><%= @plan_group.type_string %>: <%= @plan_group.name %></h2>
 
 
 <div class="splitcontentleft">
 <table class="attributes" style="width: 500px;">
-  <tr>
-    <th><%= l(:field_planner_group_type) %></th>
-    <td><%= @plan_group.type_string %></td>
-  </tr>
   <tr>
     <th><%= l(:field_planner_leader) %></th>
     <td><%= @plan_group.team_leader ? link_to_user(@plan_group.team_leader) : "-" %></td>
