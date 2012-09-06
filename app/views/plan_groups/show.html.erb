@@ -6,6 +6,7 @@
 <h2><%= l(:label_planner_group)%>: <%= @plan_group.name %></h2>
 
 
+<div class="splitcontentleft">
 <table class="attributes" style="width: 500px;">
   <tr>
     <th><%= l(:field_planner_group_type) %></th>
@@ -16,18 +17,22 @@
     <td><%= @plan_group.team_leader ? link_to_user(@plan_group.team_leader) : "-" %></td>
   </tr>
   <% members = @plan_group.users.sort %>
-  <% if members.any? %>
-    <tr>
-      <th><%= l(:label_member_plural) %></th>
-      <td><ul>
-        <% members.each do |member| %>
-          <li><%= link_to_user(member) %></li>
-        <% end %>
-      </ul></td>
-    </tr>
-  <% end %>
+  <tr>
+    <th><%= l(:label_member_plural) %></th>
+    <td>
+      <div id="member-list">
+        <%= render :partial => 'members' %>
+      </div>
+    </td>
+  </tr>
 </table>
+</div>
 
-<hr/>
+<div class="splitcontentright">
 
-<%= link_to l(:button_back), project_plan_groups_path(@project) %>
+</div>
+
+<div style="clear:both;">
+  <hr/>
+  <%= link_to l(:button_back), project_plan_groups_path(@project) %>
+</div>

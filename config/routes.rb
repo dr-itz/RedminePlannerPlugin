@@ -5,4 +5,8 @@ RedmineApp::Application.routes.draw do
     resources :plan_groups
     resources :plan_tasks
   end
+
+  match '/plan_groups/:id/members/:membership_id',
+    :to => 'plan_groups#remove_membership', :via => :delete,
+    :as => 'plan_group_membership'
 end

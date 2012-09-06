@@ -3,7 +3,7 @@ class PlanGroupsController < ApplicationController
   menu_item :planner
 
   before_filter :find_project_by_project_id, :only => [:index, :new, :create]
-  before_filter :find_plan_group, :only => [:show, :edit, :update, :destroy]
+  before_filter :find_plan_group, :only => [:show, :edit, :update, :destroy, :remove_membership]
   before_filter :authorize
 
   def index
@@ -69,6 +69,16 @@ class PlanGroupsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to project_plan_groups_url(@project) }
       format.json { head :no_content }
+    end
+  end
+
+  def remove_membership
+    member = PlanGroupMember.find(params[:membership_id])
+    member.destroy
+
+    respond_to do |format|
+      format.html { redirect_to plan_groups_url(@plan_group) }
+      format.js
     end
   end
 
