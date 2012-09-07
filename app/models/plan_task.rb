@@ -14,6 +14,6 @@ class PlanTask < ActiveRecord::Base
 
   def can_edit?
     current = User.current
-    current.admin? || owner == current || current.allowed_to?(:planner_admin, project)
+    owner == current || current.allowed_to?(:planner_admin, project)
   end
 end

@@ -4,7 +4,7 @@
 
 <div class="contextual">
   <%= link_to l(:label_planner_group_new), new_project_plan_group_path,
-   :class => 'icon icon-add' if User.current.admin? %>
+   :class => 'icon icon-add' if controller.can_edit_group? %>
 </div>
 
 <h2><%= l(:label_planner_groups) %></h2>
@@ -25,9 +25,9 @@
       <td><%= plan_group.team_leader ? link_to_user(plan_group.team_leader) : "-" %></td>
       <td class="buttons">
         <%= link_to(l(:button_edit), edit_plan_group_path(plan_group),
-          :class => 'icon icon-edit') if User.current.admin? %>
+          :class => 'icon icon-edit') if controller.can_edit_group? %>
         <%= link_to(l(:button_delete), plan_group, :confirm => l(:text_are_you_sure), :method => :delete,
-          :class => 'icon icon-del') if User.current.admin? %>
+          :class => 'icon icon-del') if controller.can_edit_group? %>
       </td>
     </tr>
   <% end %>

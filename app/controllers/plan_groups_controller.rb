@@ -82,6 +82,9 @@ class PlanGroupsController < ApplicationController
     end
   end
 
+  def can_edit_group?
+    User.current.allowed_to?(:planner_admin, @project)
+  end
 private
   def find_plan_group
     @plan_group = PlanGroup.find(params[:id], :include => [:project])

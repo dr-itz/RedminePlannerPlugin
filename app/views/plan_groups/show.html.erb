@@ -1,6 +1,6 @@
 <div class="contextual">
   <%= link_to(l(:button_edit), edit_plan_group_path(@plan_group),
-      :class => 'icon icon-edit') if User.current.admin? %>
+      :class => 'icon icon-edit') if controller.can_edit_group? %>
 </div>
 
 <h2><%= @plan_group.type_string %>: <%= @plan_group.name %></h2>

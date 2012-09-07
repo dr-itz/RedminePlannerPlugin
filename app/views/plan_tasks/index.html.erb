@@ -3,7 +3,7 @@
 <% end %>
 
 <div class="contextual">
-<%= link_to l(:label_planner_task_new), new_project_plan_task_path , :class => 'icon icon-add' %>
+<%= link_to l(:label_planner_task_new), new_project_plan_task_path, :class => 'icon icon-add' if controller.can_create_task? %>
 </div>
 
 <h2><%= l(:label_planner_tasks) %></h2>

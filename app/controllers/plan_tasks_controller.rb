@@ -78,16 +78,14 @@ class PlanTasksController < ApplicationController
     end
   end
 
+  def can_create_task?
+    current = User.current
+    current.allowed_to?(:planner_task_create, @project) ||
+      current.allowed_to?(:planner_admin, @project)
+  end
 private
   def find_plan_task
     @plan_task = PlanTask.find(params[:id], :include => [:project])
     @project = @plan_task.project
-  end
-
-  def can_create_task?
-    current = User.current
-    current.admin? ||
-      current.allowed_to?(:planner_task_create, @project) ||
-      current.allowed_to?(:planner_admin, @project)
   end
 end
