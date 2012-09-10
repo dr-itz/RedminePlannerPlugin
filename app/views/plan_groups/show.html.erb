@@ -24,9 +24,11 @@
 </table>
 </div>
 
-<div class="splitcontentright" id="non-member-list">
-  <%= render :partial => 'members_form' %>
-</div>
+<% if controller.can_modify_members? %>
+  <div class="splitcontentright" id="non-member-list">
+    <%= render :partial => 'members_form' %>
+  </div>
+<% end %>
 
 <div style="clear:both; padding-top:5px;">
   <hr/>

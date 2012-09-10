@@ -4,7 +4,7 @@ class PlanGroupsController < ApplicationController
 
   before_filter :find_project_by_project_id, :only => [:index, :new, :create]
   before_filter :find_plan_group, :except => [:index, :new, :create]
-  before_filter :authorize
+  before_filter :authorize, :except => [:remove_membership, :add_membership]
 
   def index
     @plan_groups = PlanGroup.all_project_groups(@project)
@@ -73,6 +73,8 @@ class PlanGroupsController < ApplicationController
   end
 
   def remove_membership
+    return render_403 unless can_modify_members?
+
     member = PlanGroupMember.find(params[:membership_id])
     member.destroy
 
@@ -83,6 +85,8 @@ class PlanGroupsController < ApplicationController
   end
 
   def add_membership
+    return render_403 unless can_modify_members?
+
     members = []
     if params[:membership]
       user_ids = params[:membership]
@@ -100,6 +104,10 @@ class PlanGroupsController < ApplicationController
 
   def can_edit_group?
     User.current.allowed_to?(:planner_admin, @project)
+  end
+
+  def can_modify_members?
+    can_edit_group? || @plan_group.present? && User.current == @plan_group.team_leader
   end
 private
   def find_plan_group
