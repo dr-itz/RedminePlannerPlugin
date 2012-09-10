@@ -79,7 +79,7 @@ class PlanGroupsController < ApplicationController
     member.destroy
 
     respond_to do |format|
-      format.html { redirect_to plan_groups_url(@plan_group) }
+      format.html { redirect_to plan_group_url(@plan_group) }
       format.js { render :action => "edit_membership" }
     end
   end
@@ -97,7 +97,7 @@ class PlanGroupsController < ApplicationController
     @plan_group.users << members
 
     respond_to do |format|
-      format.html { redirect_to plan_groups_url(@plan_group) }
+      format.html { redirect_to plan_group_url(@plan_group) }
       format.js { render :action => "edit_membership" }
     end
   end

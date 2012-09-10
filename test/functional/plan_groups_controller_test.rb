@@ -2,7 +2,7 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class PlanGroupsControllerTest < ActionController::TestCase
   fixtures :projects, :users, :roles, :trackers, :members, :member_roles,
-    :enabled_modules, :plan_groups
+    :enabled_modules, :plan_groups, :plan_group_members
 
   setup do
     @plan_group = plan_groups(:one)
@@ -84,5 +84,50 @@ class PlanGroupsControllerTest < ActionController::TestCase
     end
 
     assert_redirected_to project_plan_groups_path(@plan_group.project)
+  end
+
+  test "should add plan_group member" do
+    assert_difference('PlanGroupMember.count') do
+      post :add_membership, :id => 2, :membership => [3]
+    end
+
+    assert_redirected_to plan_group_path(assigns(:plan_group))
+    assert PlanGroupMember.where(:plan_group_id => 2, :user_id => 3).exists?
+  end
+
+  test "should add plan_group member XHR" do
+    assert_difference('PlanGroupMember.count') do
+      xhr :post, :add_membership, :id => 2, :membership => [3]
+    end
+
+    assert_response :success
+    assert_template 'edit_membership'
+    assert_equal 'text/javascript', response.content_type
+    assert_include 'member-list', response.body
+    assert_include 'non-member-list', response.body
+
+    assert PlanGroupMember.where(:plan_group_id => 2, :user_id => 3).exists?
+  end
+
+  test "should remove plan_group member" do
+    assert_difference('PlanGroupMember.count', -1) do
+      delete :remove_membership, :id => 3, :membership_id => 1
+    end
+
+    assert_redirected_to plan_group_path(assigns(:plan_group))
+    assert !PlanGroupMember.exists?(1)
+  end
+
+  test "should remove plan_group member XHR" do
+    assert_difference('PlanGroupMember.count', -1) do
+      xhr :delete, :remove_membership, :id => 3, :membership_id => 1
+    end
+
+    assert_response :success
+    assert_template 'edit_membership'
+    assert_equal 'text/javascript', response.content_type
+    assert_include 'member-list', response.body
+    assert_include 'non-member-list', response.body
+    assert !PlanGroupMember.exists?(1)
   end
 end
