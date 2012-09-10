@@ -4,5 +4,5 @@ class PlanGroupMember < ActiveRecord::Base
   belongs_to :user
   belongs_to :plan_group
 
-  validates_uniqueness_of :user, :scope => [:plan_group_id]
+  validates_uniqueness_of :user_id, :scope => [:plan_group_id]
 end

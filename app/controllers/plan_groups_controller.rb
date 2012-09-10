@@ -3,7 +3,7 @@ class PlanGroupsController < ApplicationController
   menu_item :planner
 
   before_filter :find_project_by_project_id, :only => [:index, :new, :create]
-  before_filter :find_plan_group, :only => [:show, :edit, :update, :destroy, :remove_membership]
+  before_filter :find_plan_group, :except => [:index, :new, :create]
   before_filter :authorize
 
   def index
@@ -78,7 +78,23 @@ class PlanGroupsController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to plan_groups_url(@plan_group) }
-      format.js
+      format.js { render :action => "edit_membership" }
+    end
+  end
+
+  def add_membership
+    members = []
+    if params[:membership]
+      user_ids = params[:membership]
+      user_ids.each do |user_id|
+        members << User.find(user_id)
+      end
+    end
+    @plan_group.users << members
+
+    respond_to do |format|
+      format.html { redirect_to plan_groups_url(@plan_group) }
+      format.js { render :action => "edit_membership" }
     end
   end
 

@@ -1,0 +1,16 @@
+<% non_members = @plan_group.non_members.sort %>
+<% if non_members.any? %>
+  <%= form_for(@plan_group, { :as => :membership, :remote => true,
+      :url => plan_group_memberships_path(@plan_group), :method => :post
+    } ) do |f| %>
+    <fieldset>
+      <legend><%=l(:label_member_new)%></legend>
+      <div id="principals">
+        <% non_members.each do |user| %>
+          <label style="display:block;"><%= check_box_tag 'membership[]', user.id %> <%=h user.name %></label>
+        <% end %>
+      </div>
+      <p style="margin-bottom:0;"><%= submit_tag l(:button_add), :id => 'member-add-submit' %></p>
+    </fieldset>
+  <% end %>
+<% end %>

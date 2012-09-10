@@ -24,11 +24,11 @@
 </table>
 </div>
 
-<div class="splitcontentright">
-
+<div class="splitcontentright" id="non-member-list">
+  <%= render :partial => 'members_form' %>
 </div>
 
-<div style="clear:both;">
+<div style="clear:both; padding-top:5px;">
   <hr/>
   <%= link_to l(:button_back), project_plan_groups_path(@project) %>
 </div>

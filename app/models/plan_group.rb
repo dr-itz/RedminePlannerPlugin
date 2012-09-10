@@ -30,4 +30,8 @@ class PlanGroup < ActiveRecord::Base
   def type_string
     group_type == TYPE_TEAM ? l(:label_planner_group_team) : l(:label_planner_group_group)
   end
+
+  def non_members
+    project.users - users
+  end
 end

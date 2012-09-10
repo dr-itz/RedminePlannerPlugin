@@ -9,4 +9,7 @@ RedmineApp::Application.routes.draw do
   match '/plan_groups/:id/members/:membership_id',
     :to => 'plan_groups#remove_membership', :via => :delete,
     :as => 'plan_group_membership'
+  match '/plan_groups/:id/members',
+    :to => 'plan_groups#add_membership', :via => :post,
+    :as => 'plan_group_memberships'
 end
