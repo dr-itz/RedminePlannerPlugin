@@ -4,7 +4,7 @@
 <div class="box tabular">
   <p><%= f.text_field :name, :size => 60, :required => true %></p>
   <p>
-    <%= f.select :owner_id, @project.members.sort.collect {|p| [ p.name, p.user_id ] },
+    <%= f.select :owner_id, @project.users.sort.collect {|p| [ p.name, p.id ] },
      :include_blank => false, :label => :field_planner_owner %>
   </p>
   <p><%= f.check_box :is_open, :label => :field_planner_is_open %></p>

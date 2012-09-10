@@ -7,7 +7,7 @@
     <%= f.select :group_type, PlanGroup::group_types_select, :label => :field_planner_group_type %>
   </p>
   <p>
-    <%= f.select :leader_id, @project.members.sort.collect {|p| [ p.name, p.user_id ] },
+    <%= f.select :leader_id, @project.users.sort.collect {|p| [ p.name, p.id ] },
      :include_blank => true, :label => :field_planner_leader %>
   </p>
 </div>
