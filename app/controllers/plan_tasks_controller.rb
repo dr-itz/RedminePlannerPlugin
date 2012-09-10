@@ -4,7 +4,7 @@ class PlanTasksController < ApplicationController
 
   before_filter :find_project_by_project_id, :only => [:index, :new, :create]
   before_filter :find_plan_task, :only => [:show, :edit, :update, :destroy]
-  before_filter :authorize
+  before_filter :authorize, :except => [:edit, :update]
 
   def index
     @plan_tasks = PlanTask.all_project_tasks(@project)

@@ -85,8 +85,15 @@ class PlanTasksControllerTest < ActionController::TestCase
     assert_response 403
   end
 
-  test "should get edit own" do
+  test "should get edit create_perm" do
     set_create_only
+    get :edit, :id => 2
+
+    assert_response :success
+  end
+
+  test "should get edit own" do
+    set_no_permissions
     get :edit, :id => 2
 
     assert_response :success
@@ -96,7 +103,7 @@ class PlanTasksControllerTest < ActionController::TestCase
     test_update_ok
   end
 
-  test "should denty update" do
+  test "should deny update" do
     @request.session[:user_id] = 3
 
     put_update
@@ -104,8 +111,13 @@ class PlanTasksControllerTest < ActionController::TestCase
     assert_response 403
   end
 
-  test "should update own" do
+  test "should update create_perm" do
     set_create_only
+    test_update_ok
+  end
+
+  test "should update own" do
+    set_no_permissions
     test_update_ok
   end
 
@@ -118,8 +130,12 @@ class PlanTasksControllerTest < ActionController::TestCase
   end
 
 private
-  def set_create_only
+  def set_no_permissions
     Role.find(1).remove_permission! :planner_admin
+  end
+
+  def set_create_only
+    set_no_permissions
     Role.find(1).add_permission! :planner_task_create
   end
 
