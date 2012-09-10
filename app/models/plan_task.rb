@@ -8,9 +8,9 @@ class PlanTask < ActiveRecord::Base
   validates_uniqueness_of :name, :scope => [:project_id]
 
   # Returns all PlanTasks belonging to the specified +project+
-  def self.all_project_tasks(project)
-    self.where(:project_id => project.is_a?(Project) ? project.id : project).order(:name)
-  end
+  scope :all_project_tasks, lambda { |project|
+    where(:project_id => project.is_a?(Project) ? project.id : project).order(:name)
+  }
 
   def can_edit?
     current = User.current

@@ -9,6 +9,7 @@ class PlanGroup < ActiveRecord::Base
   has_many :plan_group_members
   has_many :users, :through => :plan_group_members
 
+
   TYPE_TEAM = 1
   TYPE_GROUP = 2
 
@@ -17,9 +18,9 @@ class PlanGroup < ActiveRecord::Base
   validates_inclusion_of :group_type, :in => [TYPE_TEAM, TYPE_GROUP]
 
   # Returns all PlanGroups belonging to the specified +project+
-  def self.all_project_groups(project)
-    self.where(:project_id => project.is_a?(Project) ? project.id : project).order(:name)
-  end
+  scope :all_project_groups, lambda { |project|
+    where(:project_id => project.is_a?(Project) ? project.id : project).order(:name)
+  }
 
   # Returns an array of group types for ERB select
   def self.group_types_select
