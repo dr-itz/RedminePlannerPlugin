@@ -19,7 +19,7 @@ class PlanGroup < ActiveRecord::Base
 
   # Returns all PlanGroups belonging to the specified +project+
   scope :all_project_groups, lambda { |project|
-    where(:project_id => project.is_a?(Project) ? project.id : project).order(:name)
+    where(:project_id => project.is_a?(Project) ? project.id : project).order('group_type, name')
   }
 
   # Returns an array of group types for ERB select
