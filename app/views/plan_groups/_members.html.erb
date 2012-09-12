@@ -7,7 +7,7 @@
     </tr></thead>
     <tbody>
       <% can_edit = controller.can_modify_members? %>
-      <% @plan_group.plan_group_members.each do |member| %>
+      <% @plan_group.plan_group_members.sort.each do |member| %>
         <tr id="member-<%= member.id %>" class="<%= cycle 'odd', 'even' %> member">
           <td><%= link_to_user(member.user) %></td>
           <td class="buttons">
