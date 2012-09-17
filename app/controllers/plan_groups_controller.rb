@@ -111,7 +111,7 @@ class PlanGroupsController < ApplicationController
   end
 private
   def find_plan_group
-    @plan_group = PlanGroup.find(params[:id], :include => [:project])
+    @plan_group = PlanGroup.find(params[:id], :include => [:project, { :plan_group_members => :user }])
     @project = @plan_group.project
   end
 end
