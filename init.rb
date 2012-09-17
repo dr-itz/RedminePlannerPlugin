@@ -1,4 +1,5 @@
 require 'redmine'
+require 'planner/hooks'
 
 Redmine::Plugin.register :planner do
   name 'Planner plugin'
@@ -7,7 +8,7 @@ Redmine::Plugin.register :planner do
   version '0.0.1'
   url 'http://github.com/dr-itz/RedminePlannerPlugin'
   author_url 'mailto:daniel.ritz@gmx.ch'
-  requires_redmine :version_or_higher => '2.0.2'
+  requires_redmine :version_or_higher => '2.0.3'
 
   project_module :planner do
     permission :planner_view, {
