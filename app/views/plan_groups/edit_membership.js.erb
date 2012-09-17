@@ -1,2 +1,2 @@
-Element.update('member-list', '<%= escape_javascript(render :partial => 'plan_groups/members') %>');
-Element.update('non-member-list', '<%= escape_javascript(render :partial => 'plan_groups/members_form') %>');
+jQuery('#member-list').html('<%= escape_javascript(render :partial => 'plan_groups/members') %>');
+jQuery('#non-member-list').html('<%= escape_javascript(render :partial => 'plan_groups/members_form') %>');
