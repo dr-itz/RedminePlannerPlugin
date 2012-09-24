@@ -19,9 +19,9 @@ class PlanRequestsControllerTest < ActionController::TestCase
     assert_response :success
     assert_template 'index'
 
-    assert_equal PlanRequest.all_open_requests_requester(1), assigns(:requests_requester )
-    assert_equal PlanRequest.all_open_requests_approver(1), assigns(:requests_approver )
-    assert_equal PlanRequest.all_open_requests_requestee(1), assigns(:requests_requestee )
+    assert_equal PlanRequest.all_open_requests_requester(1), assigns(:requests_requester)
+    assert_equal PlanRequest.all_open_requests_approver(1), assigns(:requests_approver)
+    assert_equal PlanRequest.all_open_requests_requestee(1), assigns(:requests_requestee)
   end
 
   test "should get new" do
@@ -145,15 +145,17 @@ class PlanRequestsControllerTest < ActionController::TestCase
     assert_response 403
   end
 
-# crashes for unknown reason
-#  test "should approve request" do
-#    put :approve, :id => 3
-#
-#    assert_redirected_to plan_request_url(assigns(:plan_request))
-#
-#    tmp = PlanRequest.find(3)
-#    assert_equal PlanRequest::STATUS_APPROVED, tmp.status
-#  end
+  test "should approve request" do
+    put :approve, :id => 3, :plan_request => {
+      :status => PlanRequest::STATUS_APPROVED, :approver_notes => 'Notes'
+    }
+
+    assert_redirected_to plan_request_url(assigns(:plan_request))
+
+    tmp = PlanRequest.find(3)
+    assert_equal PlanRequest::STATUS_APPROVED, tmp.status
+    assert_equal 'Notes', tmp.approver_notes
+  end
 
 private
   def set_no_permissions

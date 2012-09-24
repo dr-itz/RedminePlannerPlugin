@@ -97,6 +97,7 @@ class PlanRequestsController < ApplicationController
 
   def approve
     return render_403 unless @plan_request.can_approve?
+    return render_404 unless params[:plan_request]
 
     attrs = params[:plan_request]
     @plan_request.approve_deny_request(attrs[:status], attrs[:approver_notes])
@@ -114,8 +115,9 @@ class PlanRequestsController < ApplicationController
   end
 private
   def find_plan_request
-    @plan_request = PlanRequest.find(params[:id], :include => [ {:task => :project} ])
-    return render_403 unless @plan_request
+    @plan_request = PlanRequest.find(params[:id],
+      :include => [ {:task => :project}, :requester, :resource, :approver ])
+    return render_403 unless @plan_request.present?
     @project = @plan_request.task.project
   end
 end
