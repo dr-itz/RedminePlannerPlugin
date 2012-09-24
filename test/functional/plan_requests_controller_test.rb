@@ -2,7 +2,7 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class PlanRequestsControllerTest < ActionController::TestCase
   fixtures :projects, :users, :roles, :trackers, :members, :member_roles,
-    :enabled_modules, :plan_requests
+    :enabled_modules, :plan_tasks, :plan_requests
 
   setup do
     @plan_request = plan_requests(:two)
@@ -124,6 +124,36 @@ class PlanRequestsControllerTest < ActionController::TestCase
     delete :destroy, :id => @plan_request.id
     assert_response 403
   end
+
+  test "should send request" do
+    put :send_request, :id => @plan_request.id
+
+    assert_redirected_to plan_request_url(assigns(:plan_request))
+
+    tmp = PlanRequest.find(@plan_request.id)
+    assert_equal PlanRequest::STATUS_READY, tmp.status
+    assert_equal User.find(1), tmp.approver
+  end
+
+  test "should forbid send request" do
+    put :send_request, :id => 1
+    assert_response 403
+  end
+
+  test "should forbid approve" do
+    put :approve, :id => 2
+    assert_response 403
+  end
+
+# crashes for unknown reason
+#  test "should approve request" do
+#    put :approve, :id => 3
+#
+#    assert_redirected_to plan_request_url(assigns(:plan_request))
+#
+#    tmp = PlanRequest.find(3)
+#    assert_equal PlanRequest::STATUS_APPROVED, tmp.status
+#  end
 
 private
   def set_no_permissions

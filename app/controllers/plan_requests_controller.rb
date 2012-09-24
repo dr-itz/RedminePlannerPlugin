@@ -115,6 +115,7 @@ class PlanRequestsController < ApplicationController
 private
   def find_plan_request
     @plan_request = PlanRequest.find(params[:id], :include => [ {:task => :project} ])
+    return render_403 unless @plan_request
     @project = @plan_request.task.project
   end
 end
