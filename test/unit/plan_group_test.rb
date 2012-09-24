@@ -46,4 +46,9 @@ class PlanGroupTest < ActiveSupport::TestCase
     assert tmp.errors[:name]
     assert tmp.errors[:group_type]
   end
+
+  test "find teamleader" do
+    leader = PlanGroup.find_teamleader(User.find(2))
+    assert_equal User.find(1), leader
+  end
 end

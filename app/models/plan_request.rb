@@ -82,6 +82,7 @@ class PlanRequest < ActiveRecord::Base
   }
 
   def send_request
+    self.approver = PlanGroup.find_teamleader(resource)
     self.requested_on = DateTime.current
     self.status = STATUS_READY
     save

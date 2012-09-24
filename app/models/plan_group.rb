@@ -19,12 +19,16 @@ class PlanGroup < ActiveRecord::Base
 
   # Returns all PlanGroups belonging to the specified +project+
   scope :all_project_groups, lambda { |project|
-    where(:project_id => project.is_a?(Project) ? project.id : project).order('group_type, name')
+    where(:project_id => project.is_a?(Project) ? project.id : project).order(
+      'group_type, name')
   }
 
   # Returns an array of group types for ERB select
   def self.group_types_select
-    [[ l(:label_planner_group_team), TYPE_TEAM ], [ l(:label_planner_group_group), TYPE_GROUP ]]
+    [
+      [ l(:label_planner_group_team), TYPE_TEAM ],
+      [ l(:label_planner_group_group), TYPE_GROUP ]
+    ]
   end
 
   # Returns the group_type as i18n string
@@ -34,5 +38,12 @@ class PlanGroup < ActiveRecord::Base
 
   def non_members
     project.users - users
+  end
+
+  def self.find_teamleader(user)
+    group = PlanGroup.includes(:plan_group_members).where(
+      'group_type = :type AND plan_group_members.user_id = :user_id',
+      :type => TYPE_TEAM, :user_id => user.id).first
+    group ? group.team_leader : nil
   end
 end
