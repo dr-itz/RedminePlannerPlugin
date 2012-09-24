@@ -14,6 +14,9 @@ RedmineApp::Application.routes.draw do
     :to => 'plan_groups#add_membership', :via => :post,
     :as => 'plan_group_memberships'
 
+  match '/plan_requests/:id/request',
+    :to => 'plan_requests#send_request', :via => :put,
+    :as => 'plan_request_send_request'
   match '/plan_requests/:id/approve',
     :to => 'plan_requests#approve', :via => :put,
     :as => 'plan_request_approve'

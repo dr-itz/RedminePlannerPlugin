@@ -9,7 +9,7 @@ class PlanRequest < ActiveRecord::Base
 
   belongs_to :task,  :class_name => 'PlanTask', :foreign_key => 'task_id'
 
-  attr_protected :approver_id, :status, :approver_notes
+  attr_protected :requested_on, :approver_id, :approved_on, :status, :approver_notes
 
   STATUS_NEW = 0
   STATUS_READY = 1
@@ -61,23 +61,53 @@ class PlanRequest < ActiveRecord::Base
 
   scope :all_project_requests, lambda { |project|
     includes(:task, :requester, :resource, :approver).where(
-      "plan_tasks.project_id = :project_id", :project_id => project.is_a?(Project) ? project.id : project)
+      "plan_tasks.project_id = :project_id",
+      :project_id => project.is_a?(Project) ? project.id : project).order(
+        'plan_requests.id')
   }
 
   scope :all_open_requests_requester, lambda { |project|
-    all_project_requests(project).where(:requester_id => User.current.id, :status => [STATUS_NEW, STATUS_READY, STATUS_DENIED])
+    all_project_requests(project).where(
+      :requester_id => User.current.id, :status => [STATUS_NEW, STATUS_READY, STATUS_DENIED])
   }
 
   scope :all_open_requests_approver, lambda { |project|
-    all_project_requests(project).where(:approver_id => User.current.id, :status => STATUS_READY)
+    all_project_requests(project).where(
+      :approver_id => User.current.id, :status => STATUS_READY)
   }
 
   scope :all_open_requests_requestee, lambda { |project|
-    all_project_requests(project).where(:resource_id => User.current.id, :status => STATUS_READY)
+    all_project_requests(project).where(
+      :resource_id => User.current.id, :status => STATUS_READY)
   }
+
+  def send_request
+    self.requested_on = DateTime.current
+    self.status = STATUS_READY
+    save
+
+    # FIXME: send mail
+  end
+
+  def approve_deny_request(new_status, note)
+    new_status = new_status.to_i
+    return false unless (new_status == STATUS_APPROVED) || (new_status == STATUS_DENIED)
+
+    self.approved_on = DateTime.current
+    self.status = new_status
+    self.approver_notes = note
+    save
+
+    # FIXME: send mail
+    true
+  end
 
   def can_edit?
     User.current == requester && (status == STATUS_NEW || status == STATUS_DENIED)
+  end
+
+  def can_request?
+    User.current == requester && status == STATUS_NEW
   end
 
   def can_approve?

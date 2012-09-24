@@ -31,7 +31,10 @@ en:
   label_planner_req_my: My open requests
   label_planner_req_approvals: My open approvals
   label_planner_req_requestee: Open requests for me
+  label_planner_req_send: Send Request
   label_planner_req_approve_deny: Approve/Deny
+  label_planner_req_approve: Approve
+  label_planner_req_deny: Deny
 
   label_planner_req_prio_lowest: Lowest
   label_planner_req_prio_low: Low

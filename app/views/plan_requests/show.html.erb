@@ -39,6 +39,18 @@
 </table>
 </div>
 
+<% if @plan_request.can_request? %>
+  <div class="splitcontentright">
+    <%= form_for(@plan_request, { :url => plan_request_send_request_path(@plan_request), :method => :put
+      } ) do |f| %>
+      <fieldset>
+        <legend><%=l(:label_planner_req_send)%></legend>
+        <%= submit_tag l(:button_save) %>
+      </fieldset>
+    <% end %>
+  </div>
+<% end %>
+
 <% if @plan_request.can_approve? %>
   <div class="splitcontentright">
     <%= form_for(@plan_request, { :url => plan_request_approve_path(@plan_request), :method => :put
@@ -46,12 +58,14 @@
       <fieldset>
         <legend><%=l(:label_planner_req_approve_deny)%></legend>
         <p>
-          <%= f.select :status, [[ "Approve", PlanRequest::STATUS_APPROVED ], [ "Deny", PlanRequest::STATUS_DENIED ]] ,
+          <%= f.select :status, [
+            [ l(:label_planner_req_approve), PlanRequest::STATUS_APPROVED ],
+            [ l(:label_planner_req_deny), PlanRequest::STATUS_DENIED ]] ,
            :include_blank => false %>
         </p>
         <p><%= f.text_area :approver_notes, :cols => 30, :rows => 5 %></p>
+        <%= submit_tag l(:button_save) %>
       </fieldset>
-      <%= submit_tag l(:button_save) %>
     <% end %>
   </div>
 <% end %>

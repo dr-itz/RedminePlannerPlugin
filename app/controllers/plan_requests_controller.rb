@@ -3,7 +3,7 @@ class PlanRequestsController < ApplicationController
   menu_item :planner
 
   before_filter :find_project_by_project_id, :only => [:index, :new, :create]
-  before_filter :find_plan_request, :only => [:show, :edit, :update, :destroy, :approve]
+  before_filter :find_plan_request, :only => [:show, :edit, :update, :destroy, :send_request, :approve]
   before_filter :authorize, :except => [:edit, :update]
 
   def index
@@ -84,11 +84,25 @@ class PlanRequestsController < ApplicationController
     end
   end
 
-  def approve
-    # FIXME
+  def send_request
+    return render_403 unless @plan_request.can_request?
+
+    @plan_request.send_request
 
     respond_to do |format|
-      format.html { redirect_to project_plan_requests_url(@project) }
+      format.html { redirect_to plan_request_url(@plan_request) }
+      format.json { head :no_content }
+    end
+  end
+
+  def approve
+    return render_403 unless @plan_request.can_approve?
+
+    attrs = params[:plan_request]
+    @plan_request.approve_deny_request(attrs[:status], attrs[:approver_notes])
+
+    respond_to do |format|
+      format.html { redirect_to plan_request_url(@plan_request) }
       format.json { head :no_content }
     end
   end
