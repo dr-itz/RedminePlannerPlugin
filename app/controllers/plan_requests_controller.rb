@@ -3,7 +3,7 @@ class PlanRequestsController < ApplicationController
   menu_item :planner
 
   before_filter :find_project_by_project_id, :only => [:index, :new, :create]
-  before_filter :find_plan_request, :only => [:show, :edit, :update, :destroy]
+  before_filter :find_plan_request, :only => [:show, :edit, :update, :destroy, :approve]
   before_filter :authorize, :except => [:edit, :update]
 
   def index
@@ -77,6 +77,15 @@ class PlanRequestsController < ApplicationController
     return render_403 #FIXME
 
     @plan_request.destroy
+
+    respond_to do |format|
+      format.html { redirect_to project_plan_requests_url(@project) }
+      format.json { head :no_content }
+    end
+  end
+
+  def approve
+    # FIXME
 
     respond_to do |format|
       format.html { redirect_to project_plan_requests_url(@project) }

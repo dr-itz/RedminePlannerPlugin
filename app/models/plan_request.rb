@@ -65,18 +65,22 @@ class PlanRequest < ActiveRecord::Base
   }
 
   scope :all_open_requests_requester, lambda { |project|
-    all_project_requests(project).where(:requester_id => User.current.id)
+    all_project_requests(project).where(:requester_id => User.current.id, :status => [STATUS_NEW, STATUS_READY, STATUS_DENIED])
   }
 
   scope :all_open_requests_approver, lambda { |project|
-    all_project_requests(project).where(:approver_id => User.current.id)
+    all_project_requests(project).where(:approver_id => User.current.id, :status => STATUS_READY)
   }
 
   scope :all_open_requests_requestee, lambda { |project|
-    all_project_requests(project).where(:resource_id => User.current.id)
+    all_project_requests(project).where(:resource_id => User.current.id, :status => STATUS_READY)
   }
 
   def can_edit?
     User.current == requester && (status == STATUS_NEW || status == STATUS_DENIED)
+  end
+
+  def can_approve?
+    User.current == approver && status == STATUS_READY
   end
 end

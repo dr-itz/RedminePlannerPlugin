@@ -6,6 +6,7 @@
 <h2><%= l(:label_planner_request) + " \##{@plan_request.id}" %></h2>
 
 
+<div class="splitcontentleft">
 <table class="attributes" style="width: 500px;">
   <tr>
     <th><%= l(:field_planner_req_prio) %></th>
@@ -36,7 +37,26 @@
     <td><%= @plan_request.status_string %></td>
   </tr>
 </table>
+</div>
 
-<hr/>
+<% if @plan_request.can_approve? %>
+  <div class="splitcontentright">
+    <%= form_for(@plan_request, { :url => plan_request_approve_path(@plan_request), :method => :put
+      } ) do |f| %>
+      <fieldset>
+        <legend><%=l(:label_planner_req_approve_deny)%></legend>
+        <p>
+          <%= f.select :status, [[ "Approve", PlanRequest::STATUS_APPROVED ], [ "Deny", PlanRequest::STATUS_DENIED ]] ,
+           :include_blank => false %>
+        </p>
+        <p><%= f.text_area :approver_notes, :cols => 30, :rows => 5 %></p>
+      </fieldset>
+      <%= submit_tag l(:button_save) %>
+    <% end %>
+  </div>
+<% end %>
 
-<%= link_to l(:button_back), project_plan_requests_path(@project) %>
+<div style="clear:both; padding-top:5px;">
+  <hr/>
+  <%= link_to l(:button_back), project_plan_requests_path(@project) %>
+</div>
