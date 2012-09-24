@@ -1,0 +1,8 @@
+<h2><%= l(:label_planner_req_edit) + " \##{@plan_request.id}" %></h2>
+
+<%= labelled_form_for(@plan_request) do |f| %>
+  <%= render :partial => 'form', :locals => {:f => f} %>
+  <%= submit_tag l(:button_save) %>
+<% end %>
+
+<%= link_to l(:button_back), project_plan_requests_path(@project) %>

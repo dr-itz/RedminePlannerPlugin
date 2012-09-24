@@ -1,0 +1,42 @@
+<div class="contextual">
+  <%= link_to(l(:button_edit), edit_plan_request_path(@plan_request),
+    :class => 'icon icon-edit') if @plan_request.can_edit? %>
+</div>
+
+<h2><%= l(:label_planner_request) + " \##{@plan_request.id}" %></h2>
+
+
+<table class="attributes" style="width: 500px;">
+  <tr>
+    <th><%= l(:field_planner_req_prio) %></th>
+    <td><%= @plan_request.priority_string %></td>
+  </tr>
+  <tr>
+    <th><%= l(:field_planner_req_requester) %></th>
+    <td><%= @plan_request.requester.name %></td>
+  </tr>
+  <tr>
+    <th><%= l(:field_planner_req_resource) %></th>
+    <td><%= @plan_request.resource.name %></td>
+  </tr>
+  <tr>
+    <th><%= l(:field_planner_task) %></th>
+    <td><%= @plan_request.task.name %></td>
+  </tr>
+  <tr>
+    <th><%= l(:field_planner_req_date) %></th>
+    <td><%= format_time @plan_request.requested_on %></td>
+  </tr>
+  <tr>
+    <th><%= l(:field_planner_req_approver) %></th>
+    <td><%= @plan_request.approver ? @plan_request.approver.name : "-" %></td>
+  </tr>
+  <tr>
+    <th><%= l(:field_planner_req_status) %></th>
+    <td><%= @plan_request.status_string %></td>
+  </tr>
+</table>
+
+<hr/>
+
+<%= link_to l(:button_back), project_plan_requests_path(@project) %>

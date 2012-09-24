@@ -4,6 +4,7 @@ RedmineApp::Application.routes.draw do
   resources :projects, :shallow => true do
     resources :plan_groups
     resources :plan_tasks
+    resources :plan_requests
   end
 
   match '/plan_groups/:id/members/:membership_id',

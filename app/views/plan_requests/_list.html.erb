@@ -1,0 +1,26 @@
+<tr class="group open"><td colspan="9">
+  <span class="expander" onclick="toggleRowGroup(this);">&nbsp;</span>
+  <%= l(row_label) %>
+  <span class="count">(<%= requests.length %>)</span>
+</td></tr>
+<% if requests.any? %>
+  <% reset_cycle %>
+  <% requests.each do |plan_request| %>
+    <tr id="plan_request-<%= plan_request.id %>" class="<%= cycle 'odd', 'even' %> planrequest">
+      <td><%= link_to "\##{plan_request.id}", plan_request %></td>
+      <td><%= plan_request.priority_string %></td>
+      <td><%= plan_request.requester.name %></td>
+      <td><%= plan_request.resource.name %></td>
+      <td><%= plan_request.task.name %></td>
+      <td><%= format_time(plan_request.requested_on) %></td>
+      <td><%= plan_request.approver ? plan_request.approver.name : "-" %></td>
+      <td><%= plan_request.status_string %></td>
+      <td class="buttons">
+        <%= link_to(l(:button_edit), edit_plan_request_path(plan_request),
+         :class => 'icon icon-edit') if plan_request.can_edit? %>
+      </td>
+    </tr>
+  <% end %>
+<% else %>
+  <tr><td colspan="9">-</td></tr>
+<% end %>

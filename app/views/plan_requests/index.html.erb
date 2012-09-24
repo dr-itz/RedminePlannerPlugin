@@ -1,0 +1,36 @@
+<% content_for :header_tags do %>
+  <%= stylesheet_link_tag 'planner', :plugin => 'planner' %>
+<% end %>
+
+<div class="contextual">
+  <%= link_to l(:label_planner_req_new), new_project_plan_request_path,
+    :class => 'icon icon-add' if controller.can_create_request? %>
+</div>
+
+<h2><%= l(:label_planner_requests) %></h2>
+
+<div class="autoscroll">
+<table class="list planner">
+  <thead><tr>
+    <th><%= l(:field_planner_req_id) %></th>
+    <th><%= l(:field_planner_req_prio) %></th>
+    <th><%= l(:field_planner_req_requester) %></th>
+    <th><%= l(:field_planner_req_resource) %></th>
+    <th><%= l(:field_planner_task) %></th>
+    <th><%= l(:field_planner_req_date) %></th>
+    <th><%= l(:field_planner_req_approver) %></th>
+    <th><%= l(:field_planner_req_status) %></th>
+    <th></th>
+  </tr></thead>
+  <tbody>
+    <%= render :partial => "list", :locals => {
+      :row_label => :label_planner_req_my, :requests => @requests_requester } %>
+
+    <%= render :partial => "list", :locals => {
+      :row_label => :label_planner_req_approvals, :requests => @requests_approver } %>
+
+    <%= render :partial => "list", :locals => {
+      :row_label => :label_planner_req_requestee, :requests => @requests_requestee } %>
+  </tbody>
+</table>
+</div>

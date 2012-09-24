@@ -4,6 +4,7 @@ en:
   permission_planner_edit: Edit Resource Plan
   permission_planner_admin: Administer Resource Plan
   permission_planner_task_create: Create Task
+  permission_planner_requests: Create Requests
 
   label_planner_menu_main: Resource Planner
 
@@ -19,8 +20,36 @@ en:
   label_planner_task_edit: Edit Task
   label_planner_task_new: New Task
 
+  label_planner_requests: Resource Requests
+  label_planner_request: Resource Request
+  label_planner_req_new: New Resource Request
+  label_planner_req_edit: Edit Resource Request
+  label_planner_req_status_new: New
+  label_planner_req_status_ready: Ready
+  label_planner_req_status_approved: Approved
+  label_planner_req_status_denied: Denied
+  label_planner_req_my: My open requests
+  label_planner_req_approvals: My open approvals
+  label_planner_req_requestee: Open requests for me
+
+  label_planner_req_prio_lowest: Lowest
+  label_planner_req_prio_low: Low
+  label_planner_req_prio_normal: Normal
+  label_planner_req_prio_high: High
+  label_planner_req_prio_highest: Highest
+
   field_planner_group_type: Group Type
   field_planner_leader: Leader
   field_planner_owner: Owner
   field_planner_is_open: Is open?
   field_planner_wbs: WBS Number
+  field_planner_task: Task
+
+  field_planner_req_prio: Priority
+  field_planner_req_id: Request ID
+  field_planner_req_resource: Resource
+  field_planner_req_requester: Requested by
+  field_planner_req_approver: Approver
+  field_planner_req_status: Status
+  field_planner_req_date: Date
+  field_planner_req_approval_date: Approval Date
