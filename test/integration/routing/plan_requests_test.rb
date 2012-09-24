@@ -29,5 +29,11 @@ class RoutingPlanRequestTest < ActionController::IntegrationTest
     assert_routing(
         { :method => 'delete', :path => "/plan_requests/1" },
         { :controller => 'plan_requests', :action => 'destroy', :id => '1' })
+    assert_routing(
+        { :method => 'put', :path => "/plan_requests/1/request" },
+        { :controller => 'plan_requests', :action => 'send_request', :id => '1' })
+    assert_routing(
+        { :method => 'put', :path => "/plan_requests/1/approve" },
+        { :controller => 'plan_requests', :action => 'approve', :id => '1' })
   end
 end
