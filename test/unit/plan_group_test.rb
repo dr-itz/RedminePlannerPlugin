@@ -3,7 +3,7 @@ require File.dirname(__FILE__) + '/../test_helper'
 class PlanGroupTest < ActiveSupport::TestCase
   include Redmine::I18n
 
-  fixtures :projects, :users, :plan_groups
+  fixtures :projects, :users, :plan_groups, :plan_group_members
 
   test "all_project_groups project 1" do
     project = Project.find(1)
@@ -33,8 +33,8 @@ class PlanGroupTest < ActiveSupport::TestCase
 
   test "create new" do
     tmp = PlanGroup.new(
-      :project => Project.find(1), :name => 'New team', :group_type => PlanGroup::TYPE_TEAM,
-      :team_leader => User.find(2))
+      :project => Project.find(1), :name => 'New team',
+      :group_type => PlanGroup::TYPE_TEAM, :team_leader => User.find(2))
     assert tmp.save
   end
 

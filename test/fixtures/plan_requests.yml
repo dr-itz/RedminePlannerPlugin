@@ -5,7 +5,7 @@ one:
   approver_id: null
   task_id: 2
   description: Description
-  status: 0
+  status: 1
 
 two:
   id: 2
@@ -23,5 +23,13 @@ three:
   approver_id: 2
   task_id: 2
   description: Description
-  status: 0
+  status: 1
 
+four:
+  id: 4
+  requester_id: 3
+  resource_id: 3
+  approver_id: 2
+  task_id: 3
+  description: Description
+  status: 0
