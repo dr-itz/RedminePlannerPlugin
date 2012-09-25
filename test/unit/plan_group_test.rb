@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: plan_groups
+#
+#  id           :integer          not null, primary key
+#  project_id   :integer          default(0), not null
+#  name         :string(255)      not null
+#  group_type   :integer          not null
+#  leader_id    :integer
+#  parent_group :integer
+#
+
 require File.dirname(__FILE__) + '/../test_helper'
 
 class PlanGroupTest < ActiveSupport::TestCase

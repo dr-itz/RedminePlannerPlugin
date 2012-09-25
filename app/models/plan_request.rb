@@ -1,3 +1,21 @@
+# == Schema Information
+#
+# Table name: plan_requests
+#
+#  id             :integer          not null, primary key
+#  requester_id   :integer          default(0), not null
+#  resource_id    :integer          default(0), not null
+#  approver_id    :integer          default(0)
+#  task_id        :integer          default(0), not null
+#  req_type       :integer          default(0), not null
+#  priority       :integer          default(3), not null
+#  description    :text
+#  status         :integer          default(0), not null
+#  requested_on   :datetime
+#  approved_on    :datetime
+#  approver_notes :text
+#
+
 class PlanRequest < ActiveRecord::Base
   unloadable
 

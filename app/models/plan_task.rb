@@ -1,3 +1,18 @@
+# == Schema Information
+#
+# Table name: plan_tasks
+#
+#  id          :integer          not null, primary key
+#  project_id  :integer          default(0), not null
+#  name        :string(255)      not null
+#  is_open     :boolean          default(TRUE), not null
+#  task_type   :integer          default(0), not null
+#  owner_id    :integer          default(0), not null
+#  description :string(255)
+#  wbs         :string(255)
+#  parent_task :integer
+#
+
 class PlanTask < ActiveRecord::Base
   unloadable
 

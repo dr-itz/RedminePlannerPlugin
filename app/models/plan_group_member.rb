@@ -1,3 +1,12 @@
+# == Schema Information
+#
+# Table name: plan_group_members
+#
+#  id            :integer          not null, primary key
+#  plan_group_id :integer          default(0), not null
+#  user_id       :integer          default(0), not null
+#
+
 class PlanGroupMember < ActiveRecord::Base
   unloadable
 
