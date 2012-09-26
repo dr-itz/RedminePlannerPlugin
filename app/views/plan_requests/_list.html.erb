@@ -1,4 +1,4 @@
-<tr class="group open"><td colspan="9">
+<tr class="group open"><td colspan="10">
   <span class="expander" onclick="toggleRowGroup(this);">&nbsp;</span>
   <%= l(row_label) %>
   <span class="count">(<%= requests.length %>)</span>
@@ -12,6 +12,7 @@
       <td><%= plan_request.requester.name %></td>
       <td><%= plan_request.resource.name %></td>
       <td><%= plan_request.task.name %></td>
+      <td><%= plan_request.description %></td>
       <td><%= format_time(plan_request.requested_on) %></td>
       <td><%= plan_request.approver ? plan_request.approver.name : "-" %></td>
       <td><%= plan_request.status_string %></td>
@@ -22,5 +23,5 @@
     </tr>
   <% end %>
 <% else %>
-  <tr><td colspan="9">-</td></tr>
+  <tr><td colspan="10">-</td></tr>
 <% end %>

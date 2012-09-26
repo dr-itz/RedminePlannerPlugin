@@ -25,6 +25,10 @@
     <td><%= @plan_request.task.name %></td>
   </tr>
   <tr>
+    <th><%= l(:field_description) %></th>
+    <td><%= @plan_request.description %></td>
+  </tr>
+  <tr>
     <th><%= l(:field_planner_req_date) %></th>
     <td><%= format_time @plan_request.requested_on %></td>
   </tr>
