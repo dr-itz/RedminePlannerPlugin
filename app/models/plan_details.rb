@@ -27,6 +27,10 @@ class PlanDetails < ActiveRecord::Base
 
   validates_uniqueness_of :week, :scope => [:request_id, :year]
 
+  def week_start_date
+    Date.commercial(year, week, 1)
+  end
+
   def can_edit?
     request.can_edit?
   end

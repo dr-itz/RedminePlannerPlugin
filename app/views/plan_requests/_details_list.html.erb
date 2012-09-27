@@ -2,7 +2,8 @@
 <table class="list planner">
   <thead><tr>
     <th><%= l(:field_planner_plan_year) %>/<%= l(:field_planner_plan_week) %></th>
-    <th class="right"><%= l(:field_planner_plan_percent) %></th>
+    <th><%= l(:field_planner_plan_week_date) %></th>
+    <th class="center" colspan="2"><%= l(:field_planner_plan_percent) %></th>
     <th class="center"><%= l('date.abbr_day_names')[1] %></th>
     <th class="center"><%= l('date.abbr_day_names')[2] %></th>
     <th class="center"><%= l('date.abbr_day_names')[3] %></th>
@@ -16,7 +17,13 @@
     <% details.each do |plan_detail| %>
       <tr id="plan_detail-<%= plan_detail.id %>" class="<%= cycle 'odd', 'even' %> plandetail">
         <td><%= plan_detail.year %>/<%= plan_detail.week %></td>
-        <td class="right"><%= plan_detail.percentage %>%</td>
+        <td><%= format_date plan_detail.week_start_date %></td>
+        <td class="right">
+          <%= plan_detail.percentage %>%
+        </td>
+        <td>
+          <%= progress_bar(plan_detail.percentage, :width => '80px') %>
+        </td>
         <td class="center"><%= checked_image plan_detail.ok_mon %></td>
         <td class="center"><%= checked_image plan_detail.ok_tue %></td>
         <td class="center"><%= checked_image plan_detail.ok_wed %></td>
