@@ -6,3 +6,7 @@ table.planner th {
 td.center, th.center {
   text-align: center !important;
 }
+
+td.right, th.right {
+  text-align: right !important;
+}

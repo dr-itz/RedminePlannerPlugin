@@ -1,0 +1,35 @@
+<% if details.any? %>
+<table class="list planner">
+  <thead><tr>
+    <th><%= l(:field_planner_plan_year) %>/<%= l(:field_planner_plan_week) %></th>
+    <th class="right"><%= l(:field_planner_plan_percent) %></th>
+    <th class="center"><%= l('date.abbr_day_names')[1] %></th>
+    <th class="center"><%= l('date.abbr_day_names')[2] %></th>
+    <th class="center"><%= l('date.abbr_day_names')[3] %></th>
+    <th class="center"><%= l('date.abbr_day_names')[4] %></th>
+    <th class="center"><%= l('date.abbr_day_names')[5] %></th>
+    <th class="center"><%= l('date.abbr_day_names')[6] %></th>
+    <th class="center"><%= l('date.abbr_day_names')[0] %></th>
+    <th></th>
+  </tr></thead>
+  <tbody>
+    <% details.each do |plan_detail| %>
+      <tr id="plan_detail-<%= plan_detail.id %>" class="<%= cycle 'odd', 'even' %> plandetail">
+        <td><%= plan_detail.year %>/<%= plan_detail.week %></td>
+        <td class="right"><%= plan_detail.percentage %>%</td>
+        <td class="center"><%= checked_image plan_detail.ok_mon %></td>
+        <td class="center"><%= checked_image plan_detail.ok_tue %></td>
+        <td class="center"><%= checked_image plan_detail.ok_wed %></td>
+        <td class="center"><%= checked_image plan_detail.ok_thu %></td>
+        <td class="center"><%= checked_image plan_detail.ok_fri %></td>
+        <td class="center"><%= checked_image plan_detail.ok_sat %></td>
+        <td class="center"><%= checked_image plan_detail.ok_sun %></td>
+        <td class="buttons">
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<% else %>
+  <p class="nodata"><%= l(:label_no_data) %></p>
+<% end %>

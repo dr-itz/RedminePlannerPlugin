@@ -75,6 +75,12 @@
 <% end %>
 
 <div style="clear:both; padding-top:5px;">
+  <h3><%= l(:label_planner_req_assoc_plan)%></h3>
+
+  <%= render :partial => "details_list", :locals => { :details => @plan_request.details} %>
+</div>
+
+<div style="clear:both; padding-top:5px;">
   <hr/>
   <%= link_to l(:button_back), project_plan_requests_path(@project) %>
 </div>
