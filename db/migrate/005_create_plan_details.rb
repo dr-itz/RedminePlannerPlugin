@@ -4,7 +4,7 @@ class CreatePlanDetails < ActiveRecord::Migration
       t.integer   :request_id,       :default => 0,     :null => false
       t.integer   :year,                                :null => false
       t.integer   :week,                                :null => false
-      t.integer   :percentage,       :default => 0,     :null => false
+      t.integer   :percentage,       :default => 80,    :null => false
       t.boolean   :ok_mon,           :default => true,  :null => false
       t.boolean   :ok_tue,           :default => true,  :null => false
       t.boolean   :ok_wed,           :default => true,  :null => false

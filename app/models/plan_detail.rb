@@ -6,7 +6,7 @@
 #  request_id :integer          default(0), not null
 #  year       :integer          not null
 #  week       :integer          not null
-#  percentage :integer          default(0), not null
+#  percentage :integer          default(80), not null
 #  ok_mon     :boolean          default(TRUE), not null
 #  ok_tue     :boolean          default(TRUE), not null
 #  ok_wed     :boolean          default(TRUE), not null
@@ -16,7 +16,7 @@
 #  ok_sun     :boolean          default(FALSE), not null
 #
 
-class PlanDetails < ActiveRecord::Base
+class PlanDetail < ActiveRecord::Base
   unloadable
 
   include Redmine::I18n

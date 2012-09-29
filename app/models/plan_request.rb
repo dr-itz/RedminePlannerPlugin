@@ -27,7 +27,7 @@ class PlanRequest < ActiveRecord::Base
 
   belongs_to :task,  :class_name => 'PlanTask', :foreign_key => 'task_id'
 
-  has_many :details, :class_name => 'PlanDetails', :foreign_key => 'request_id'
+  has_many :details, :class_name => 'PlanDetail', :foreign_key => 'request_id'
 
   attr_protected :requested_on, :approver_id, :approved_on, :status, :approver_notes
 
