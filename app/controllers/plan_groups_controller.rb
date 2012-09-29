@@ -76,6 +76,8 @@ class PlanGroupsController < ApplicationController
     return render_403 unless can_modify_members?
 
     member = PlanGroupMember.find(params[:membership_id])
+    return render_403 unless member.plan_group_id == @plan_group.id
+
     member.destroy
 
     respond_to do |format|
