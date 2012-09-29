@@ -27,7 +27,7 @@ class PlanTask < ActiveRecord::Base
     where(:project_id => project.is_a?(Project) ? project.id : project).order(:name)
   }
 
-  scope :open, where(:is_open => true)
+  scope :assignable, where(:is_open => true)
 
   def can_edit?
     current = User.current

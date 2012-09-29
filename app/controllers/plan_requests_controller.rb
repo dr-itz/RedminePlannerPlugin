@@ -28,7 +28,7 @@ class PlanRequestsController < ApplicationController
     return render_403 unless can_create_request?
 
     @plan_request = PlanRequest.new
-    @tasks = PlanTask.all_project_tasks(@project).open
+    @tasks = PlanTask.all_project_tasks(@project).assignable
 
     respond_to do |format|
       format.html # new.html.erb
@@ -39,7 +39,7 @@ class PlanRequestsController < ApplicationController
   def edit
     return render_403 unless @plan_request.can_edit?
 
-    @tasks = PlanTask.all_project_tasks(@project).open
+    @tasks = PlanTask.all_project_tasks(@project).assignable
   end
 
   def create
