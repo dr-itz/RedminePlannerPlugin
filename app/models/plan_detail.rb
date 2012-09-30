@@ -56,7 +56,7 @@ class PlanDetail < ActiveRecord::Base
 
   def week_start_date=(str)
     date = Date.parse(str)
-    self.year = date.year
+    self.year = date.cwyear
     self.week = date.cweek
   end
 
