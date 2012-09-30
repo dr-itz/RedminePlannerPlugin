@@ -14,25 +14,15 @@ class PlanDetailsController < ApplicationController
     end
   end
 
-
   def create
-    @plan_detail = PlanDetail.new(params[:plan_detail])
-    @plan_request.details << @plan_detail
+    details = PlanDetail.bulk_update(@plan_request, params[:plan_detail], params[:num_week].to_i || 1)
+    @plan_request.details << details
 
     respond_to do |format|
-      if @plan_detail.save
-        format.html { redirect_to plan_request_url(@plan_request), :notice => l(:notice_successful_create) }
-        format.json { render :json => @plan_detail, :status => :created, :location => @plan_detail }
-        format.js   { render :action => "refresh" }
-      else
-        format.html { render :action => "new" }
-        format.json { render :json => @plan_detail.errors, :status => :unprocessable_entity }
-      end
+      format.html { redirect_to plan_request_url(@plan_request), :notice => l(:notice_successful_create) }
+      format.json { render :json => details, :status => :created, :location => details }
+      format.js   { render :action => "refresh" }
     end
-  end
-
-  def update
-    # FIXME
   end
 
   def destroy

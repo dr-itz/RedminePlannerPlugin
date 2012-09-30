@@ -41,8 +41,8 @@ en:
   label_planner_req_prio_normal: Normal
   label_planner_req_prio_high: High
   label_planner_req_prio_highest: Highest
-  label_planner_req_assoc_plan: Associated Planning
-  label_planner_req_add_plan: Add planning
+  label_planner_req_assoc_plan: Associated planning
+  label_planner_req_add_plan: Add/update planning
 
   field_planner_group_type: Group Type
   field_planner_leader: Leader
@@ -59,10 +59,11 @@ en:
   field_planner_req_status: Status
   field_planner_req_date: Date
   field_planner_req_approval_date: Approval Date
-  field_planner_req_note: Noteo
+  field_planner_req_note: Note
 
   field_planner_plan_year: Year
   field_planner_plan_week: Week
   field_planner_plan_weekdays: Weekdays
   field_planner_plan_week_date: Starting on
+  field_planner_plan_week_repeat: Weeks to repeat
   field_planner_plan_percent: Weekly Workload

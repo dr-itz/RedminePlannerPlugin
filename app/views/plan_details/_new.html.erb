@@ -6,8 +6,16 @@
     <%= error_messages_for 'plan_request' %>
 
     <div class="box tabular">
-      <p><%= f.text_field :year, :required => true, :label => :field_planner_plan_year %></p>
-      <p><%= f.text_field :week, :required => true, :label => :field_planner_plan_week %></p>
+      <p>
+        <%= f.text_field :week_start_date, :size => 10,:required => true, :label => :field_planner_plan_week_date %>
+        <%= calendar_for('plan_detail_week_start_date') %>
+      </p>
+      <p>
+        <label for="num_week">
+          <%= l(:field_planner_plan_week_repeat) %>
+        </label>
+        <%= text_field_tag 'num_week', 1, :size => 4 %>
+      </p>
       <p>
         <%= f.select :percentage, ((0..10).to_a.collect {|r| ["#{r*10} %", r*10] }),
           :required => true, :label => l(:field_planner_plan_percent) %>
@@ -46,6 +54,6 @@
         </span>
       </p>
     </div>
-    <%= submit_tag l(:button_create) %>
+    <%= submit_tag l(:button_save) %>
   <% end %>
 <% end %>
