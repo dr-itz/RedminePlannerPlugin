@@ -10,3 +10,9 @@ td.center, th.center {
 td.right, th.right {
   text-align: right !important;
 }
+
+label.days {
+  margin-left: 0;
+  text-align: left;
+  width: 70px;
+}

@@ -77,7 +77,11 @@
 <div style="clear:both; padding-top:5px;">
   <h3><%= l(:label_planner_req_assoc_plan)%></h3>
 
-  <%= render :partial => "details_list", :locals => { :details => @plan_request.details} %>
+  <div id="detail-list">
+    <%= render :partial => "plan_details/index", :locals => { :details => @plan_request.details} %>
+  </div>
+
+  <%= render :partial => "plan_details/new" %>
 </div>
 
 <div style="clear:both; padding-top:5px;">

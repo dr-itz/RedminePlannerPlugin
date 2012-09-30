@@ -15,12 +15,14 @@ Redmine::Plugin.register :planner do
       :planner => :index,
       :plan_groups => [:index, :show],
       :plan_tasks => [:index, :show],
-      :plan_requests => [:index, :show]
+      :plan_requests => [:index, :show],
+      :plan_details => [:index, :show]
     }
 
     permission :planner_requests, {
       :plan_requests => [
-	    :new, :create, :edit, :update, :delete, :send_request, :approve]
+        :new, :create, :edit, :update, :destroy, :send_request, :approve],
+      :plan_details => [:new, :create, :edit, :update, :destroy]
     }
 
     permission :planner_task_create, {
@@ -28,14 +30,15 @@ Redmine::Plugin.register :planner do
     }
 
     permission :planner_admin, {
+      :planner => :index,
       :plan_groups => [
         :index, :show, :new, :create, :edit, :update, :destroy,
         :remove_membership, :add_membership
       ],
       :plan_tasks => [
-	    :index, :show, :new, :create, :edit, :update, :destroy],
+        :index, :show, :new, :create, :edit, :update, :destroy],
       :plan_requests => [
-	    :index, :show, :new, :create, :edit, :update, :delete, :send_request, :approve]
+        :index, :show, :new, :create, :edit, :update, :delete, :send_request, :approve]
     }
   end
 
