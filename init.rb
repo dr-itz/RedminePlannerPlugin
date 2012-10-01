@@ -22,7 +22,7 @@ Redmine::Plugin.register :planner do
     permission :planner_requests, {
       :plan_requests => [
         :new, :create, :edit, :update, :destroy, :send_request, :approve],
-      :plan_details => [:new, :create, :edit, :update, :destroy]
+      :plan_details => [:index, :create, :destroy]
     }
 
     permission :planner_task_create, {
@@ -38,7 +38,8 @@ Redmine::Plugin.register :planner do
       :plan_tasks => [
         :index, :show, :new, :create, :edit, :update, :destroy],
       :plan_requests => [
-        :index, :show, :new, :create, :edit, :update, :delete, :send_request, :approve]
+        :index, :show, :new, :create, :edit, :update, :delete, :send_request, :approve],
+      :plan_details => [:index, :create, :destroy]
     }
   end
 
