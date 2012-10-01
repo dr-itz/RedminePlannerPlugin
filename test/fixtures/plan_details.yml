@@ -1,3 +1,21 @@
+# == Schema Information
+#
+# Table name: plan_details
+#
+#  id         :integer          not null, primary key
+#  request_id :integer          default(0), not null
+#  year       :integer          not null
+#  week       :integer          not null
+#  percentage :integer          default(80), not null
+#  ok_mon     :boolean          default(TRUE), not null
+#  ok_tue     :boolean          default(TRUE), not null
+#  ok_wed     :boolean          default(TRUE), not null
+#  ok_thu     :boolean          default(TRUE), not null
+#  ok_fri     :boolean          default(TRUE), not null
+#  ok_sat     :boolean          default(FALSE), not null
+#  ok_sun     :boolean          default(FALSE), not null
+#
+
 one:
   id: 1
   request_id: 2
