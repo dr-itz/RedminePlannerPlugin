@@ -111,6 +111,9 @@ class PlanRequestTest < ActiveSupport::TestCase
     req = PlanRequest.find(2)
     assert req.can_edit?
 
+    req.status = PlanRequest::STATUS_DENIED
+    assert req.can_edit?
+
     req = PlanRequest.find(1)
     assert !req.can_edit?
   end
@@ -121,6 +124,9 @@ class PlanRequestTest < ActiveSupport::TestCase
 
     req.status = PlanRequest::STATUS_READY
     assert !req.can_request?
+
+    req.status = PlanRequest::STATUS_DENIED
+    assert req.can_request?
   end
 
   test "test can_approve" do
@@ -128,6 +134,9 @@ class PlanRequestTest < ActiveSupport::TestCase
     assert req.can_approve?
 
     req.status = PlanRequest::STATUS_APPROVED
+    assert !req.can_approve?
+
+    req.status = PlanRequest::STATUS_DENIED
     assert !req.can_approve?
   end
 

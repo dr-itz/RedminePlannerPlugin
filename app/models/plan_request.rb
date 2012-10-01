@@ -128,7 +128,7 @@ class PlanRequest < ActiveRecord::Base
   end
 
   def can_request?
-    User.current == requester && status == STATUS_NEW
+    can_edit?
   end
 
   def can_approve?
