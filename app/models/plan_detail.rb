@@ -50,7 +50,7 @@ class PlanDetail < ActiveRecord::Base
   end
 
   def week_start_date
-    return nil if year == nil
+    return nil if year == nil || week == nil
     Date.commercial(year, week, 1)
   end
 

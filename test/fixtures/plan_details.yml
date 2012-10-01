@@ -1,0 +1,41 @@
+one:
+  id: 1
+  request_id: 2
+  year: 2012
+  week: 39
+  percentage: 80
+  ok_mon: true
+  ok_tue: true
+  ok_wed: true
+  ok_thu: true
+  ok_fri: true
+  ok_sat: false
+  ok_sun: false
+
+two:
+  id: 2
+  request_id: 2
+  year: 2012
+  week: 38
+  percentage: 60
+  ok_mon: true
+  ok_tue: true
+  ok_wed: true
+  ok_thu: true
+  ok_fri: true
+  ok_sat: false
+  ok_sun: false
+
+three:
+  id: 3
+  request_id: 1
+  year: 2012
+  week: 38
+  percentage: 60
+  ok_mon: true
+  ok_tue: true
+  ok_wed: true
+  ok_thu: true
+  ok_fri: true
+  ok_sat: false
+  ok_sun: false
