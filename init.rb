@@ -12,7 +12,7 @@ Redmine::Plugin.register :planner do
 
   project_module :planner do
     permission :planner_view, {
-      :planner => :index,
+      :planner => [:index, :show_user],
       :plan_groups => [:index, :show],
       :plan_tasks => [:index, :show],
       :plan_requests => [:index, :show],
@@ -30,7 +30,7 @@ Redmine::Plugin.register :planner do
     }
 
     permission :planner_admin, {
-      :planner => :index,
+      :planner => [:index, :show_user],
       :plan_groups => [
         :index, :show, :new, :create, :edit, :update, :destroy,
         :remove_membership, :add_membership

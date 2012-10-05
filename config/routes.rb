@@ -22,4 +22,8 @@ RedmineApp::Application.routes.draw do
   match '/plan_requests/:id/approve',
     :to => 'plan_requests#approve', :via => :put,
     :as => 'plan_request_approve'
+
+  match '/projects/:project_id/planner/user/:id',
+    :to => 'planner#show_user', :via => :get,
+    :as => 'planner_show_user'
 end
