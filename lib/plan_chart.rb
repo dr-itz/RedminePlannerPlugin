@@ -4,21 +4,10 @@ class PlanChart
   unloadable
 
   def generate_user_chart(user, start_date, weeks)
-    @ticks = []
-    week_idx = {}
-    tmp_date = start_date.dup
-    for i in 1..weeks
-      @ticks.push tmp_date.cwyear.to_s + "-" + tmp_date.cweek.to_s
-      week_idx[tmp_date.cwyear * 100 + tmp_date.cweek] = i - 1
-      tmp_date += 7
-    end
-
-    end_date = start_date + 7 * (weeks - 1)
-    start_week = start_date.cwyear * 100 + start_date.cweek
-    end_week = end_date.cwyear * 100 + end_date.cweek
+    setup_chart start_date, weeks
 
     series_hash = {}
-    details = PlanDetail.user_details(user, start_week, end_week)
+    details = PlanDetail.user_details(user, plan_week(@start_date), plan_week(@end_date))
     details.each do |detail|
       unless series_hash[detail.request_id]
         series = Array.new(weeks)
@@ -28,8 +17,7 @@ class PlanChart
         series = series_hash[detail.request_id]
       end
 
-      idx = week_idx[detail.week]
-      series[idx] = detail.percentage
+      series[@week_idx[detail.week]] = detail.percentage
     end
 
     requests = series_hash.keys
@@ -45,6 +33,10 @@ class PlanChart
     end
   end
 
+  def weeks
+    @weeks
+  end
+
   def ticks
     @ticks
   end
@@ -55,5 +47,37 @@ class PlanChart
 
   def series
     @series
+  end
+
+  def start_date
+    @start_date
+  end
+
+  def end_date
+    @end_date
+  end
+
+private
+  def normalize_date(date)
+    Date.commercial(date.cwyear, date.cweek)
+  end
+
+  def plan_week(date)
+    date.cwyear * 100 + date.cweek
+  end
+
+  def setup_chart(start_date, weeks)
+    @weeks = weeks
+    @start_date = normalize_date start_date
+    @end_date = @start_date + 7 * (weeks - 1)
+
+    @ticks = []
+    @week_idx = {}
+    tmp_date = @start_date.dup
+    for i in 1..weeks
+      @ticks.push tmp_date.cwyear.to_s + "-" + tmp_date.cweek.to_s
+      @week_idx[plan_week tmp_date] = i - 1
+      tmp_date += 7
+    end
   end
 end

@@ -1,0 +1,68 @@
+<div class="jqPlot" id="<%= chart_name %>"
+  style="margin-top:20px; margin-left:20px; width:<%= chart.weeks * 53  + 66 %>px; height:300px;"></div>
+
+<script type="text/javascript">
+jQuery(document).ready(function() {
+  jQuery.jqplot('<%= chart_name %>', <%= chart.data.to_json.html_safe %>, {
+    animate: !jQuery.jqplot.use_excanvas,
+    stackSeries: true,
+    showMarker: false,
+    seriesDefaults:{
+      renderer:jQuery.jqplot.BarRenderer,
+      pointLabels: {show: true, hideZeros: true},
+      rendererOptions: {
+        animation: {
+          speed: 1000
+        }
+      }
+    },
+    series: <%= chart.series.to_json.html_safe %>,
+    axes: {
+      xaxis: {
+        renderer: jQuery.jqplot.CategoryAxisRenderer,
+        ticks: <%= chart.ticks.to_json.html_safe %>,
+        label: 'Weeks'
+      },
+      yaxis: {
+        labelRenderer: jQuery.jqplot.CanvasAxisLabelRenderer,
+        min: 0,
+        max: 120,
+        label: 'Workload',
+        tickInterval: 20,
+        tickOptions: {
+          suffix: '%'
+        },
+        padMin: 0
+      }
+    },
+    grid: {
+      background: 'white',
+      drawBorder: false,
+      shadow: true,
+      gridLineWidth: 1
+    },
+    legend: {
+      show: true,
+      location: 'e',
+      placement: 'outside'
+    },
+  });
+
+  // this should be library code
+  jQuery('#<%= chart_name %>').bind('jqplotDataHighlight', function(ev, seriesIndex, pointIndex, data) {
+    var idx = -(seriesIndex + 1);
+    var legend = jQuery('#<%= chart_name %> tr.jqplot-table-legend');
+    legend.removeClass('legend-row-highlighted');
+    legend.children('.jqplot-table-legend-label').removeClass('legend-text-highlighted');
+    legend.eq(idx).addClass('legend-row-highlighted');
+    legend.eq(idx).children('.jqplot-table-legend-label').addClass('legend-text-highlighted');
+  });
+
+  jQuery('#<%= chart_name %>').bind('jqplotDataUnhighlight', function(ev, seriesIndex, pointIndex, data) {
+    var legend = jQuery('#<%= chart_name %> tr.jqplot-table-legend');
+    legend.removeClass('legend-row-highlighted');
+    legend.children('.jqplot-table-legend-label').removeClass('legend-text-highlighted');
+  });
+});
+</script>
+
