@@ -16,7 +16,7 @@
   <tbody>
     <% details.each do |plan_detail| %>
       <tr id="plan_detail-<%= plan_detail.id %>" class="<%= cycle 'odd', 'even' %> plandetail">
-        <td><%= plan_detail.year %>/<%= plan_detail.week %></td>
+        <td><%= plan_detail.cwyear %>-<%= plan_detail.cweek %></td>
         <td><%= format_date plan_detail.week_start_date %></td>
         <td class="right">
           <%= plan_detail.percentage %>%

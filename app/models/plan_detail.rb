@@ -4,7 +4,6 @@
 #
 #  id         :integer          not null, primary key
 #  request_id :integer          default(0), not null
-#  year       :integer          not null
 #  week       :integer          not null
 #  percentage :integer          default(80), not null
 #  ok_mon     :boolean          default(TRUE), not null
@@ -23,11 +22,11 @@ class PlanDetail < ActiveRecord::Base
 
   belongs_to :request, :class_name => 'PlanRequest', :foreign_key => 'request_id'
 
-  validates_uniqueness_of :week, :scope => [:request_id, :year]
+  validates_uniqueness_of :week, :scope => [:request_id]
 
-  attr_protected :request_id, :year, :week, :week_start_date
+  attr_protected :request_id, :week, :week_start_date
 
-  default_scope order(:year, :week)
+  default_scope order(:week)
 
 
   def self.bulk_update(request, detail_params, num)
@@ -41,23 +40,30 @@ class PlanDetail < ActiveRecord::Base
     end
 
     for i in 1..num
-      detail = self.where(:request_id => request.id, :year => date.cwyear, :week => date.cweek).first_or_initialize
+      detail = self.where(:request_id => request.id, :week => date.cwyear * 100 + date.cweek).first_or_initialize
       detail.update_attributes(detail_params)
       detail_list << detail
-      date = date + 7
+      date += 7
     end
     detail_list
   end
 
+  def cwyear
+    week / 100
+  end
+
+  def cweek
+    week % 100
+  end
+
   def week_start_date
-    return nil if year == nil || week == nil
-    Date.commercial(year, week, 1)
+    return nil if week == nil
+    Date.commercial(self.cwyear, self.cweek, 1)
   end
 
   def week_start_date=(str)
     date = Date.parse(str)
-    self.year = date.cwyear
-    self.week = date.cweek
+    self.week = date.cwyear * 100 + date.cweek
   end
 
   def can_edit?

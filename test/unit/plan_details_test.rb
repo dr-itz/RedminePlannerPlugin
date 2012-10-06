@@ -12,15 +12,13 @@ class PlanDetailsTest < ActiveSupport::TestCase
   test "create new" do
     tmp = PlanDetail.new(:percentage => 80)
     tmp.request_id = 2
-    tmp.year = 2012
-    tmp.week = 40
+    tmp.week = 201240
     assert tmp.save
   end
 
   test "create new fail mass_assign" do
-    tmp = PlanDetail.new(:request_id => 2, :year => 2012, :week => 40, :percentage => 80)
+    tmp = PlanDetail.new(:request_id => 2, :week => 201240, :percentage => 80)
     assert_equal 0, tmp.request_id
-    assert !tmp.year
     assert !tmp.week
   end
 
@@ -28,15 +26,13 @@ class PlanDetailsTest < ActiveSupport::TestCase
     # duplicate
     tmp = PlanDetail.new(:percentage => 80)
     tmp.request_id = 2
-    tmp.year = 2012
-    tmp.week = 39
+    tmp.week = 201239
     assert !tmp.valid?
 
     # ok, other request
     tmp = PlanDetail.new(:percentage => 80, :ok_mon => false)
     tmp.request_id = 3
-    tmp.year = 2012
-    tmp.week = 39
+    tmp.week = 201239
     assert tmp.valid?
     assert tmp.save
   end
@@ -61,28 +57,23 @@ class PlanDetailsTest < ActiveSupport::TestCase
   test "week_start_date" do
     tmp = PlanDetail.new
     assert !tmp.week_start_date
-    tmp.year = 2012
-    assert !tmp.week_start_date
-    tmp.week = 39
+    tmp.week = 201239
     assert_equal Date.parse("2012-09-24"), tmp.week_start_date
   end
 
   test "week_start_date assign" do
     tmp = PlanDetail.new
     tmp.week_start_date = "2012-09-24"
-    assert_equal 2012, tmp.year
-    assert_equal 39, tmp.week
+    assert_equal 201239, tmp.week
 
     tmp.week_start_date = "2012-09-27"
-    assert_equal 2012, tmp.year
-    assert_equal 39, tmp.week
+    assert_equal 201239, tmp.week
   end
 
   test "week_start_date cwyear" do
     tmp = PlanDetail.new
     tmp.week_start_date = "2012-12-31"
-    assert_equal 2013, tmp.year
-    assert_equal 1, tmp.week
+    assert_equal 201301, tmp.week
   end
 
   test "bulk_update" do
@@ -91,22 +82,19 @@ class PlanDetailsTest < ActiveSupport::TestCase
 
     assert_equal 3, list.length
     assert list[0].id != 0
-    assert_equal 2012, list[0].year
-    assert_equal 39, list[0].week
+    assert_equal 201239, list[0].week
     assert_equal 70, list[0].percentage
     assert !list[0].ok_mon
     assert !list[0].ok_tue
 
     assert list[1].id != 0
-    assert_equal 2012, list[1].year
-    assert_equal 40, list[1].week
+    assert_equal 201240, list[1].week
     assert_equal 70, list[1].percentage
     assert !list[1].ok_mon
     assert !list[1].ok_tue
 
     assert list[2].id != 0
-    assert_equal 2012, list[2].year
-    assert_equal 41, list[2].week
+    assert_equal 201241, list[2].week
     assert_equal 70, list[2].percentage
     assert !list[2].ok_mon
     assert !list[2].ok_tue
@@ -118,8 +106,7 @@ class PlanDetailsTest < ActiveSupport::TestCase
 
     assert_equal 1, list.length
     assert list[0].id != 0
-    assert_equal 2013, list[0].year
-    assert_equal 1, list[0].week
+    assert_equal 201301, list[0].week
     assert_equal 70, list[0].percentage
     assert !list[0].ok_mon
     assert !list[0].ok_tue
