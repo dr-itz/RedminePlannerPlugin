@@ -8,6 +8,7 @@ class PlannerController < ApplicationController
 
   def show_user
     @user = User.find(params[:id])
-
+    @chart = PlanChart.new
+    @chart.generate_user_chart(@user, Date.today, 8)
   end
 end

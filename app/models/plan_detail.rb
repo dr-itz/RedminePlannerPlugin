@@ -28,6 +28,11 @@ class PlanDetail < ActiveRecord::Base
 
   default_scope order(:week)
 
+  scope :user_details, lambda { |user, startweek, endweek|
+    joins(:request).where(
+      "plan_requests.resource_id = :user_id AND week >= :startweek AND week <= :endweek",
+      :user_id => user.is_a?(User) ? user.id : user, :startweek => startweek, :endweek => endweek)
+  }
 
   def self.bulk_update(request, detail_params, num)
     detail_list = []
