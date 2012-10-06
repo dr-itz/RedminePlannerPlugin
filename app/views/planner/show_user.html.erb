@@ -2,4 +2,22 @@
 
 <h2><%= l(:label_planner_planning) %>: <%= @user.name %></h2>
 
+
+<div class="box tabular">
+  <%= form_tag(planner_show_user_path(@project, @user), :method => 'get') do %>
+    <p>
+      <label for="week_start_date"><%= l(:field_planner_plan_week_date) %></label>
+      <%= text_field_tag :week_start_date, @start_date, :size => 10 %>
+      <%= calendar_for('week_start_date') %>
+      <span>
+        <label style="float:none; margin-left: 10px;" for="num_weeks">
+          <%= l(:field_planner_plan_weeks_show) %>
+        </label>
+        <%= text_field_tag 'num_weeks', @num_weeks, :size => 4 %>
+        <%= submit_tag l(:button_update) %>
+      </span>
+    </p>
+  <% end %>
+</div>
+
 <%= render :partial => 'chart', :locals => {:chart => @chart, :chart_name => 'chartUser'} %>
