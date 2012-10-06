@@ -1,0 +1,2 @@
+jQuery('#user-chart-display').html('<%= escape_javascript(
+  render :partial => 'chart', :locals => {:chart => @chart, :chart_name => 'chartUser'}) %>');
