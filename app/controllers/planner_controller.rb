@@ -7,6 +7,16 @@ class PlannerController < ApplicationController
   end
 
   def show_user
+    set_range
+
+    @user = User.find(params[:id])
+    @chart = PlanChart.new
+    @chart.generate_user_chart(@user, @start_date, @num_weeks)
+  end
+
+private
+
+  def set_range
     start_date = params[:week_start_date]
     if start_date
       @start_date = Date.parse(start_date)
@@ -15,9 +25,5 @@ class PlannerController < ApplicationController
     end
     num_weeks = params[:num_weeks]
     @num_weeks = (num_weeks || 8).to_i
-
-    @user = User.find(params[:id])
-    @chart = PlanChart.new
-    @chart.generate_user_chart(@user, @start_date, @num_weeks)
   end
 end
