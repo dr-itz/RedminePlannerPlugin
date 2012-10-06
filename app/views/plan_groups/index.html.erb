@@ -18,7 +18,7 @@
     <tr id="plan_goup-<%= plan_group.id %>" class="<%= cycle 'odd', 'even' %> plangroup">
       <td><%= link_to plan_group.name, plan_group %></td>
       <td><%= plan_group.type_string %></td>
-      <td><%= plan_group.team_leader ? link_to_user(plan_group.team_leader) : "-" %></td>
+      <td><%= plan_group.team_leader ? link_to_user_plan_view(@project, plan_group.team_leader) : "-" %></td>
       <td class="buttons">
         <%= link_to(l(:button_edit), edit_plan_group_path(plan_group),
           :class => 'icon icon-edit') if controller.can_edit_group? %>

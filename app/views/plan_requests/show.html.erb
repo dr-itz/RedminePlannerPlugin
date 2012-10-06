@@ -18,7 +18,7 @@
   </tr>
   <tr>
     <th><%= l(:field_planner_req_resource) %></th>
-    <td><%= @plan_request.resource.name %></td>
+    <td><%= link_to_user_plan_view(@project, @plan_request.resource) %></td>
   </tr>
   <tr>
     <th><%= l(:field_planner_task) %></th>
