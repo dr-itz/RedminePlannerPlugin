@@ -1,8 +1,7 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
 class PlannerControllerTest < ActionController::TestCase
-  fixtures :projects, :users, :roles, :members, :member_roles,
-    :plan_requests, :plan_details
+  fixtures :projects, :users, :roles, :members, :member_roles
 
   setup do
     @request.session[:user_id] = 2
@@ -22,71 +21,5 @@ class PlannerControllerTest < ActionController::TestCase
     get :index, :project_id => 1
 
     assert_response 403
-  end
-
-  test "should deny show_user" do
-    @request.session[:user_id] = 3
-    get :show_user, :project_id => 1, :id => 3
-
-    assert_response 403
-  end
-
-  test "should get show_user defaults" do
-    get :show_user, :project_id => 1, :id => 3
-
-    assert_response :success
-
-    user = assigns(:user)
-    assert user
-    assert_equal 3, user.id
-
-    chart = assigns(:chart)
-    assert chart
-    assert_equal 2, chart.data.length
-    assert_equal 8, chart.data[0].length
-    assert_equal 8, chart.ticks.length
-    assert_equal 2, chart.series.length
-
-    date = Date.today - 7
-    date = Date.commercial(date.cwyear, date.cweek, 1)
-    assert_equal date, assigns(:start_date)
-    assert_equal 8, assigns(:num_weeks)
-  end
-
-  test "should get show_user user settings" do
-    get :show_user, :project_id => 1, :id => 3, :week_start_date => '2012-9-19', :num_weeks => 10
-
-    assert_response :success
-
-    user = assigns(:user)
-    assert user
-    assert_equal 3, user.id
-
-    chart = assigns(:chart)
-    assert chart
-    assert_equal 2, chart.data.length
-    assert_equal 10, chart.data[0].length
-    assert_equal 10, chart.ticks.length
-    assert_equal 2, chart.series.length
-
-    assert_equal Date.parse('2012-9-17'), assigns(:start_date)
-    assert_equal 10, assigns(:num_weeks)
-  end
-
-  test "should get show_user user settings XHR" do
-    xhr :get, :show_user, :project_id => 1, :id => 3, :week_start_date => '2012-9-19', :num_weeks => 6
-
-    assert_response :success
-    assert_equal 'text/javascript', response.content_type
-
-    assert_equal 3, assigns(:user).id
-    assert assigns(:chart)
-
-    assert_include '#user-chart-display', response.body
-    assert_include '#week_start_date', response.body
-    assert_include '2012-09-17', response.body
-    assert_include "jqplot(\\'chartUser\\', [[60,80,0,0,0,0],[0,0,0,70,50,0]]", response.body
-    assert_include 'series: [{\"label\":\"Req. #2: Task 2\"},{\"label\":\"Req. #3: Task 2\"}]', response.body
-    assert_include 'ticks: [\"2012-38\",\"2012-39\",\"2012-40\",\"2012-41\",\"2012-42\",\"2012-43\"]', response.body
   end
 end
