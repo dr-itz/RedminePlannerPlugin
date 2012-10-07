@@ -21,7 +21,7 @@ private
     if start_date
       @start_date = Date.parse(start_date)
     else
-      @start_date = Date.today
+      @start_date = Date.today - 7
     end
     num_weeks = params[:num_weeks]
     @num_weeks = (num_weeks || 8).to_i
