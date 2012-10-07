@@ -44,7 +44,7 @@ class PlanDetail < ActiveRecord::Base
       date = Date.commercial(detail_params[:year], detail_params[:week], 1)
     end
 
-    for i in 1..num
+    num.times do
       detail = self.where(:request_id => request.id, :week => date.cwyear * 100 + date.cweek).first_or_initialize
       detail.update_attributes(detail_params)
       detail_list << detail

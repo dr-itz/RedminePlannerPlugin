@@ -31,7 +31,7 @@ class PlanChart
 
 private
   def normalize_date(date)
-    Date.commercial(date.cwyear, date.cweek)
+    Date.commercial(date.cwyear, date.cweek, 1)
   end
 
   def plan_week(date)
@@ -46,9 +46,9 @@ private
     @ticks = []
     @week_idx = {}
     tmp_date = @start_date.dup
-    for i in 1..weeks
+    weeks.times do |i|
       @ticks.push tmp_date.cwyear.to_s + "-" + tmp_date.cweek.to_s
-      @week_idx[plan_week tmp_date] = i - 1
+      @week_idx[plan_week tmp_date] = i
       tmp_date += 7
     end
   end
