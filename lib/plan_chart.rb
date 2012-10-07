@@ -3,54 +3,30 @@ require "date.rb"
 class PlanChart
   unloadable
 
+  attr_reader :weeks, :ticks, :data, :series, :start_date, :end_date
+
   def generate_user_chart(user, start_date, weeks)
     setup_chart start_date, weeks
 
     series_hash = {}
     details = PlanDetail.user_details(user, plan_week(@start_date), plan_week(@end_date))
     details.each do |detail|
-      series_hash[detail.request_id] ||= Array.new(weeks).fill(0)
+      series_hash[detail.request_id] ||= Array.new(weeks, 0)
 
       series_hash[detail.request_id][@week_idx[detail.week]] = detail.percentage
     end
 
-    requests = series_hash.keys
-    i = 0
+    requests = series_hash.keys.sort
     @data = Array.new(requests.length)
     @series = Array.new(requests.length)
-    requests.each do |req|
+    requests.each_with_index do |req, i|
       data[i] = series_hash[req]
       request = PlanRequest.find(req, :include => :task)
       @series[i] = {}
       @series[i][:label] = "#" + req.to_s + ": " + request.task.name
-      i += 1
     end
 
     check_empty
-  end
-
-  def weeks
-    @weeks
-  end
-
-  def ticks
-    @ticks
-  end
-
-  def data
-    @data
-  end
-
-  def series
-    @series
-  end
-
-  def start_date
-    @start_date
-  end
-
-  def end_date
-    @end_date
   end
 
 private
@@ -79,7 +55,7 @@ private
 
   def check_empty
     unless @data.any?
-      @data.push Array.new(weeks).fill(0)
+      @data.push Array.new(weeks, 0)
     end
   end
 end
