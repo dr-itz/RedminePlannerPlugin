@@ -53,3 +53,29 @@ three:
   ok_fri: true
   ok_sat: false
   ok_sun: false
+
+four:
+  id: 4
+  request_id: 3
+  week: 201241
+  percentage: 70
+  ok_mon: true
+  ok_tue: true
+  ok_wed: true
+  ok_thu: true
+  ok_fri: true
+  ok_sat: false
+
+five:
+  id: 5
+  request_id: 3
+  week: 201242
+  percentage: 50
+  ok_mon: true
+  ok_tue: true
+  ok_wed: true
+  ok_thu: true
+  ok_fri: true
+  ok_sat: false
+  ok_sun: false
+  ok_sun: false

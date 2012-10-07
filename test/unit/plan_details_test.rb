@@ -111,4 +111,29 @@ class PlanDetailsTest < ActiveSupport::TestCase
     assert !list[0].ok_mon
     assert !list[0].ok_tue
   end
+
+  test "scope user_details range 1" do
+    list = PlanDetail.user_details(3, 201239, 201242)
+
+    assert_equal 3, list.length
+    assert_equal 1, list[0].id
+    assert_equal 4, list[1].id
+    assert_equal 5, list[2].id
+  end
+
+  test "scope user_details range 2" do
+    list = PlanDetail.user_details(3, 201240, 201242)
+
+    assert_equal 2, list.length
+    assert_equal 4, list[0].id
+    assert_equal 5, list[1].id
+  end
+
+  test "scope user_details range 3" do
+    list = PlanDetail.user_details(3, 201239, 201241)
+
+    assert_equal 2, list.length
+    assert_equal 1, list[0].id
+    assert_equal 4, list[1].id
+  end
 end

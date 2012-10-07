@@ -21,13 +21,13 @@ jQuery(document).ready(function() {
       xaxis: {
         renderer: jQuery.jqplot.CategoryAxisRenderer,
         ticks: <%= chart.ticks.to_json.html_safe %>,
-        label: 'Weeks'
+        label: '<%= l(:field_planner_plan_week) %>'
       },
       yaxis: {
         labelRenderer: jQuery.jqplot.CanvasAxisLabelRenderer,
         min: 0,
         max: 120,
-        label: 'Workload',
+        label: '<%= l(:field_planner_plan_percent) %>',
         tickInterval: 20,
         tickOptions: {
           suffix: '%'
