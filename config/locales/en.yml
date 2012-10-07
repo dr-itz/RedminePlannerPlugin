@@ -23,6 +23,7 @@ en:
 
   label_planner_requests: Resource Requests
   label_planner_request: Resource Request
+  label_planner_request_short: Req.
   label_planner_req_new: New Resource Request
   label_planner_req_edit: Edit Resource Request
   label_planner_req_status_new: New

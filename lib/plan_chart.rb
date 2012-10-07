@@ -3,6 +3,8 @@ require "date.rb"
 class PlanChart
   unloadable
 
+  include Redmine::I18n
+
   attr_reader :weeks, :ticks, :data, :series, :start_date, :end_date
 
   def generate_user_chart(user, start_date, weeks)
@@ -23,7 +25,7 @@ class PlanChart
       data[i] = series_hash[req]
       request = PlanRequest.find(req, :include => :task)
       @series[i] = {}
-      @series[i][:label] = "#" + req.to_s + ": " + request.task.name
+      @series[i][:label] = l(:label_planner_request_short) + " #" + req.to_s + ": " + request.task.name
     end
 
     check_empty
