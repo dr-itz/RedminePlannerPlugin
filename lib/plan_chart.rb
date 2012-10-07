@@ -9,15 +9,9 @@ class PlanChart
     series_hash = {}
     details = PlanDetail.user_details(user, plan_week(@start_date), plan_week(@end_date))
     details.each do |detail|
-      unless series_hash[detail.request_id]
-        series = Array.new(weeks)
-        series.fill(0)
-        series_hash[detail.request_id] = series
-      else
-        series = series_hash[detail.request_id]
-      end
+      series_hash[detail.request_id] ||= Array.new(weeks).fill(0)
 
-      series[@week_idx[detail.week]] = detail.percentage
+      series_hash[detail.request_id][@week_idx[detail.week]] = detail.percentage
     end
 
     requests = series_hash.keys
@@ -31,6 +25,8 @@ class PlanChart
       @series[i][:label] = "#" + req.to_s + ": " + request.task.name
       i += 1
     end
+
+    check_empty
   end
 
   def weeks
@@ -78,6 +74,12 @@ private
       @ticks.push tmp_date.cwyear.to_s + "-" + tmp_date.cweek.to_s
       @week_idx[plan_week tmp_date] = i - 1
       tmp_date += 7
+    end
+  end
+
+  def check_empty
+    unless @data.any?
+      @data.push Array.new(weeks).fill(0)
     end
   end
 end

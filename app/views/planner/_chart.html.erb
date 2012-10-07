@@ -42,7 +42,7 @@ jQuery(document).ready(function() {
       gridLineWidth: 1
     },
     legend: {
-      show: true,
+      show: <%= chart.series.any? %>,
       location: 'e',
       placement: 'outside'
     },
@@ -79,4 +79,3 @@ jQuery(document).ready(function() {
   });
 });
 </script>
-
