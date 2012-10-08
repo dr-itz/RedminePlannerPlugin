@@ -16,3 +16,11 @@ label.days {
   text-align: left;
   width: 70px;
 }
+
+table.planner tr.indent td {
+  padding-left: 20px;
+}
+
+table.planner tr.group {
+  font-weight: bold;
+}

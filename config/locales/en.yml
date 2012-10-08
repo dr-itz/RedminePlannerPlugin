@@ -8,13 +8,17 @@ en:
 
   label_planner_menu_main: Resource Planner
   label_planner_planning: Planning
+  label_planner_manage: Manage
+  label_planner_overview: Overview
 
   label_planner_group: Team/Group
   label_planner_groups: Teams and Groups
   label_planner_group_edit: Edit Team/Group
   label_planner_group_new: New Team/Group
   label_planner_group_team: Team
+  label_planner_group_teams: Teams
   label_planner_group_group: Group
+  label_planner_group_groups: Groups
 
   label_planner_task: Task
   label_planner_tasks: Tasks

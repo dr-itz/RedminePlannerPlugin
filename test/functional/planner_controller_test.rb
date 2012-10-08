@@ -14,6 +14,20 @@ class PlannerControllerTest < ActionController::TestCase
 
     assert_response :success
     assert_template 'index'
+
+    teams = assigns(:teams)
+    assert teams
+    teams.each do |team|
+      assert team.is_a?(PlanGroup)
+      assert_equal PlanGroup::TYPE_TEAM, team.group_type
+    end
+
+    groups = assigns(:groups)
+    assert groups
+    groups.each do |group|
+      assert group.is_a?(PlanGroup)
+      assert_equal PlanGroup::TYPE_GROUP, group.group_type
+    end
   end
 
   test "should deny index" do
