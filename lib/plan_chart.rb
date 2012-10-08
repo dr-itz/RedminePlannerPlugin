@@ -31,6 +31,29 @@ class PlanChart
     check_empty
   end
 
+  def generate_group_chart(group, start_date, weeks)
+    setup_chart start_date, weeks
+
+    series_hash = {}
+    details = PlanDetail.group_overview(group, plan_week(@start_date), plan_week(@end_date))
+    details.each do |detail|
+      series_hash[detail.resource_id] ||= Array.new(weeks, 0)
+
+      series_hash[detail.resource_id][@week_idx[detail.week]] = detail.percentage
+    end
+
+    resources = series_hash.keys.sort
+    @data = Array.new(resources.length)
+    @series = Array.new(resources.length)
+    resources.each_with_index do |res, i|
+      data[i] = series_hash[res]
+      resource = User.find(res)
+      @series[i] = {}
+      @series[i][:label] = resource.name
+    end
+
+    check_empty
+  end
 private
   def normalize_date(date)
     Date.commercial(date.cwyear, date.cweek, 1)

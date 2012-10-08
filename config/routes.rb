@@ -26,4 +26,7 @@ RedmineApp::Application.routes.draw do
   match '/projects/:project_id/planner/user/:id',
     :to => 'plan_charts#show_user', :via => :get,
     :as => 'planner_show_user'
+  match '/projects/:project_id/planner/group/:id',
+    :to => 'plan_charts#show_group', :via => :get,
+    :as => 'planner_show_group'
 end

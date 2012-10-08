@@ -34,6 +34,14 @@ class PlanDetail < ActiveRecord::Base
       :user_id => user.is_a?(User) ? user.id : user, :startweek => startweek, :endweek => endweek)
   }
 
+  scope :group_overview, lambda { |group, startweek, endweek|
+    select("sum(percentage) AS percentage, resource_id, week").joins(:request).group("resource_id, week").where(
+      "plan_requests.resource_id IN (" +
+        "SELECT user_id FROM plan_group_members WHERE plan_group_id = :group_id) " +
+      " AND week >= :startweek AND week <= :endweek",
+      :group_id => group.is_a?(PlanGroup) ? group.id : group, :startweek => startweek, :endweek => endweek)
+  }
+
   def self.bulk_update(request, detail_params, num)
     detail_list = []
 

@@ -3,4 +3,9 @@ module PlannerHelper
     name = h(user.name)
     link_to name, planner_show_user_path(project, user)
   end
+
+  def link_to_group_plan_view(project, group)
+    name = h(group.name)
+    link_to name, planner_show_group_path(project, group)
+  end
 end

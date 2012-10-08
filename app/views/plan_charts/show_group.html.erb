@@ -1,0 +1,9 @@
+<%= render :partial => "jqplot" %>
+
+<h2><%= l(:label_planner_planning) %>: <%= @group.name %></h2>
+
+<%= render :partial => 'range_selection', :locals => { :chart_url => planner_show_group_path(@project, @group)} %>
+
+<div id="user-group-display">
+  <%= render :partial => 'chart', :locals => {:chart => @chart, :chart_name => 'chartGroup'} %>
+</div>

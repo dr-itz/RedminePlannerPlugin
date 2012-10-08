@@ -15,6 +15,14 @@ class PlanChartsController < ApplicationController
     @start_date = @chart.start_date
   end
 
+  def show_group
+    set_range
+
+    @group = PlanGroup.find(params[:id])
+    @chart = PlanChart.new
+    @chart.generate_group_chart(@group, @start_date, @num_weeks)
+    @start_date = @chart.start_date
+  end
 private
 
   def set_range

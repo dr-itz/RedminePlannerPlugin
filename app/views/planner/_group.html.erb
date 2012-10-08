@@ -4,7 +4,7 @@
     <% groups.each do |group| %>
       <tr class="group open"><td>
         <span class="expander" onclick="toggleRowGroup(this);">&nbsp;</span>
-        <%= group.name %>
+        <%= link_to_group_plan_view(@project, group) %>
       </td></tr>
 
       <% group.users.sort.each do |user| %>
