@@ -1,5 +1,5 @@
 <div class="jqPlot" id="<%= chart_name %>"
-  style="margin-top:20px; margin-left:20px; width:<%= chart.weeks * 53  + 66 %>px; height:300px;"></div>
+  style="margin-top:20px; margin-left:20px; width:<%= chart.width %>px; height:<%= chart.height %>px;"></div>
 
 <script type="text/javascript">
 jQuery(document).ready(function() {
@@ -26,9 +26,9 @@ jQuery(document).ready(function() {
       yaxis: {
         labelRenderer: jQuery.jqplot.CanvasAxisLabelRenderer,
         min: 0,
-        max: 120,
+        max: <%= chart.max %>,
         label: '<%= l(:field_planner_plan_percent) %>',
-        tickInterval: 20,
+        tickInterval: <%= chart.tick_interval %>,
         tickOptions: {
           suffix: '%'
         },
@@ -51,7 +51,7 @@ jQuery(document).ready(function() {
       objects: [
         {
           horizontalLine: {
-            y: 100,
+            y: <%= chart.limit %>,
             lineWidth: 2,
             xOffset: 0,
             color: 'rgb(89, 198, 154)',

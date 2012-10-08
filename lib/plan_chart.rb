@@ -5,10 +5,15 @@ class PlanChart
 
   include Redmine::I18n
 
-  attr_reader :weeks, :ticks, :data, :series, :start_date, :end_date
+  attr_reader :weeks, :ticks, :data, :series, :start_date, :end_date,
+    :max, :limit, :width, :height, :tick_interval
 
   def generate_user_chart(user, start_date, weeks)
     setup_chart start_date, weeks
+    @limit = 100
+    @max = 120
+    @height = 300
+    @tick_interval = 20
 
     series_hash = {}
     details = PlanDetail.user_details(user, plan_week(@start_date), plan_week(@end_date))
@@ -33,6 +38,10 @@ class PlanChart
 
   def generate_group_chart(group, start_date, weeks)
     setup_chart start_date, weeks
+    @tick_interval = 50
+    @limit = group.users.length * 100
+    @max = @limit + @tick_interval
+    @height = (@max * 0.7).to_i + 73
 
     series_hash = {}
     details = PlanDetail.group_overview(group, plan_week(@start_date), plan_week(@end_date))
@@ -76,6 +85,8 @@ private
       @week_idx[plan_week tmp_date] = i
       tmp_date += 7
     end
+
+    @width = @weeks * 53  + 66
   end
 
   def check_empty

@@ -217,6 +217,7 @@ table.jqplot-cursor-tooltip {
 .jqplot-point-label {
     font-size: 1em;
     z-index: 2;
+    color: white;
 }
 
 td.jqplot-cursor-legend-swatch {
