@@ -22,7 +22,7 @@ one:
   resource_id: 2
   approver_id: null
   task_id: 2
-  description: Description
+  description: Descr. One
   status: 1
 
 two:
@@ -31,7 +31,7 @@ two:
   resource_id: 3
   approver_id: null
   task_id: 2
-  description: Description
+  description: Descr. Two
   status: 0
 
 three:
@@ -40,7 +40,7 @@ three:
   resource_id: 3
   approver_id: 2
   task_id: 2
-  description: Description
+  description: Descr. Three
   status: 1
 
 four:
@@ -49,5 +49,5 @@ four:
   resource_id: 3
   approver_id: 2
   task_id: 3
-  description: Description
+  description: Descr. Four
   status: 0

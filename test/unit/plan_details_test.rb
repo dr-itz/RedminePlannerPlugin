@@ -3,7 +3,8 @@ require File.dirname(__FILE__) + '/../test_helper'
 class PlanDetailsTest < ActiveSupport::TestCase
   include Redmine::I18n
 
-  fixtures :projects, :users, :plan_tasks, :plan_requests, :plan_details
+  fixtures :projects, :users, :plan_groups, :plan_group_members, :plan_tasks,
+    :plan_requests, :plan_details
 
   setup do
     User.current = User.find(2)
@@ -135,5 +136,36 @@ class PlanDetailsTest < ActiveSupport::TestCase
     assert_equal 2, list.length
     assert_equal 1, list[0].id
     assert_equal 4, list[1].id
+  end
+
+  test "scope group overview" do
+    list = PlanDetail.group_overview(1, 201238, 201242)
+
+    assert_equal 5, list.length
+
+    detail = list[0]
+    assert_equal 201238, detail.week
+    assert_equal 2, detail.resource_id
+    assert_equal 60, detail.percentage
+
+    detail = list[1]
+    assert_equal 201238, detail.week
+    assert_equal 3, detail.resource_id
+    assert_equal 60, detail.percentage
+
+    detail = list[2]
+    assert_equal 201239, detail.week
+    assert_equal 3, detail.resource_id
+    assert_equal 80, detail.percentage
+
+    detail = list[3]
+    assert_equal 201241, detail.week
+    assert_equal 3, detail.resource_id
+    assert_equal 70, detail.percentage
+
+    detail = list[4]
+    assert_equal 201242, detail.week
+    assert_equal 3, detail.resource_id
+    assert_equal 50, detail.percentage
   end
 end

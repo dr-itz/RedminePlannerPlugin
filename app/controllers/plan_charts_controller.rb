@@ -11,7 +11,7 @@ class PlanChartsController < ApplicationController
 
     @user = User.find(params[:id])
     @chart = PlanChart.new
-    @chart.generate_user_chart(@user, @start_date, @num_weeks)
+    @chart.generate_user_chart(@project, @user, @start_date, @num_weeks)
     @start_date = @chart.start_date
   end
 
@@ -20,7 +20,7 @@ class PlanChartsController < ApplicationController
 
     @group = PlanGroup.find(params[:id])
     @chart = PlanChart.new
-    @chart.generate_group_chart(@group, @start_date, @num_weeks)
+    @chart.generate_group_chart(@project, @group, @start_date, @num_weeks)
     @start_date = @chart.start_date
   end
 private

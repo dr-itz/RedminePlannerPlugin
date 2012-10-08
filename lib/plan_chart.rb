@@ -26,7 +26,7 @@ class PlanChart
     "#fdd0a2", "#31a354", "#74c476", "#a1d99b", "#c7e9c0", "#756bb1", "#9e9ac8",
     "#bcbddc", "#dadaeb", "#636363", "#969696", "#bdbdbd", "#d9d9d9" ];
 
-  def generate_user_chart(user, start_date, weeks)
+  def generate_user_chart(project, user, start_date, weeks)
     setup_chart start_date, weeks
     @limit = 100
     @max = 120
@@ -55,7 +55,7 @@ class PlanChart
     check_empty
   end
 
-  def generate_group_chart(group, start_date, weeks)
+  def generate_group_chart(project, group, start_date, weeks)
     setup_chart start_date, weeks
     @tick_interval = 50
     @limit = group.users.length * 100
