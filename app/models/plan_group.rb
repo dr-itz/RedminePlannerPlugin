@@ -18,7 +18,7 @@ class PlanGroup < ActiveRecord::Base
   belongs_to :project
   belongs_to :team_leader, :class_name => 'User', :foreign_key => 'leader_id'
 
-  has_many :plan_group_members
+  has_many :plan_group_members, :dependent => :destroy
   has_many :users, :through => :plan_group_members
 
 
