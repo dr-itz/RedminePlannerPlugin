@@ -24,3 +24,22 @@ table.planner tr.indent td {
 table.planner tr.group {
   font-weight: bold;
 }
+
+ul.planner {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  padding-left: 30px;
+}
+
+.accordion-header.expanded {
+  padding-left: 16px;
+  background: url(../../../images/arrow_expanded.png) no-repeat -3px 40%;
+}
+
+.accordion-header.collapsed {
+  padding-left: 16px;
+  background: url(../../../images/arrow_collapsed.png) no-repeat -3px 40%;
+}
+.accordion-content {
+  overflow: auto;
+}

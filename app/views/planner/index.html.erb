@@ -3,11 +3,11 @@
 <div class="splitcontentleft">
   <div class="box">
     <h3><%= l(:label_planner_group_teams) %></h3>
-    <%= render :partial => 'group', :locals => {:groups => @teams} %>
+    <%= render :partial => 'group', :locals => {:groups => @teams, :div_id => 'team-list'} %>
   </div>
   <div class="box">
     <h3><%= l(:label_planner_group_groups) %></h3>
-    <%= render :partial => 'group', :locals => {:groups => @groups} %>
+    <%= render :partial => 'group', :locals => {:groups => @groups, :div_id => 'group-list'} %>
   </div>
 </div>
 

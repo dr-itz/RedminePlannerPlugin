@@ -1,19 +1,21 @@
-<% reset_cycle %>
-<table class="planner">
+<div id="<%= div_id %>" class="planner">
   <% if groups.any? %>
     <% groups.each do |group| %>
-      <tr class="group open"><td>
-        <span class="expander" onclick="toggleRowGroup(this);">&nbsp;</span>
+      <h4 class="planner accordion-header">
         <%= link_to_group_plan_view(@project, group) %>
-      </td></tr>
-
-      <% group.users.sort.each do |user| %>
-        <tr class="indent">
-          <td><%= link_to_user_plan_view(@project, user) %></td>
-        </tr>
-      <% end %>
+      </h4>
+      <div class="accordion-content">
+        <ul class="planner">
+          <% group.users.sort.each do |user| %>
+            <li><%= link_to_user_plan_view(@project, user) %></li>
+          <% end %>
+        </ul>
+      </div>
     <% end %>
   <% else %>
-    <tr><td>-</td></tr>
+    <p>-</p>
   <% end %>
-</table>
+</div>
+<script type="text/javascript">
+  miniAccordion('<%= div_id %>');
+</script>

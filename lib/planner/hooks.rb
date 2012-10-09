@@ -6,6 +6,7 @@ module RedminePlanner
         o += javascript_include_tag("jquery-1.7.2.min.js", :plugin => :planner) +
           %(<script type="text/javascript">//<![CDATA[\njQuery.noConflict();\n//]]></script>).html_safe
       end
+      o += javascript_include_tag("planner", :plugin => :planner)
       return o
     end
   end
