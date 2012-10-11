@@ -121,6 +121,14 @@ class PlanRequestsControllerTest < ActionController::TestCase
   end
 
   test "should destroy plan_request" do
+    assert_difference('PlanRequest.count', -1) do
+      delete :destroy, :id => 2
+    end
+    assert_redirected_to project_plan_requests_url(assigns(:project))
+  end
+
+  test "should deny destroy plan_request" do
+    @request.session[:user_id] = 3
     delete :destroy, :id => @plan_request.id
     assert_response 403
   end

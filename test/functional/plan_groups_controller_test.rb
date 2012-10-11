@@ -111,16 +111,16 @@ class PlanGroupsControllerTest < ActionController::TestCase
 
   test "should remove plan_group member" do
     assert_difference('PlanGroupMember.count', -1) do
-      delete :remove_membership, :id => 3, :membership_id => 1
+      delete :remove_membership, :id => 1, :membership_id => 2
     end
 
     assert_redirected_to plan_group_path(assigns(:plan_group))
-    assert !PlanGroupMember.exists?(1)
+    assert !PlanGroupMember.exists?(2)
   end
 
   test "should remove plan_group member XHR" do
     assert_difference('PlanGroupMember.count', -1) do
-      xhr :delete, :remove_membership, :id => 3, :membership_id => 1
+      xhr :delete, :remove_membership, :id => 1, :membership_id => 2
     end
 
     assert_response :success
@@ -128,6 +128,6 @@ class PlanGroupsControllerTest < ActionController::TestCase
     assert_equal 'text/javascript', response.content_type
     assert_include 'member-list', response.body
     assert_include 'non-member-list', response.body
-    assert !PlanGroupMember.exists?(1)
+    assert !PlanGroupMember.exists?(2)
   end
 end

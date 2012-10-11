@@ -1,0 +1,81 @@
+<div class="jqPlot" id="<%= chart_name %>"
+  style="margin-top:20px; margin-left:20px; width:<%= chart.width %>px; height:<%= chart.height %>px;"></div>
+
+<script type="text/javascript">
+jQuery(document).ready(function() {
+  jQuery.jqplot('<%= chart_name %>', <%= chart.data.to_json.html_safe %>, {
+    animate: !jQuery.jqplot.use_excanvas,
+    stackSeries: true,
+    showMarker: false,
+    seriesDefaults:{
+      renderer:jQuery.jqplot.BarRenderer,
+      pointLabels: {show: true, hideZeros: true},
+      rendererOptions: {
+        animation: {
+          speed: 1000
+        }
+      }
+    },
+    series: <%= chart.series.to_json.html_safe %>,
+    axes: {
+      xaxis: {
+        renderer: jQuery.jqplot.CategoryAxisRenderer,
+        ticks: <%= chart.ticks.to_json.html_safe %>,
+        label: '<%= l(:field_planner_plan_week) %>'
+      },
+      yaxis: {
+        labelRenderer: jQuery.jqplot.CanvasAxisLabelRenderer,
+        min: 0,
+        max: <%= chart.max %>,
+        label: '<%= l(:field_planner_plan_percent) %>',
+        tickInterval: <%= chart.tick_interval %>,
+        tickOptions: {
+          suffix: '%'
+        },
+        padMin: 0
+      }
+    },
+    grid: {
+      background: 'white',
+      drawBorder: false,
+      shadow: true,
+      gridLineWidth: 1
+    },
+    legend: {
+      show: <%= chart.series.any? %>,
+      location: 'e',
+      placement: 'outside'
+    },
+    canvasOverlay: {
+      show: true,
+      objects: [
+        {
+          horizontalLine: {
+            y: <%= chart.limit %>,
+            lineWidth: 2,
+            xOffset: 0,
+            color: '#2ca02c',
+            shadow: false
+          }
+        }
+      ]
+    }
+  });
+
+  // this should be library code
+  jQuery('#<%= chart_name %>').bind('jqplotDataHighlight', function(ev, seriesIndex, pointIndex, data) {
+    var idx = -(seriesIndex + 1);
+    var legend = jQuery('#<%= chart_name %> tr.jqplot-table-legend');
+    legend.removeClass('legend-row-highlighted');
+    legend.children('.jqplot-table-legend-label').removeClass('legend-text-highlighted');
+    legend.eq(idx).addClass('legend-row-highlighted');
+    legend.eq(idx).children('.jqplot-table-legend-label').addClass('legend-text-highlighted');
+  });
+
+  jQuery('#<%= chart_name %>').bind('jqplotDataUnhighlight', function(ev, seriesIndex, pointIndex, data) {
+    var legend = jQuery('#<%= chart_name %> tr.jqplot-table-legend');
+    legend.removeClass('legend-row-highlighted');
+    legend.children('.jqplot-table-legend-label').removeClass('legend-text-highlighted');
+  });
+});
+</script>

@@ -1,0 +1,45 @@
+<% if details.any? %>
+<table class="list planner">
+  <thead><tr>
+    <th><%= l(:field_planner_plan_year) %>/<%= l(:field_planner_plan_week) %></th>
+    <th><%= l(:field_planner_plan_week_date) %></th>
+    <th class="center" colspan="2"><%= l(:field_planner_plan_percent) %></th>
+    <th class="center"><%= l('date.abbr_day_names')[1] %></th>
+    <th class="center"><%= l('date.abbr_day_names')[2] %></th>
+    <th class="center"><%= l('date.abbr_day_names')[3] %></th>
+    <th class="center"><%= l('date.abbr_day_names')[4] %></th>
+    <th class="center"><%= l('date.abbr_day_names')[5] %></th>
+    <th class="center"><%= l('date.abbr_day_names')[6] %></th>
+    <th class="center"><%= l('date.abbr_day_names')[0] %></th>
+    <th></th>
+  </tr></thead>
+  <tbody>
+    <% details.each do |plan_detail| %>
+      <tr id="plan_detail-<%= plan_detail.id %>" class="<%= cycle 'odd', 'even' %> plandetail">
+        <td><%= plan_detail.cwyear %>-<%= plan_detail.cweek %></td>
+        <td><%= format_date plan_detail.week_start_date %></td>
+        <td class="right">
+          <%= plan_detail.percentage %>%
+        </td>
+        <td>
+          <%= progress_bar(plan_detail.percentage, :width => '80px') %>
+        </td>
+        <td class="center"><%= checked_image plan_detail.ok_mon %></td>
+        <td class="center"><%= checked_image plan_detail.ok_tue %></td>
+        <td class="center"><%= checked_image plan_detail.ok_wed %></td>
+        <td class="center"><%= checked_image plan_detail.ok_thu %></td>
+        <td class="center"><%= checked_image plan_detail.ok_fri %></td>
+        <td class="center"><%= checked_image plan_detail.ok_sat %></td>
+        <td class="center"><%= checked_image plan_detail.ok_sun %></td>
+        <td class="buttons">
+          <%= link_to_remote(l(:button_delete),
+            { :url => plan_detail_path(plan_detail), :method => :delete, :confirm => nil },
+            :title => l(:button_delete), :class => 'icon icon-del') if @plan_request.can_edit? %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<% else %>
+  <p class="nodata"><%= l(:label_no_data) %></p>
+<% end %>

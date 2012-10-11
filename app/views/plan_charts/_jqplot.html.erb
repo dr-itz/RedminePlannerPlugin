@@ -1,0 +1,15 @@
+<% content_for :header_tags do -%>
+  <!--[if lt IE 9]>
+    <%= javascript_include_tag "excanvas.min.js", :plugin => :planner -%>
+  <![endif]-->
+  <%= javascript_include_tag "jquery.jqplot.min.js", :plugin => :planner -%>
+  <%= javascript_include_tag "jqplot.barRenderer.min.js", :plugin => :planner -%>
+  <%= javascript_include_tag "jqplot.highlighter.min.js", :plugin => :planner -%>
+  <%= javascript_include_tag "jqplot.pointLabels.min.js", :plugin => :planner -%>
+  <%= javascript_include_tag "jqplot.canvasTextRenderer.min.js", :plugin => :planner -%>
+  <%= javascript_include_tag "jqplot.canvasAxisLabelRenderer.min.js", :plugin => :planner -%>
+  <%= javascript_include_tag "jqplot.categoryAxisRenderer.min.js", :plugin => :planner -%>
+  <%= javascript_include_tag "jqplot.canvasOverlay.min.js", :plugin => :planner -%>
+  <%= stylesheet_link_tag "jquery.jqplot.css", :plugin => :planner %>
+<% end -%>
+

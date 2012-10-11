@@ -9,7 +9,7 @@
 <table class="attributes" style="width: 500px;">
   <tr>
     <th><%= l(:field_planner_owner) %></th>
-    <td><%= @plan_task.owner ? link_to_user(@plan_task.owner) : "-" %></td>
+    <td><%= @plan_task.owner ? link_to_user_plan_view(@project, @plan_task.owner) : "-" %></td>
   </tr>
   <tr>
     <th><%= l(:field_planner_is_open) %></th>

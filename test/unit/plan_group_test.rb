@@ -63,4 +63,16 @@ class PlanGroupTest < ActiveSupport::TestCase
     leader = PlanGroup.find_teamleader(User.find(2))
     assert_equal User.find(1), leader
   end
+
+  test "scope teams" do
+    PlanGroup.teams.each do |team|
+      assert_equal PlanGroup::TYPE_TEAM, team.group_type
+    end
+  end
+
+  test "scope groups" do
+    PlanGroup.groups.each do |group|
+      assert_equal PlanGroup::TYPE_GROUP, group.group_type
+    end
+  end
 end

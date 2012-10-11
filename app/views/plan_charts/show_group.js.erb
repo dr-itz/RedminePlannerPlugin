@@ -1,0 +1,3 @@
+jQuery('#group-chart-display').html('<%= escape_javascript(
+  render :partial => 'chart', :locals => {:chart => @chart, :chart_name => 'chartGroup'}) %>');
+jQuery('#week_start_date').val('<%= @chart.start_date.to_s %>');

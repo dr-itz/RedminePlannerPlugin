@@ -1,15 +1,23 @@
 <h2>Resource Planner</h2>
-This page is temporary
-<br/><br/>
 
-<ul>
-  <li><%= link_to l(:label_planner_requests), project_plan_requests_path() %></li>
-</ul>
+<div class="splitcontentleft">
+  <div class="box">
+    <h3><%= l(:label_planner_group_teams) %></h3>
+    <%= render :partial => 'group', :locals => {:groups => @teams, :div_id => 'team-list'} %>
+  </div>
+  <div class="box">
+    <h3><%= l(:label_planner_group_groups) %></h3>
+    <%= render :partial => 'group', :locals => {:groups => @groups, :div_id => 'group-list'} %>
+  </div>
+</div>
 
-<h3>Admin</h3>
-
-<ul>
-  <li><%= link_to l(:label_planner_groups), project_plan_groups_path(@project) %></li>
-  <li><%= link_to l(:label_planner_tasks), project_plan_tasks_path(@project) %></li>
-</ul>
-
+<div class="splitcontentright">
+  <div class="box">
+    <h3><%= l(:label_planner_manage) %></h3>
+    <ul>
+      <li><%= link_to l(:label_planner_requests), project_plan_requests_path() %></li>
+      <li><%= link_to l(:label_planner_groups), project_plan_groups_path(@project) %></li>
+      <li><%= link_to l(:label_planner_tasks), project_plan_tasks_path(@project) %></li>
+    </ul>
+  </div>
+</div>

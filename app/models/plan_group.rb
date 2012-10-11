@@ -18,7 +18,7 @@ class PlanGroup < ActiveRecord::Base
   belongs_to :project
   belongs_to :team_leader, :class_name => 'User', :foreign_key => 'leader_id'
 
-  has_many :plan_group_members
+  has_many :plan_group_members, :dependent => :destroy
   has_many :users, :through => :plan_group_members
 
 
@@ -34,6 +34,9 @@ class PlanGroup < ActiveRecord::Base
     where(:project_id => project.is_a?(Project) ? project.id : project).order(
       'group_type, name')
   }
+
+  scope :teams, where(:group_type => TYPE_TEAM)
+  scope :groups, where(:group_type => TYPE_GROUP)
 
   # Returns an array of group types for ERB select
   def self.group_types_select

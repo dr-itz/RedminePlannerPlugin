@@ -1,6 +1,7 @@
 class PlanGroupsController < ApplicationController
   unloadable
   menu_item :planner
+  helper :planner
 
   before_filter :find_project_by_project_id, :only => [:index, :new, :create]
   before_filter :find_plan_group, :except => [:index, :new, :create]
@@ -76,6 +77,8 @@ class PlanGroupsController < ApplicationController
     return render_403 unless can_modify_members?
 
     member = PlanGroupMember.find(params[:membership_id])
+    return render_403 unless member.plan_group_id == @plan_group.id
+
     member.destroy
 
     respond_to do |format|
@@ -111,7 +114,7 @@ class PlanGroupsController < ApplicationController
   end
 private
   def find_plan_group
-    @plan_group = PlanGroup.find(params[:id], :include => [:project, { :plan_group_members => :user }])
+    @plan_group = PlanGroup.find(params[:id], :include => [:project])
     @project = @plan_group.project
   end
 end

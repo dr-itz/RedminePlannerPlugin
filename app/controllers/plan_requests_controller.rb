@@ -1,10 +1,13 @@
 class PlanRequestsController < ApplicationController
   unloadable
   menu_item :planner
+  helper :planner
 
   before_filter :find_project_by_project_id, :only => [:index, :new, :create]
   before_filter :find_plan_request, :only => [:show, :edit, :update, :destroy, :send_request, :approve]
-  before_filter :authorize, :except => [:edit, :update]
+  before_filter :authorize, :except => [:edit, :update, :desroy]
+  before_filter :authorize_create, :only => [:new, :create]
+  before_filter :authorize_edit, :only => [:edit, :update, :destroy]
 
   def index
     @requests_requester = PlanRequest.all_open_requests_requester(@project)
@@ -25,10 +28,8 @@ class PlanRequestsController < ApplicationController
   end
 
   def new
-    return render_403 unless can_create_request?
-
     @plan_request = PlanRequest.new
-    @tasks = PlanTask.all_project_tasks(@project).open
+    @tasks = PlanTask.all_project_tasks(@project).assignable
 
     respond_to do |format|
       format.html # new.html.erb
@@ -37,14 +38,10 @@ class PlanRequestsController < ApplicationController
   end
 
   def edit
-    return render_403 unless @plan_request.can_edit?
-
-    @tasks = PlanTask.all_project_tasks(@project).open
+    @tasks = PlanTask.all_project_tasks(@project).assignable
   end
 
   def create
-    return render_403 unless can_create_request?
-
     @plan_request = PlanRequest.new(params[:plan_request])
     @plan_request.requester = User.current
 
@@ -60,8 +57,6 @@ class PlanRequestsController < ApplicationController
   end
 
   def update
-    return render_403 unless @plan_request.can_edit?
-
     respond_to do |format|
       if @plan_request.update_attributes(params[:plan_request])
         format.html { redirect_to plan_request_url(@plan_request), :notice => l(:notice_successful_update)}
@@ -74,8 +69,6 @@ class PlanRequestsController < ApplicationController
   end
 
   def destroy
-    return render_403 #FIXME
-
     @plan_request.destroy
 
     respond_to do |format|
@@ -119,5 +112,13 @@ private
       :include => [ {:task => :project}, :requester, :resource, :approver ])
     return render_403 unless @plan_request.present?
     @project = @plan_request.task.project
+  end
+
+  def authorize_create
+    return render_403 unless can_create_request?
+  end
+
+  def authorize_edit
+    return render_403 unless @plan_request.can_edit?
   end
 end

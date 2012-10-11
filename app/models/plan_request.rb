@@ -27,6 +27,8 @@ class PlanRequest < ActiveRecord::Base
 
   belongs_to :task,  :class_name => 'PlanTask', :foreign_key => 'task_id'
 
+  has_many :details, :class_name => 'PlanDetail', :foreign_key => 'request_id', :dependent => :destroy
+
   attr_protected :requested_on, :approver_id, :approved_on, :status, :approver_notes
 
   STATUS_NEW = 0
@@ -126,7 +128,7 @@ class PlanRequest < ActiveRecord::Base
   end
 
   def can_request?
-    User.current == requester && status == STATUS_NEW
+    can_edit?
   end
 
   def can_approve?

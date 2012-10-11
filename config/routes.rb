@@ -4,7 +4,9 @@ RedmineApp::Application.routes.draw do
   resources :projects, :shallow => true do
     resources :plan_groups
     resources :plan_tasks
-    resources :plan_requests
+    resources :plan_requests do
+      resources :plan_details
+    end
   end
 
   match '/plan_groups/:id/members/:membership_id',
@@ -20,4 +22,11 @@ RedmineApp::Application.routes.draw do
   match '/plan_requests/:id/approve',
     :to => 'plan_requests#approve', :via => :put,
     :as => 'plan_request_approve'
+
+  match '/projects/:project_id/planner/user/:id',
+    :to => 'plan_charts#show_user', :via => :get,
+    :as => 'planner_show_user'
+  match '/projects/:project_id/planner/group/:id',
+    :to => 'plan_charts#show_group', :via => :get,
+    :as => 'planner_show_group'
 end

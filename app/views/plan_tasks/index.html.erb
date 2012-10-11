@@ -1,7 +1,3 @@
-<% content_for :header_tags do %>
-  <%= stylesheet_link_tag 'planner', :plugin => 'planner' %>
-<% end %>
-
 <div class="contextual">
 <%= link_to l(:label_planner_task_new), new_project_plan_task_path, :class => 'icon icon-add' if controller.can_create_task? %>
 </div>
@@ -21,7 +17,7 @@
   <% @plan_tasks.each do |plan_task| %>
     <tr id="plan_task-<%= plan_task.id %>" class="<%= cycle 'odd', 'even' %> plantask">
       <td><%= link_to plan_task.name, plan_task %></td>
-      <td><%= plan_task.owner ? link_to_user(plan_task.owner) : "-" %></td>
+      <td><%= plan_task.owner ? link_to_user_plan_view(@project, plan_task.owner) : "-" %></td>
       <td class="center"><%= checked_image plan_task.is_open? %></td>
       <td><%= plan_task.wbs %></td>
       <td class="buttons">

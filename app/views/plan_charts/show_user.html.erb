@@ -1,0 +1,9 @@
+<%= render :partial => "jqplot" %>
+
+<h2><%= l(:label_planner_planning) %>: <%= @user.name %></h2>
+
+<%= render :partial => 'range_selection', :locals => { :chart_url => planner_show_user_path(@project, @user)} %>
+
+<div id="user-chart-display">
+  <%= render :partial => 'chart', :locals => {:chart => @chart, :chart_name => 'chartUser'} %>
+</div>

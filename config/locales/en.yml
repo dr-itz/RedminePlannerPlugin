@@ -7,13 +7,18 @@ en:
   permission_planner_requests: Create Requests
 
   label_planner_menu_main: Resource Planner
+  label_planner_planning: Planning
+  label_planner_manage: Manage
+  label_planner_overview: Overview
 
   label_planner_group: Team/Group
   label_planner_groups: Teams and Groups
   label_planner_group_edit: Edit Team/Group
   label_planner_group_new: New Team/Group
   label_planner_group_team: Team
+  label_planner_group_teams: Teams
   label_planner_group_group: Group
+  label_planner_group_groups: Groups
 
   label_planner_task: Task
   label_planner_tasks: Tasks
@@ -22,6 +27,7 @@ en:
 
   label_planner_requests: Resource Requests
   label_planner_request: Resource Request
+  label_planner_request_short: Req.
   label_planner_req_new: New Resource Request
   label_planner_req_edit: Edit Resource Request
   label_planner_req_status_new: New
@@ -41,6 +47,8 @@ en:
   label_planner_req_prio_normal: Normal
   label_planner_req_prio_high: High
   label_planner_req_prio_highest: Highest
+  label_planner_req_assoc_plan: Associated planning
+  label_planner_req_add_plan: Add/update planning
 
   field_planner_group_type: Group Type
   field_planner_leader: Leader
@@ -58,3 +66,11 @@ en:
   field_planner_req_date: Date
   field_planner_req_approval_date: Approval Date
   field_planner_req_note: Note
+
+  field_planner_plan_year: Year
+  field_planner_plan_week: Week
+  field_planner_plan_weekdays: Weekdays
+  field_planner_plan_week_date: Starting on
+  field_planner_plan_week_repeat: Weeks to repeat
+  field_planner_plan_weeks_show: Weeks to show
+  field_planner_plan_percent: Weekly Workload

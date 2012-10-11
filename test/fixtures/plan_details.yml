@@ -1,0 +1,81 @@
+# == Schema Information
+#
+# Table name: plan_details
+#
+#  id         :integer          not null, primary key
+#  request_id :integer          default(0), not null
+#  week       :integer          not null
+#  percentage :integer          default(80), not null
+#  ok_mon     :boolean          default(TRUE), not null
+#  ok_tue     :boolean          default(TRUE), not null
+#  ok_wed     :boolean          default(TRUE), not null
+#  ok_thu     :boolean          default(TRUE), not null
+#  ok_fri     :boolean          default(TRUE), not null
+#  ok_sat     :boolean          default(FALSE), not null
+#  ok_sun     :boolean          default(FALSE), not null
+#
+
+one:
+  id: 1
+  request_id: 2
+  week: 201239
+  percentage: 80
+  ok_mon: true
+  ok_tue: true
+  ok_wed: true
+  ok_thu: true
+  ok_fri: true
+  ok_sat: false
+  ok_sun: false
+
+two:
+  id: 2
+  request_id: 2
+  week: 201238
+  percentage: 60
+  ok_mon: true
+  ok_tue: true
+  ok_wed: true
+  ok_thu: true
+  ok_fri: true
+  ok_sat: false
+  ok_sun: false
+
+three:
+  id: 3
+  request_id: 1
+  week: 201238
+  percentage: 60
+  ok_mon: true
+  ok_tue: true
+  ok_wed: true
+  ok_thu: true
+  ok_fri: true
+  ok_sat: false
+  ok_sun: false
+
+four:
+  id: 4
+  request_id: 3
+  week: 201241
+  percentage: 70
+  ok_mon: true
+  ok_tue: true
+  ok_wed: true
+  ok_thu: true
+  ok_fri: true
+  ok_sat: false
+
+five:
+  id: 5
+  request_id: 3
+  week: 201242
+  percentage: 50
+  ok_mon: true
+  ok_tue: true
+  ok_wed: true
+  ok_thu: true
+  ok_fri: true
+  ok_sat: false
+  ok_sun: false
+  ok_sun: false

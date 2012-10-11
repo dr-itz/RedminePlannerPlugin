@@ -1,4 +1,4 @@
-# mostly from Redmine r9738, extended to run redmine:plugins:migrate
+# mostly from Redmine r9738
 # this is of course an ugly hack, but it works
 namespace :planner do
   namespace :test do
@@ -26,7 +26,6 @@ namespace :planner do
     desc 'Runs the all plugins tests (units/functionals/integration).'
     Rake::TestTask.new :all => ["db:test:prepare"] do |t|
       t.libs << "test"
-      t.verbose = true
       t.test_files =
         FileList["plugins/planner/test/unit/**/*_test.rb"] +
         FileList["plugins/planner/test/functional/**/*_test.rb"] +

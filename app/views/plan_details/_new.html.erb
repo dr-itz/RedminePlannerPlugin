@@ -1,0 +1,59 @@
+<% if @plan_request.can_edit? %>
+  <br/>
+  <h3><%= l(:label_planner_req_add_plan) %> </h3>
+  <%= labelled_form_for([@plan_request, PlanDetail.new], :remote => true,
+    :html => {:class => 'multiple-submit'} ) do |f| %>
+    <%= error_messages_for 'plan_request' %>
+
+    <div class="box tabular">
+      <p>
+        <%= f.text_field :week_start_date, :size => 10,:required => true, :label => :field_planner_plan_week_date %>
+        <%= calendar_for('plan_detail_week_start_date') %>
+      </p>
+      <p>
+        <label for="num_week">
+          <%= l(:field_planner_plan_week_repeat) %>
+        </label>
+        <%= text_field_tag 'num_week', 1, :size => 4 %>
+      </p>
+      <p>
+        <%= f.select :percentage, ((0..10).to_a.collect {|r| ["#{r*10} %", r*10] }),
+          :required => true, :label => l(:field_planner_plan_percent) %>
+      </p>
+      <p>
+        <label><%= l(:field_planner_plan_weekdays) %></label>
+        <span>
+          <label class="days" for="plan_detail_ok_mon">
+            <%= f.check_box :ok_mon, :no_label => true%>
+            <%= l('date.abbr_day_names')[1] %>
+          </label>
+          <label class="days" for="plan_detail_ok_tue">
+            <%= f.check_box :ok_tue, :no_label => true%>
+            <%= l('date.abbr_day_names')[2] %>
+          </label>
+          <label class="days" for="plan_detail_ok_wed">
+            <%= f.check_box :ok_wed, :no_label => true%>
+            <%= l('date.abbr_day_names')[3] %>
+          </label>
+          <label class="days" for="plan_detail_ok_thu">
+            <%= f.check_box :ok_thu, :no_label => true%>
+            <%= l('date.abbr_day_names')[4] %>
+          </label>
+          <label class="days" for="plan_detail_ok_fri">
+            <%= f.check_box :ok_fri, :no_label => true%>
+            <%= l('date.abbr_day_names')[5] %>
+          </label>
+          <label class="days" for="plan_detail_ok_sat">
+            <%= f.check_box :ok_sat, :no_label => true%>
+            <%= l('date.abbr_day_names')[6] %>
+          </label>
+          <label class="days" for="plan_detail_ok_sun">
+            <%= f.check_box :ok_sun, :no_label => true%>
+            <%= l('date.abbr_day_names')[0] %>
+          </label>
+        </span>
+      </p>
+    </div>
+    <%= submit_tag l(:button_save) %>
+  <% end %>
+<% end %>

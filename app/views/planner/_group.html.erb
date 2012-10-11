@@ -1,0 +1,21 @@
+<div id="<%= div_id %>" class="planner">
+  <% if groups.any? %>
+    <% groups.each do |group| %>
+      <h4 class="planner accordion-header">
+        <%= link_to_group_plan_view(@project, group) %>
+      </h4>
+      <div class="accordion-content">
+        <ul class="planner">
+          <% group.users.sort.each do |user| %>
+            <li><%= link_to_user_plan_view(@project, user) %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+  <% else %>
+    <p>-</p>
+  <% end %>
+</div>
+<script type="text/javascript">
+  miniAccordion('<%= div_id %>');
+</script>
