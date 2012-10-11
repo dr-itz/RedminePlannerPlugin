@@ -25,7 +25,7 @@ class PlanTaskTest < ActiveSupport::TestCase
   test "all_project_tasks project 1" do
     project = Project.find(1)
     filtered = PlanTask.all_project_tasks(project)
-    assert_equal 2, filtered.length
+    assert_equal 3, filtered.length
     assert_equal 1, filtered[0].project_id
     assert_equal 1, filtered[1].project_id
   end

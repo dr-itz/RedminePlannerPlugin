@@ -123,7 +123,7 @@ class PlanTasksControllerTest < ActionController::TestCase
 
   test "should destroy plan_task" do
     assert_difference('PlanTask.count', -1) do
-      delete :destroy, :id => @plan_task
+      delete :destroy, :id => 4
     end
 
     assert_redirected_to project_plan_tasks_path(@plan_task.project)
