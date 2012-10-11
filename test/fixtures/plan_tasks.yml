@@ -42,3 +42,13 @@ three:
   description: Description
   wbs: WBS
   parent_task: NULL
+
+three:
+  id: 4
+  project_id: 2
+  name: Task 1
+  task_type: 0
+  owner_id: 2
+  description: Description4
+  wbs: WBS
+  parent_task: NULL

@@ -16,7 +16,11 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
 class PlanTaskTest < ActiveSupport::TestCase
-  fixtures :projects, :users, :plan_tasks
+  fixtures :projects, :users, :plan_tasks, :plan_requests
+
+  setup do
+    User.current = User.find(2)
+  end
 
   test "all_project_tasks project 1" do
     project = Project.find(1)
@@ -44,5 +48,24 @@ class PlanTaskTest < ActiveSupport::TestCase
       :project => Project.find(1), :name => 'Task 1', :owner => User.find(2))
     assert !tmp.valid?
     assert tmp.errors[:name]
+  end
+
+  test "can edit" do
+    tmp = PlanTask.find(1)
+    assert !tmp.can_edit?
+
+    tmp = PlanTask.find(2)
+    assert tmp.can_edit?
+  end
+
+  test "can delete" do
+    tmp = PlanTask.find(2)
+    assert !tmp.can_delete?
+    assert_raise(ActiveRecord::DeleteRestrictionError) { tmp.destroy }
+
+    tmp = PlanTask.find(4)
+    assert tmp.can_delete?
+    tmp.destroy
+    assert tmp.destroyed?
   end
 end

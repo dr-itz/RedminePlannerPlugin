@@ -18,6 +18,7 @@ class PlanTask < ActiveRecord::Base
 
   belongs_to :project
   belongs_to :owner, :class_name => 'User', :foreign_key => 'owner_id'
+  has_many :requests, :class_name => 'PlanRequest', :foreign_key => 'task_id', :dependent => :restrict
 
   validates_presence_of :name
   validates_uniqueness_of :name, :scope => [:project_id]
@@ -32,5 +33,9 @@ class PlanTask < ActiveRecord::Base
   def can_edit?
     current = User.current
     owner == current || current.allowed_to?(:planner_admin, project)
+  end
+
+  def can_delete?
+    can_edit? && requests.empty?
   end
 end
