@@ -75,4 +75,13 @@ class PlanGroupTest < ActiveSupport::TestCase
       assert_equal PlanGroup::TYPE_GROUP, group.group_type
     end
   end
+
+  test "delete dependent" do
+    tmp = PlanGroup.find(1)
+    assert tmp.plan_group_members.any?
+    tmp.destroy
+
+    members = PlanGroupMember.where(:plan_group_id => 1)
+    assert members.empty?
+  end
 end
