@@ -2,6 +2,18 @@
 
 <h2><%= l(:label_planner_planning) %>: <%= @group.name %></h2>
 
+<table class="attributes" style="width: 500px;">
+  <tr>
+    <th><%= l(:field_planner_group_type) %></th>
+    <td><%= @group.type_string %></td>
+  </tr>
+  <tr>
+    <th><%= l(:field_planner_leader) %></th>
+    <td><%= @group.team_leader ? link_to_user_plan_view(@project, @group.team_leader) : "-" %></td>
+  </tr>
+</table>
+<br/>
+
 <%= render :partial => 'range_selection', :locals => { :chart_url => planner_show_group_path(@project, @group)} %>
 
 <div id="group-chart-display">

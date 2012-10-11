@@ -1,5 +1,7 @@
 class PlanChartsController < ApplicationController
   unloadable
+  menu_item :planner
+  helper :planner
 
   before_filter :find_project_by_project_id, :authorize
 
