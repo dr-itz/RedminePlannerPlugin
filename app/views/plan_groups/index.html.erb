@@ -22,8 +22,8 @@
       <td class="buttons">
         <%= link_to(l(:button_edit), edit_plan_group_path(plan_group),
           :class => 'icon icon-edit') if controller.can_edit_group? %>
-        <%= link_to(l(:button_delete), plan_group, :confirm => l(:text_are_you_sure), :method => :delete,
-          :class => 'icon icon-del') if controller.can_edit_group? %>
+        <%= link_to(l(:button_delete), plan_group, :data => { :confirm => l(:text_are_you_sure)},
+          :method => :delete, :class => 'icon icon-del') if controller.can_edit_group? %>
       </td>
     </tr>
   <% end %>

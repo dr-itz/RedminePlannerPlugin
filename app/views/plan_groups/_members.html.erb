@@ -12,7 +12,7 @@
           <td><%= link_to_user_plan_view(@project, member.user) %></td>
           <td class="buttons">
             <%= link_to_remote(l(:button_delete),
-                { :url => plan_group_membership_path(@plan_group, member), :method => :delete, :confirm => nil },
+                { :url => plan_group_membership_path(@plan_group, member), :method => :delete},
                 :title => l(:button_delete), :class => 'icon icon-del') if can_edit %>
           </td>
         </tr>
