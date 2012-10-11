@@ -21,7 +21,7 @@ require File.dirname(__FILE__) + '/../test_helper'
 class PlanRequestTest < ActiveSupport::TestCase
   include Redmine::I18n
 
-  fixtures :projects, :users, :plan_tasks, :plan_requests
+  fixtures :projects, :users, :plan_tasks, :plan_requests, :plan_details
 
   setup do
     User.current = User.find(2)
@@ -140,6 +140,14 @@ class PlanRequestTest < ActiveSupport::TestCase
     assert !req.can_approve?
   end
 
+  test "delete dependent" do
+    tmp = PlanRequest.find(2)
+    assert tmp.details.any?
+    tmp.destroy
+
+    details = PlanDetail.where(:request_id => 2)
+    assert details.empty?
+  end
 private
   def test_status(status, string)
     tmp = PlanRequest.new
