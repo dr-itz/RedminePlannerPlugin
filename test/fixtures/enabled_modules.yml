@@ -104,3 +104,10 @@ enabled_modules_026:
   name: repository
   project_id: 2
   id: 26
+
+#------------------------------------------------------------------------------
+# Enable planner
+enabled_modules_027:
+  name: planner
+  project_id: 1
+  id: 27
