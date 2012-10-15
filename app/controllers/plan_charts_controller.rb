@@ -36,5 +36,6 @@ private
     end
     num_weeks = params[:num_weeks]
     @num_weeks = (num_weeks || 8).to_i
+    @num_weeks = 52 if (@num_weeks > 52)
   end
 end

@@ -14,6 +14,8 @@ jQuery(document).ready(function() {
     yTickInterval: <%= chart.tick_interval %>,
     yLimit:  <%= chart.limit %>
   });
+  jQuery('#week_start_date').val('<%= @chart.start_date.to_s %>');
+  jQuery('#num_weeks').val('<%= @chart.weeks %>');
 });
 </script>
 

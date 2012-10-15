@@ -85,11 +85,22 @@ class PlanChartsControllerTest < ActionController::TestCase
 
     assert_include '#user-chart-display', response.body
     assert_include '#week_start_date', response.body
+    assert_include '#num_weeks', response.body
     assert_include '2012-09-17', response.body
     assert_include "data: [[60,80,0,0,0,0],[0,0,0,70,50,0]]", response.body
     assert_include 'Req. #2: Task 2', response.body
     assert_include 'Req. #3: Task 2', response.body
     assert_include 'xTicks: [\"2012-38\",\"2012-39\",\"2012-40\",\"2012-41\",\"2012-42\",\"2012-43\"]', response.body
+  end
+
+  test "should get show_user limit 52 weeks" do
+    get :show_user, :project_id => 1, :id => 3, :week_start_date => '2012-9-19', :num_weeks => 77
+
+    assert_response :success
+
+    chart = assigns(:chart)
+    assert chart
+    assert_equal 52, chart.weeks
   end
 
   test "should get show_group defaults" do
@@ -163,10 +174,21 @@ class PlanChartsControllerTest < ActionController::TestCase
 
     assert_include '#group-chart-display', response.body
     assert_include '#week_start_date', response.body
+    assert_include '#num_weeks', response.body
     assert_include '2012-09-17', response.body
     assert_include "data: [[60,80,0,70,50,0],[60,0,0,0,0,0]]", response.body
     assert_include 'John Smith', response.body
     assert_include 'Dave Lopper', response.body
     assert_include 'xTicks: [\"2012-38\",\"2012-39\",\"2012-40\",\"2012-41\",\"2012-42\",\"2012-43\"]', response.body
+  end
+
+  test "should get show_group limit 52 weeks" do
+    get :show_group, :project_id => 1, :id => 1, :week_start_date => '2012-9-19', :num_weeks => 77
+
+    assert_response :success
+
+    chart = assigns(:chart)
+    assert chart
+    assert_equal 52, chart.weeks
   end
 end
