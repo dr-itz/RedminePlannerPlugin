@@ -30,3 +30,62 @@ function plannerChartLegendHighlight(chartid)
     legend.children('.jqplot-table-legend-label').removeClass('legend-text-highlighted');
   });
 }
+
+function plannerChart(data)
+{
+  jQuery.jqplot(data.chartid, data.data, {
+    animate: !jQuery.jqplot.use_excanvas,
+    stackSeries: true,
+    showMarker: false,
+    seriesDefaults:{
+      renderer:jQuery.jqplot.BarRenderer,
+      pointLabels: {show: true, hideZeros: true},
+      rendererOptions: {
+        animation: {
+          speed: 1000
+        }
+      }
+    },
+    series: data.series,
+    axes: {
+      xaxis: {
+        renderer: jQuery.jqplot.CategoryAxisRenderer,
+        ticks: data.xTicks,
+        label: data.xLabel
+      },
+      yaxis: {
+        labelRenderer: jQuery.jqplot.CanvasAxisLabelRenderer,
+        min: 0,
+        max: data.yMax,
+        label: data.yLabel,
+        tickInterval: data.yTickInterval,
+        tickOptions: {
+          suffix: '%'
+        },
+        padMin: 0
+      }
+    },
+    grid: {
+      background: 'white',
+      drawBorder: false,
+      shadow: true,
+      gridLineWidth: 1
+    },
+    legend: { show: false },
+    canvasOverlay: {
+      show: true,
+      objects: [
+        {
+          horizontalLine: {
+            y: data.yLimit,
+            lineWidth: 2,
+            xOffset: 0,
+            color: '#2ca02c',
+            shadow: false
+          }
+        }
+      ]
+    }
+  });
+  plannerChartLegendHighlight(data.chartid);
+}
