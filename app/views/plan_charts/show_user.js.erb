@@ -1,3 +1,4 @@
 jQuery('#user-chart-display').html('<%= escape_javascript(
-  render :partial => 'chart', :locals => {:chart => @chart, :chart_name => 'chartUser'}) %>');
+  render :partial => 'chart', :locals => {
+    :chart => @chart, :chart_name => 'chartUser', :legend_partial => 'legend_user'}) %>');
 jQuery('#week_start_date').val('<%= @chart.start_date.to_s %>');

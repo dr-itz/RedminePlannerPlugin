@@ -1,5 +1,5 @@
-<div class="jqPlot" id="<%= chart_name %>"
-  style="margin-top:20px; margin-left:20px; width:<%= chart.width %>px; height:<%= chart.height %>px;"></div>
+<div class="jqPlot chart-graphic" id="<%= chart_name %>"
+  style="margin-left:5px; width:<%= chart.width %>px; height:<%= chart.height %>px;"></div>
 
 <script type="text/javascript">
 jQuery(document).ready(function() {
@@ -41,11 +41,7 @@ jQuery(document).ready(function() {
       shadow: true,
       gridLineWidth: 1
     },
-    legend: {
-      show: <%= chart.series.any? %>,
-      location: 'e',
-      placement: 'outside'
-    },
+    legend: { show: false },
     canvasOverlay: {
       show: true,
       objects: [
@@ -63,9 +59,8 @@ jQuery(document).ready(function() {
   });
 
   // this should be library code
-  jQuery('#<%= chart_name %>').bind('jqplotDataHighlight', function(ev, seriesIndex, pointIndex, data) {
-    var idx = -(seriesIndex + 1);
-    var legend = jQuery('#<%= chart_name %> tr.jqplot-table-legend');
+  jQuery('#<%= chart_name %>').bind('jqplotDataHighlight', function(ev, idx, pointIndex, data) {
+    var legend = jQuery('#<%= chart_name %>-legend tr.jqplot-table-legend');
     legend.removeClass('legend-row-highlighted');
     legend.children('.jqplot-table-legend-label').removeClass('legend-text-highlighted');
     legend.eq(idx).addClass('legend-row-highlighted');
@@ -73,9 +68,13 @@ jQuery(document).ready(function() {
   });
 
   jQuery('#<%= chart_name %>').bind('jqplotDataUnhighlight', function(ev, seriesIndex, pointIndex, data) {
-    var legend = jQuery('#<%= chart_name %> tr.jqplot-table-legend');
+    var legend = jQuery('#<%= chart_name %>-legend tr.jqplot-table-legend');
     legend.removeClass('legend-row-highlighted');
     legend.children('.jqplot-table-legend-label').removeClass('legend-text-highlighted');
   });
 });
 </script>
+
+<div id="<%= chart_name %>-legend" class="chart-legend">
+  <%= render :partial => legend_partial, :locals => {:chart => chart, :chart_name => chart_name} %>
+</div>

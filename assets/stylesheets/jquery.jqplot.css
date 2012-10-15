@@ -264,8 +264,8 @@ div.jqplot-noData-container {
 }
 
 .legend-row-highlighted {
-  background-color: #666666;
+  background-color: #9DB9D5;
 }
-.legend-text-highlighted {
+.legend-text-highlighted, .legend-text-highlighted a {
   color: #FFFFFF;
 }

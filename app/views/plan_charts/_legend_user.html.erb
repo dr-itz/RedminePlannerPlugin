@@ -1,0 +1,13 @@
+<h4><%= l(:label_planner_requests) %></h4>
+<table class="planner">
+  <% chart.series_details.each_with_index do |req, i| %>
+    <tr class="jqplot-table-legend">
+      <td>
+        <div class="chart-legend-color" style="background-color: <%= chart.get_color i %>;"></div>
+      </td>
+      <td class="jqplot-table-legend-label">
+        <%= link_to l(:label_planner_request_short) + " #" + req.id.to_s + ": " + req.task.name, req %>
+      </td>
+    </tr>
+  <% end %>
+</table>

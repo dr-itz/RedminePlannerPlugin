@@ -5,7 +5,7 @@ class PlanChart
 
   include Redmine::I18n
 
-  attr_reader :weeks, :ticks, :data, :series, :start_date, :end_date,
+  attr_reader :weeks, :ticks, :data, :series, :series_details, :start_date, :end_date,
     :max, :limit, :width, :height, :tick_interval
 
   # d3_category20
@@ -44,9 +44,11 @@ class PlanChart
     requests = series_hash.keys.sort
     @data = Array.new(requests.length)
     @series = Array.new(requests.length)
+    @series_details = Array.new(requests.length)
     requests.each_with_index do |req, i|
       data[i] = series_hash[req]
       request = PlanRequest.find(req, :include => :task)
+      @series_details[i] = request
       @series[i] = {}
       @series[i][:label] = l(:label_planner_request_short) + " #" + req.to_s + ": " + request.task.name
       @series[i][:color] = get_color i
@@ -70,18 +72,29 @@ class PlanChart
       series_hash[detail.resource_id][@week_idx[detail.week]] = detail.percentage
     end
 
-    resources = series_hash.keys.sort
-    @data = Array.new(resources.length)
-    @series = Array.new(resources.length)
-    resources.each_with_index do |res, i|
-      data[i] = series_hash[res]
-      resource = User.find(res)
+    resources = group.users.sort
+    @data = Array.new(series_hash.length)
+    @series = Array.new(series_hash.length)
+    @series_details = Array.new(series_hash.length)
+    i = 0
+    resources.each do |res|
+      series = series_hash[res.id]
+      if series
+        data[i] = series
+      else
+        data[i] = Array.new(weeks, 0)
+      end
+      @series_details[i] = res
       @series[i] = {}
-      @series[i][:label] = resource.name
       @series[i][:color] = get_color i
+      i += 1
     end
 
     check_empty
+  end
+
+  def get_color(i)
+    COLORS[i % COLORS.length]
   end
 
 private
@@ -115,9 +128,5 @@ private
     unless @data.any?
       @data.push Array.new(weeks, 0)
     end
-  end
-
-  def get_color(i)
-    COLORS[i % COLORS.length]
   end
 end

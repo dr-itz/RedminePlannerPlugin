@@ -1,0 +1,13 @@
+<h4><%= l(:label_member_plural) %></h4>
+<table class="planner">
+  <% chart.series_details.each_with_index do |user, i| %>
+    <tr class="jqplot-table-legend">
+      <td>
+        <div class="chart-legend-color" style="background-color: <%= chart.get_color i %>;"></div>
+      </td>
+      <td class="jqplot-table-legend-label">
+        <%= link_to_user_plan_view(@project, user) %>
+      </td>
+    </tr>
+  <% end %>
+</table>

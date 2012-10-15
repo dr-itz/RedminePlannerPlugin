@@ -1,3 +1,7 @@
+table.planner {
+  border-collapse: collapse;
+}
+
 table.planner th {
   text-align: left;
   padding-left: 2px;
@@ -42,4 +46,24 @@ ul.planner {
 }
 .accordion-content {
   overflow: auto;
+}
+
+div.chart-graphic {
+  float: left;
+}
+
+div.chart-legend-color {
+  width: 20px;
+  height: 20px;
+  border: 1px solid white;
+}
+
+div.chart-legend {
+  float: left;
+  padding-top: 5px;
+  padding-left: 10px;
+}
+
+.chart-legend h4 {
+  margin-top: 0;
 }
