@@ -13,3 +13,20 @@ function miniAccordion(topdiv)
     me.toggleClass('expanded collapsed').next('.accordion-content').slideToggle(300).toggleClass('expanded collapsed');
   });
 }
+
+function plannerChartLegendHighlight(chartid)
+{
+  jQuery('#' + chartid).bind('jqplotDataHighlight', function(ev, idx, pointIndex, data) {
+    var legend = jQuery('#' + chartid + '-legend tr.jqplot-table-legend');
+    legend.removeClass('legend-row-highlighted');
+    legend.children('.jqplot-table-legend-label').removeClass('legend-text-highlighted');
+    legend.eq(idx).addClass('legend-row-highlighted');
+    legend.eq(idx).children('.jqplot-table-legend-label').addClass('legend-text-highlighted');
+  });
+
+  jQuery('#' + chartid).bind('jqplotDataUnhighlight', function(ev, seriesIndex, pointIndex, data) {
+    var legend = jQuery('#' + chartid + '-legend tr.jqplot-table-legend');
+    legend.removeClass('legend-row-highlighted');
+    legend.children('.jqplot-table-legend-label').removeClass('legend-text-highlighted');
+  });
+}
