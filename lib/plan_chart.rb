@@ -50,7 +50,6 @@ class PlanChart
       request = PlanRequest.find(req, :include => :task)
       @series_details[i] = request
       @series[i] = {}
-      @series[i][:label] = l(:label_planner_request_short) + " #" + req.to_s + ": " + request.task.name
       @series[i][:color] = get_color i
     end
 
@@ -67,19 +66,18 @@ class PlanChart
     series_hash = {}
     details = PlanDetail.group_overview(group, plan_week(@start_date), plan_week(@end_date))
     details.each do |detail|
-      series_hash[detail.resource_id] ||= Array.new(weeks, 0)
+      series_hash[detail.resource_id.to_s] ||= Array.new(weeks, 0)
 
-      series_hash[detail.resource_id][@week_idx[detail.week]] = detail.percentage
+      series_hash[detail.resource_id.to_s][@week_idx[detail.week]] = detail.percentage
     end
 
     resources = group.users.sort
     @data = Array.new(series_hash.length)
     @series = Array.new(series_hash.length)
     @series_details = Array.new(series_hash.length)
-    i = 0
-    resources.each do |res|
-      series = series_hash[res.id]
-      if series
+    resources.each_with_index do |res, i|
+      series = series_hash[res.id.to_s]
+      if series != nil
         data[i] = series
       else
         data[i] = Array.new(weeks, 0)
@@ -87,7 +85,6 @@ class PlanChart
       @series_details[i] = res
       @series[i] = {}
       @series[i][:color] = get_color i
-      i += 1
     end
 
     check_empty

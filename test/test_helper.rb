@@ -1,4 +1,4 @@
-if RUBY_VERSION > "1.8"
+if !(RUBY_VERSION < "1.9")
   require 'simplecov'
 
   if Dir.pwd.match(/plugins\/planner/)

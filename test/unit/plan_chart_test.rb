@@ -23,7 +23,7 @@ class PlanChartTest < ActiveSupport::TestCase
     assert_equal [60, 80, 0, 0, 0, 0], chart.data[0]
     assert_equal [0, 0, 0, 70, 50, 0], chart.data[1]
     assert_equal ["2012-38", "2012-39", "2012-40", "2012-41", "2012-42", "2012-43"], chart.ticks
-    assert_equal [{:color => "#3182bd", :label => "Req. #2: Task 2"}, {:color => "#6baed6", :label => "Req. #3: Task 2"}], chart.series
+    assert_equal [{:color => "#3182bd"}, {:color => "#6baed6"}], chart.series
   end
 
   test "generate user chart without data" do
