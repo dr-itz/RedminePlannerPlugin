@@ -48,6 +48,12 @@ class PlanTasksControllerTest < ActionController::TestCase
     assert_template 'new'
   end
 
+  test "should not create invalid" do
+    PlanTask.any_instance.stubs(:save).returns(false)
+    post_create
+    assert_template 'new'
+  end
+
   test "should deny create" do
     @request.session[:user_id] = 3
 
@@ -101,6 +107,12 @@ class PlanTasksControllerTest < ActionController::TestCase
 
   test "should update plan_task" do
     test_update_ok
+  end
+
+  test "should not update invalid" do
+    PlanTask.any_instance.stubs(:update_attributes).returns(false)
+    put_update
+    assert_template 'edit'
   end
 
   test "should deny update" do
