@@ -4,6 +4,8 @@ class PlanChartsControllerTest < ActionController::TestCase
   fixtures :projects, :users, :roles, :members, :member_roles,
     :plan_requests, :plan_details
 
+  include PlannerHelper
+
   setup do
     @request.session[:user_id] = 2
     Role.find(1).add_permission! :planner_view
@@ -60,6 +62,7 @@ class PlanChartsControllerTest < ActionController::TestCase
     assert_equal 10, chart.data[0].length
     assert_equal 10, chart.ticks.length
     assert_equal 2, chart.series.length
+    assert_equal 2, chart.series_details.length
 
     assert_equal Date.parse('2012-9-17'), assigns(:start_date)
     assert_equal 10, assigns(:num_weeks)
@@ -72,7 +75,13 @@ class PlanChartsControllerTest < ActionController::TestCase
     assert_equal 'text/javascript', response.content_type
 
     assert_equal 3, assigns(:user).id
-    assert assigns(:chart)
+    chart = assigns(:chart)
+    assert chart
+    assert_equal 2, chart.data.length
+    assert_equal 6, chart.data[0].length
+    assert_equal 6, chart.ticks.length
+    assert_equal 2, chart.series.length
+    assert_equal 2, chart.series_details.length
 
     assert_include '#user-chart-display', response.body
     assert_include '#week_start_date', response.body
@@ -119,6 +128,11 @@ class PlanChartsControllerTest < ActionController::TestCase
     assert_equal 10, chart.data[0].length
     assert_equal 10, chart.ticks.length
     assert_equal 2, chart.series.length
+    assert_equal 2, chart.series_details.length
+    assert chart.series_details[0].is_a?(User)
+    assert_equal 3, chart.series_details[0].id
+    assert chart.series_details[1].is_a?(User)
+    assert_equal 2, chart.series_details[1].id
 
     assert_equal Date.parse('2012-9-17'), assigns(:start_date)
     assert_equal 10, assigns(:num_weeks)
@@ -131,7 +145,21 @@ class PlanChartsControllerTest < ActionController::TestCase
     assert_equal 'text/javascript', response.content_type
 
     assert_equal 1, assigns(:group).id
-    assert assigns(:chart)
+    chart = assigns(:chart)
+    assert chart
+    assert_equal 2, chart.data.length
+    assert_equal 6, chart.data[0].length
+    assert_equal 6, chart.ticks.length
+    assert_equal 2, chart.series.length
+    assert_equal 2, chart.series_details.length
+    assert chart.series_details[0].is_a?(User)
+    assert_equal 3, chart.series_details[0].id
+    assert chart.series_details[1].is_a?(User)
+    assert_equal 2, chart.series_details[1].id
+
+    project = assigns(:project)
+    assert project
+    assert project.is_a?(Project)
 
     assert_include '#group-chart-display', response.body
     assert_include '#week_start_date', response.body

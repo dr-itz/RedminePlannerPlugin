@@ -6,7 +6,8 @@
         <div class="chart-legend-color" style="background-color: <%= chart.get_color i %>;"></div>
       </td>
       <td class="jqplot-table-legend-label">
-        <%= link_to_user_plan_view(@project, user) %>
+        <%= link_to_user_plan_view(@project, user, {
+              :week_start_date => chart.start_date.to_s, :num_weeks => chart.weeks}) %>
       </td>
     </tr>
   <% end %>
