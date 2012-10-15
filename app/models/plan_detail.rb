@@ -24,7 +24,7 @@ class PlanDetail < ActiveRecord::Base
 
   validates_uniqueness_of :week, :scope => [:request_id]
 
-  attr_protected :request_id, :week, :week_start_date
+  attr_protected :request_id, :year, :week, :week_start_date
 
   default_scope order(:week)
 
@@ -49,7 +49,7 @@ class PlanDetail < ActiveRecord::Base
     if start_date
       date = Date.parse(start_date)
     else
-      date = Date.commercial(detail_params[:year], detail_params[:week], 1)
+      date = Date.commercial(detail_params[:year].to_i, detail_params[:week].to_i, 1)
     end
 
     num.times do

@@ -113,6 +113,30 @@ class PlanDetailsTest < ActiveSupport::TestCase
     assert !list[0].ok_tue
   end
 
+  test "bulk_update year week" do
+    list = PlanDetail.bulk_update(
+      PlanRequest.find(2), { :year => "2012", :week => "39", :percentage => 70, :ok_mon => false, :ok_tue => false }, 3)
+
+    assert_equal 3, list.length
+    assert list[0].id != 0
+    assert_equal 201239, list[0].week
+    assert_equal 70, list[0].percentage
+    assert !list[0].ok_mon
+    assert !list[0].ok_tue
+
+    assert list[1].id != 0
+    assert_equal 201240, list[1].week
+    assert_equal 70, list[1].percentage
+    assert !list[1].ok_mon
+    assert !list[1].ok_tue
+
+    assert list[2].id != 0
+    assert_equal 201241, list[2].week
+    assert_equal 70, list[2].percentage
+    assert !list[2].ok_mon
+    assert !list[2].ok_tue
+  end
+
   test "scope user_details range 1" do
     list = PlanDetail.user_details(3, 201239, 201242)
 
