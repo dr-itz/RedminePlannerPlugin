@@ -50,7 +50,10 @@ class PlanRequestsController < ApplicationController
         format.html { redirect_to plan_request_url(@plan_request), :notice => l(:notice_successful_create) }
         format.json { render :json => @plan_request, :status => :created, :location => @plan_request }
       else
-        format.html { render :action => "new" }
+        format.html {
+          @tasks = PlanTask.all_project_tasks(@project).assignable
+          render :action => "new"
+        }
         format.json { render :json => @plan_request.errors, :status => :unprocessable_entity }
       end
     end
@@ -62,7 +65,10 @@ class PlanRequestsController < ApplicationController
         format.html { redirect_to plan_request_url(@plan_request), :notice => l(:notice_successful_update)}
         format.json { head :no_content }
       else
-        format.html { render :action => "edit" }
+        format.html {
+          @tasks = PlanTask.all_project_tasks(@project).assignable
+          render :action => "edit"
+        }
         format.json { render :json => @plan_request.errors, :status => :unprocessable_entity }
       end
     end

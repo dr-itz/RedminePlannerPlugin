@@ -43,6 +43,12 @@ class PlanRequestsControllerTest < ActionController::TestCase
     test_create_ok
   end
 
+  test "should not create invalid" do
+    PlanRequest.any_instance.stubs(:save).returns(false)
+    post_create
+    assert_template 'new'
+  end
+
   test "should get new with planner_request role" do
     set_planner_requests
 
@@ -105,6 +111,12 @@ class PlanRequestsControllerTest < ActionController::TestCase
 
   test "should update plan_request" do
     test_update_ok
+  end
+
+  test "should not update invalid" do
+    PlanRequest.any_instance.stubs(:update_attributes).returns(false)
+    put_update
+    assert_template 'edit'
   end
 
   test "should deny update" do
