@@ -46,6 +46,17 @@ class PlanGroupsControllerTest < ActionController::TestCase
     assert_equal @plan_group.parent_group, tmp.parent_group
   end
 
+  test "should not create invalid" do
+    PlanGroup.any_instance.stubs(:save).returns(false)
+    post :create, :project_id => 1, :plan_group => {
+      :group_type => PlanGroup::TYPE_TEAM,
+      :leader_id => @plan_group.leader_id,
+      :name => "A new group",
+      :parent_group => @plan_group.parent_group
+    }
+    assert_template 'new'
+  end
+
   test "should show plan_group" do
     get :show, :id => @plan_group.id
 
@@ -76,6 +87,17 @@ class PlanGroupsControllerTest < ActionController::TestCase
     assert_equal PlanGroup::TYPE_GROUP, tmp.group_type
     assert_equal 3, tmp.leader_id
     assert_equal @plan_group.parent_group, tmp.parent_group
+  end
+
+  test "should not update invalid" do
+    PlanGroup.any_instance.stubs(:update_attributes).returns(false)
+    put :update, :id => @plan_group.id, :plan_group => {
+      :group_type => PlanGroup::TYPE_GROUP,
+      :leader_id => 3,
+      :name => 'New name',
+      :parent_group => @plan_group.parent_group
+    }
+    assert_template 'edit'
   end
 
   test "should destroy plan_group" do
