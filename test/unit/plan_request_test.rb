@@ -47,6 +47,7 @@ class PlanRequestTest < ActiveSupport::TestCase
     test_status PlanRequest::STATUS_READY,    l(:label_planner_req_status_ready)
     test_status PlanRequest::STATUS_APPROVED, l(:label_planner_req_status_approved)
     test_status PlanRequest::STATUS_DENIED,   l(:label_planner_req_status_denied)
+    test_status 37, ""
   end
 
   test "priority string" do
@@ -55,6 +56,7 @@ class PlanRequestTest < ActiveSupport::TestCase
     test_priority PlanRequest::PRIO_NORMAL,  l(:label_planner_req_prio_normal)
     test_priority PlanRequest::PRIO_HIGH,    l(:label_planner_req_prio_high)
     test_priority PlanRequest::PRIO_HIGHEST, l(:label_planner_req_prio_highest)
+    test_priority 37, ""
   end
 
   test "type select" do
