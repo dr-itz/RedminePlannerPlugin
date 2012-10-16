@@ -71,6 +71,7 @@ function plannerChart(data)
       shadow: true,
       gridLineWidth: 1
     },
+    gridPadding: { left: 65 },
     legend: { show: false },
     canvasOverlay: {
       show: true,
@@ -88,4 +89,34 @@ function plannerChart(data)
     }
   });
   plannerChartLegendHighlight(data.chartid);
+
+  jQuery.jqplot(data.chartid + '-summary', data.threshold_data, {
+    stackSeries: true,
+    showMarker: false,
+    seriesDefaults:{
+      renderer:jQuery.jqplot.BarRenderer,
+      pointLabels: {show: false}
+    },
+    series: data.threshold_series,
+    axes: {
+      xaxis: {
+        showTicks: false,
+        renderer: jQuery.jqplot.CategoryAxisRenderer,
+        ticks: data.xTicks
+      },
+      yaxis: {
+        showTicks: false,
+        min: 0,
+        max: 1
+      }
+    },
+    grid: {
+      background: 'white',
+      drawBorder: false,
+      shadow: true,
+      gridLineWidth: 1
+    },
+    gridPadding: { left: 65 },
+    legend: { show: false }
+  });
 }
