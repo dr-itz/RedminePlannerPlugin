@@ -6,7 +6,8 @@ class PlanChart
   include Redmine::I18n
 
   attr_reader :weeks, :ticks, :data, :series, :series_details, :start_date, :end_date,
-    :max, :limit, :width, :height, :tick_interval
+    :max, :limit, :width, :height, :tick_interval, :threshold_data, :threshold_series
+
 
   # d3_category20
   #COLORS = [
@@ -36,7 +37,7 @@ class PlanChart
     series_hash = {}
     details = PlanDetail.user_details(user, plan_week(@start_date), plan_week(@end_date))
     details.each do |detail|
-      series_hash[detail.request_id] ||= Array.new(weeks, 0)
+      series_hash[detail.request_id] ||= week_array
 
       series_hash[detail.request_id][@week_idx[detail.week]] = detail.percentage
     end
@@ -47,13 +48,12 @@ class PlanChart
     @series_details = Array.new(requests.length)
     requests.each_with_index do |req, i|
       data[i] = series_hash[req]
-      request = PlanRequest.find(req, :include => :task)
-      @series_details[i] = request
+      @series_details[i] = PlanRequest.find(req, :include => :task)
       @series[i] = {}
       @series[i][:color] = get_color i
     end
 
-    check_empty
+    finalize_chart
   end
 
   def generate_group_chart(project, group, start_date, weeks)
@@ -66,7 +66,7 @@ class PlanChart
     series_hash = {}
     details = PlanDetail.group_overview(group, plan_week(@start_date), plan_week(@end_date))
     details.each do |detail|
-      series_hash[detail.resource_id.to_s] ||= Array.new(weeks, 0)
+      series_hash[detail.resource_id.to_s] ||= week_array
 
       series_hash[detail.resource_id.to_s][@week_idx[detail.week]] = detail.percentage
     end
@@ -76,18 +76,13 @@ class PlanChart
     @series = Array.new(series_hash.length)
     @series_details = Array.new(series_hash.length)
     resources.each_with_index do |res, i|
-      series = series_hash[res.id.to_s]
-      if series != nil
-        data[i] = series
-      else
-        data[i] = Array.new(weeks, 0)
-      end
+      data[i] = series_hash[res.id.to_s] || week_array
       @series_details[i] = res
       @series[i] = {}
       @series[i][:color] = get_color i
     end
 
-    check_empty
+    finalize_chart
   end
 
   def get_color(i)
@@ -104,6 +99,10 @@ private
     date.cwyear * 100 + date.cweek
   end
 
+  def week_array
+    Array.new(@weeks, 0)
+  end
+
   def setup_chart(start_date, weeks)
     @weeks = weeks
     @start_date = normalize_date start_date
@@ -118,12 +117,32 @@ private
       tmp_date += 7
     end
 
-    @width = @weeks * 53  + 66
+    @width = @weeks * 53 + 66
   end
 
-  def check_empty
-    unless @data.any?
-      @data.push Array.new(weeks, 0)
+  def finalize_chart
+    @data.push Array.new(@weeks, 0) unless @data.any?
+
+    # 0: overload, 1: ok, 2: not enough
+    @threshold_series = [ {:color => "red"}, {:color => "green"}, {:color => "yellow"} ]
+    @threshold_data = [ week_array, week_array, week_array ]
+    sets = @data.length
+    ths_over = (1.1 * @limit).to_i
+    ths_ok = (0.8 * @limit).to_i
+
+    @weeks.times do |i|
+      sum = 0
+      sets.times do |j|
+        sum += @data[j][i]
+      end
+
+      if sum > ths_over
+        @threshold_data[0][i] = 1
+      elsif sum > ths_ok
+        @threshold_data[1][i] = 1
+      else
+        @threshold_data[2][i] = 1
+      end
     end
   end
 end
