@@ -15,6 +15,7 @@ class PlanChartsController < ApplicationController
     @chart = PlanChart.new
     @chart.generate_user_chart(@project, @user, @start_date, @num_weeks)
     @start_date = @chart.start_date
+    @num_weeks = @chart.weeks
   end
 
   def show_group
@@ -24,7 +25,9 @@ class PlanChartsController < ApplicationController
     @chart = PlanChart.new
     @chart.generate_group_chart(@project, @group, @start_date, @num_weeks)
     @start_date = @chart.start_date
+    @num_weeks = @chart.weeks
   end
+
 private
 
   def set_range
@@ -32,10 +35,9 @@ private
     if start_date
       @start_date = Date.parse(start_date)
     else
-      @start_date = Date.today - 7
+      @start_date = nil
     end
     num_weeks = params[:num_weeks]
-    @num_weeks = (num_weeks || 8).to_i
-    @num_weeks = 52 if (@num_weeks > 52)
+    @num_weeks = num_weeks ? num_weeks.to_i : nil
   end
 end

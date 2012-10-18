@@ -6,7 +6,8 @@ class PlanChart
   include Redmine::I18n
 
   attr_reader :weeks, :ticks, :data, :series, :series_details, :start_date, :end_date,
-    :max, :limit, :width, :height, :tick_interval, :threshold_data, :threshold_series
+    :max, :limit, :width, :height, :tick_interval, :threshold_data, :threshold_series,
+    :ths_ok, :ths_over
 
 
   # d3_category20
@@ -104,6 +105,11 @@ private
   end
 
   def setup_chart(start_date, weeks)
+    @settings = Setting["plugin_planner"]
+    weeks ||= @settings['graph_weeks'].to_i
+    weeks = 52 if (weeks > 52)
+    start_date ||= Date.today - (7 * @settings['graph_weeks_past'].to_i)
+
     @weeks = weeks
     @start_date = normalize_date start_date
     @end_date = @start_date + 7 * (weeks - 1)
@@ -127,8 +133,11 @@ private
     @threshold_series = [ {:color => "red"}, {:color => "green"}, {:color => "yellow"} ]
     @threshold_data = [ week_array, week_array, week_array ]
     sets = @data.length
-    ths_over = (1.1 * @limit).to_i
-    ths_ok = (0.8 * @limit).to_i
+
+    @ths_over = @settings['graph_ths_overload'].to_i
+    @ths_ok = @settings['graph_ths_ok'].to_i
+    @ths_over = (@ths_over * @limit / 100.0).to_i
+    @ths_ok = (@ths_ok * @limit / 100.0).to_i
 
     @weeks.times do |i|
       sum = 0
@@ -136,9 +145,9 @@ private
         sum += @data[j][i]
       end
 
-      if sum > ths_over
+      if sum > @ths_over
         @threshold_data[0][i] = 1
-      elsif sum > ths_ok
+      elsif sum >= @ths_ok
         @threshold_data[1][i] = 1
       else
         @threshold_data[2][i] = 1

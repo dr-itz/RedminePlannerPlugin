@@ -10,6 +10,8 @@ class PlanChartsControllerTest < ActionController::TestCase
     @request.session[:user_id] = 2
     Role.find(1).add_permission! :planner_view
     Project.find(1).enabled_module_names = [:planner]
+
+    @settings = Setting["plugin_planner"]
   end
 
   test "should deny show_user" do

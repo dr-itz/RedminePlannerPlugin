@@ -2,10 +2,10 @@ require 'redmine'
 require 'planner/hooks'
 
 Redmine::Plugin.register :planner do
-  name 'Planner plugin'
+  name 'Planner'
   author 'Daniel Ritz'
   description 'Redmine Resource Planner Plugin'
-  version '0.0.1'
+  version '0.1'
   url 'http://github.com/dr-itz/RedminePlannerPlugin'
   author_url 'mailto:daniel.ritz@gmx.ch'
   requires_redmine :version_or_higher => '2.0.3'
@@ -48,4 +48,12 @@ Redmine::Plugin.register :planner do
   menu :project_menu, :planner,
     { :controller => 'planner', :action => 'index' },
     :caption => :label_planner_menu_main, :param => :project_id
+
+  settings :partial => 'settings/planner_settings',
+    :default => {
+      'graph_weeks' => '8',
+      'graph_weeks_past' => '1',
+      'graph_ths_ok' => '80',
+      'graph_ths_overload' => '100'
+    }
 end
