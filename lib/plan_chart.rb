@@ -130,7 +130,7 @@ private
     @data.push Array.new(@weeks, 0) unless @data.any?
 
     # 0: overload, 1: ok, 2: not enough
-    @threshold_series = [ {:color => "red"}, {:color => "green"}, {:color => "yellow"} ]
+    @threshold_series = [ {:color => "#d62728"}, {:color => "#2ca02c"}, {:color => "gold"} ]
     @threshold_data = [ week_array, week_array, week_array ]
     sets = @data.length
 
