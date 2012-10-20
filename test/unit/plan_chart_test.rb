@@ -20,10 +20,15 @@ class PlanChartTest < ActiveSupport::TestCase
     assert_equal 6, chart.ticks.length
     assert_equal 2, chart.series.length
 
-    assert_equal [60, 80, 0, 0, 0, 0], chart.data[0]
+    assert_equal [60, 80, 0, 60, 0, 0], chart.data[0]
     assert_equal [0, 0, 0, 70, 50, 0], chart.data[1]
     assert_equal ["2012-38", "2012-39", "2012-40", "2012-41", "2012-42", "2012-43"], chart.ticks
     assert_equal [{:color => "#3182bd"}, {:color => "#6baed6"}], chart.series
+
+    assert_equal 80, chart.ths_ok
+    assert_equal 100, chart.ths_over
+    assert_equal 3, chart.threshold_data.length
+    assert_equal [[0, 0, 0, 1, 0, 0], [0, 1, 0, 0, 0, 0], [1, 0, 1, 0, 1, 1]], chart.threshold_data
   end
 
   test "generate user chart without data" do
@@ -40,6 +45,11 @@ class PlanChartTest < ActiveSupport::TestCase
 
     assert_equal [0, 0, 0, 0, 0, 0], chart.data[0]
     assert_equal ["2012-46", "2012-47", "2012-48", "2012-49", "2012-50", "2012-51"], chart.ticks
+
+    assert_equal 80, chart.ths_ok
+    assert_equal 100, chart.ths_over
+    assert_equal 3, chart.threshold_data.length
+    assert_equal [[0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [1, 1, 1, 1, 1, 1]], chart.threshold_data
   end
 
   test "generate group chart" do
@@ -54,7 +64,7 @@ class PlanChartTest < ActiveSupport::TestCase
     assert_equal 6, chart.ticks.length
     assert_equal 2, chart.series.length
 
-    assert_equal [60, 80, 0, 70, 50, 0], chart.data[0]
+    assert_equal [60, 80, 0, 130, 50, 0], chart.data[0]
     assert_equal [60, 0, 0, 0, 0, 0], chart.data[1]
     assert_equal ["2012-38", "2012-39", "2012-40", "2012-41", "2012-42", "2012-43"], chart.ticks
     assert_equal [{:color => "#3182bd"}, {:color => "#6baed6"}], chart.series
@@ -62,6 +72,11 @@ class PlanChartTest < ActiveSupport::TestCase
     assert_equal 2, chart.series_details.length
     assert_equal "Dave Lopper", chart.series_details[0].name
     assert_equal "John Smith", chart.series_details[1].name
+
+    assert_equal 160, chart.ths_ok
+    assert_equal 200, chart.ths_over
+    assert_equal 3, chart.threshold_data.length
+    assert_equal [[0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [1, 1, 1, 1, 1, 1]], chart.threshold_data
   end
 
   test "generate group chart without data" do
@@ -84,5 +99,26 @@ class PlanChartTest < ActiveSupport::TestCase
     assert_equal 2, chart.series_details.length
     assert_equal "Dave Lopper", chart.series_details[0].name
     assert_equal "John Smith", chart.series_details[1].name
+
+    assert_equal 160, chart.ths_ok
+    assert_equal 200, chart.ths_over
+    assert_equal 3, chart.threshold_data.length
+    assert_equal [[0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [1, 1, 1, 1, 1, 1]], chart.threshold_data
+  end
+
+  test "limit 52 weeks user chart" do
+    chart = PlanChart.new
+    chart.generate_user_chart(Project.find(1), User.find(3), Date.parse('2012-11-15'), 77)
+
+    assert_equal 52, chart.weeks
+    assert_equal 52, chart.data[0].length
+  end
+
+  test "limit 52 weeks group chart" do
+    chart = PlanChart.new
+    chart.generate_group_chart(Project.find(1), PlanGroup.find(1), Date.parse('2012-11-15'), 78)
+
+    assert_equal 52, chart.weeks
+    assert_equal 52, chart.data[0].length
   end
 end

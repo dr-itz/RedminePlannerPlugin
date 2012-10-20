@@ -40,7 +40,7 @@ class PlanDetailsTest < ActiveSupport::TestCase
 
   test "test default_scope" do
     all = PlanDetail.where(:request_id => 2)
-    assert_equal 2, all.length
+    assert_equal 3, all.length
     assert_equal all[0], PlanDetail.find(2)
     assert_equal all[1], PlanDetail.find(1)
   end
@@ -140,26 +140,26 @@ class PlanDetailsTest < ActiveSupport::TestCase
   test "scope user_details range 1" do
     list = PlanDetail.user_details(3, 201239, 201242)
 
-    assert_equal 3, list.length
+    assert_equal 4, list.length
     assert_equal 1, list[0].id
-    assert_equal 4, list[1].id
-    assert_equal 5, list[2].id
+    assert_equal 6, list[1].id
+    assert_equal 4, list[2].id
   end
 
   test "scope user_details range 2" do
     list = PlanDetail.user_details(3, 201240, 201242)
 
-    assert_equal 2, list.length
-    assert_equal 4, list[0].id
-    assert_equal 5, list[1].id
+    assert_equal 3, list.length
+    assert_equal 6, list[0].id
+    assert_equal 4, list[1].id
   end
 
   test "scope user_details range 3" do
     list = PlanDetail.user_details(3, 201239, 201241)
 
-    assert_equal 2, list.length
+    assert_equal 3, list.length
     assert_equal 1, list[0].id
-    assert_equal 4, list[1].id
+    assert_equal 6, list[1].id
   end
 
   test "scope group overview" do
@@ -185,7 +185,7 @@ class PlanDetailsTest < ActiveSupport::TestCase
     detail = list[3]
     assert_equal 201241, detail.week
     assert_equal 3, detail.resource_id
-    assert_equal 70, detail.percentage
+    assert_equal 130, detail.percentage
 
     detail = list[4]
     assert_equal 201242, detail.week
