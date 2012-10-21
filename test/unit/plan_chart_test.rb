@@ -22,7 +22,7 @@ class PlanChartTest < ActiveSupport::TestCase
 
     assert_equal [60, 80, 0, 60, 0, 0], chart.data[0]
     assert_equal [0, 0, 0, 70, 50, 0], chart.data[1]
-    assert_equal ["2012-38", "2012-39", "2012-40", "2012-41", "2012-42", "2012-43"], chart.ticks
+    assert_equal ["W38", "W39", "W40", "W41", "W42", "W43"], chart.week_ticks
     assert_equal [{:color => "#3182bd"}, {:color => "#6baed6"}], chart.series
 
     assert_equal 80, chart.ths_ok
@@ -44,7 +44,7 @@ class PlanChartTest < ActiveSupport::TestCase
     assert_equal 0, chart.series.length
 
     assert_equal [0, 0, 0, 0, 0, 0], chart.data[0]
-    assert_equal ["2012-46", "2012-47", "2012-48", "2012-49", "2012-50", "2012-51"], chart.ticks
+    assert_equal ["W46", "W47", "W48", "W49", "W50", "W51"], chart.week_ticks
 
     assert_equal 80, chart.ths_ok
     assert_equal 100, chart.ths_over
@@ -66,7 +66,7 @@ class PlanChartTest < ActiveSupport::TestCase
 
     assert_equal [60, 80, 0, 130, 50, 0], chart.data[0]
     assert_equal [60, 0, 0, 0, 0, 0], chart.data[1]
-    assert_equal ["2012-38", "2012-39", "2012-40", "2012-41", "2012-42", "2012-43"], chart.ticks
+    assert_equal ["W38", "W39", "W40", "W41", "W42", "W43"], chart.week_ticks
     assert_equal [{:color => "#3182bd"}, {:color => "#6baed6"}], chart.series
 
     assert_equal 2, chart.series_details.length
@@ -94,7 +94,7 @@ class PlanChartTest < ActiveSupport::TestCase
     assert_equal [0, 0, 0, 0, 0, 0], chart.data[0]
     assert_equal [0, 0, 0, 0, 0, 0], chart.data[1]
     assert_equal [{:color => "#3182bd"}, {:color => "#6baed6"}], chart.series
-    assert_equal ["2012-46", "2012-47", "2012-48", "2012-49", "2012-50", "2012-51"], chart.ticks
+    assert_equal ["W46", "W47", "W48", "W49", "W50", "W51"], chart.week_ticks
 
     assert_equal 2, chart.series_details.length
     assert_equal "Dave Lopper", chart.series_details[0].name

@@ -92,7 +92,7 @@ class PlanChartsControllerTest < ActionController::TestCase
     assert_include "data: [[60,80,0,60,0,0],[0,0,0,70,50,0]]", response.body
     assert_include 'Req. #2: Task 2', response.body
     assert_include 'Req. #3: Task 2', response.body
-    assert_include 'xTicks: [\"2012-38\",\"2012-39\",\"2012-40\",\"2012-41\",\"2012-42\",\"2012-43\"]', response.body
+    assert_include 'xWeekTicks: [\"W38\",\"W39\",\"W40\",\"W41\",\"W42\",\"W43\"]', response.body
     assert_include 'threshold_data: [[0,0,0,1,0,0],[0,1,0,0,0,0],[1,0,1,0,1,1]]', response.body
   end
 
@@ -182,7 +182,7 @@ class PlanChartsControllerTest < ActionController::TestCase
     assert_include "data: [[60,80,0,130,50,0],[60,0,0,0,0,0]]", response.body
     assert_include 'John Smith', response.body
     assert_include 'Dave Lopper', response.body
-    assert_include 'xTicks: [\"2012-38\",\"2012-39\",\"2012-40\",\"2012-41\",\"2012-42\",\"2012-43\"]', response.body
+    assert_include 'xWeekTicks: [\"W38\",\"W39\",\"W40\",\"W41\",\"W42\",\"W43\"]', response.body
     assert_include 'threshold_data: [[0,0,0,0,0,0],[0,0,0,0,0,0],[1,1,1,1,1,1]]', response.body
   end
 

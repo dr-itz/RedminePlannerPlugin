@@ -51,7 +51,13 @@ function plannerChart(data)
       xaxis: {
         renderer: jQuery.jqplot.CategoryAxisRenderer,
         ticks: data.xTicks,
-        label: data.xLabel
+        label: data.xLabel,
+        rendererOptions: {
+          tickRenderer: jQuery.jqplot.CanvasAxisTickRenderer
+        },
+        tickOptions:{
+          angle: -40
+        }
       },
       yaxis: {
         labelRenderer: jQuery.jqplot.CanvasAxisLabelRenderer,
@@ -100,9 +106,8 @@ function plannerChart(data)
     series: data.threshold_series,
     axes: {
       xaxis: {
-        showTicks: false,
         renderer: jQuery.jqplot.CategoryAxisRenderer,
-        ticks: data.xTicks
+        ticks: data.xWeekTicks
       },
       yaxis: {
         showTicks: false,

@@ -5,7 +5,7 @@ class PlanChart
 
   include Redmine::I18n
 
-  attr_reader :weeks, :ticks, :data, :series, :series_details, :start_date, :end_date,
+  attr_reader :weeks, :ticks, :week_ticks, :data, :series, :series_details, :start_date, :end_date,
     :max, :limit, :width, :height, :tick_interval, :threshold_data, :threshold_series,
     :ths_ok, :ths_over
 
@@ -115,10 +115,12 @@ private
     @end_date = @start_date + 7 * (weeks - 1)
 
     @ticks = []
+    @week_ticks = []
     @week_idx = {}
     tmp_date = @start_date.dup
     weeks.times do |i|
-      @ticks.push tmp_date.cwyear.to_s + "-" + tmp_date.cweek.to_s
+      @ticks.push tmp_date.to_s
+      @week_ticks.push 'W' + ("%02d" % tmp_date.cweek)
       @week_idx[plan_week tmp_date] = i
       tmp_date += 7
     end
