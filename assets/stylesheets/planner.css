@@ -67,3 +67,6 @@ div.chart-legend {
 .chart-legend h4 {
   margin-top: 0;
 }
+.chart-summary .jqplot-point-label.jqplot-series-2 {
+    color: black !important;
+}
