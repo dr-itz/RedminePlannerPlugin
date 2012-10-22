@@ -39,7 +39,7 @@ function plannerChart(data)
     showMarker: false,
     seriesDefaults:{
       renderer:jQuery.jqplot.BarRenderer,
-      pointLabels: {show: true, hideZeros: true},
+      pointLabels: { show: true, hideZeros: true, formatString: '%d\%' },
       rendererOptions: {
         animation: {
           speed: 1000
@@ -101,7 +101,7 @@ function plannerChart(data)
     showMarker: false,
     seriesDefaults:{
       renderer:jQuery.jqplot.BarRenderer,
-      pointLabels: {show: false}
+      pointLabels: { show: true, hideZeros: true, formatString: '%d\%' }
     },
     series: data.threshold_series,
     axes: {

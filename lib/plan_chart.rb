@@ -147,12 +147,17 @@ private
         sum += @data[j][i]
       end
 
+      idx = i + 1;
+      @threshold_data[0][i] = [idx, 0, 0]
+      @threshold_data[1][i] = [idx, 0, 0]
+      @threshold_data[2][i] = [idx, 0, 0]
+
       if sum > @ths_over
-        @threshold_data[0][i] = 1
+        @threshold_data[0][i] = [idx, 1, sum]
       elsif sum >= @ths_ok
-        @threshold_data[1][i] = 1
+        @threshold_data[1][i] = [idx, 1, sum]
       else
-        @threshold_data[2][i] = 1
+        @threshold_data[2][i] = [idx, 1, sum]
       end
     end
   end

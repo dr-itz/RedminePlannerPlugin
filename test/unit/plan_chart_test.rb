@@ -28,7 +28,11 @@ class PlanChartTest < ActiveSupport::TestCase
     assert_equal 80, chart.ths_ok
     assert_equal 100, chart.ths_over
     assert_equal 3, chart.threshold_data.length
-    assert_equal [[0, 0, 0, 1, 0, 0], [0, 1, 0, 0, 0, 0], [1, 0, 1, 0, 1, 1]], chart.threshold_data
+    assert_equal [
+      [[1, 0, 0], [2, 0, 0], [3, 0, 0], [4, 1, 130], [5, 0, 0], [6, 0, 0]],
+      [[1, 0, 0], [2, 1, 80], [3, 0, 0], [4, 0, 0], [5, 0, 0], [6, 0, 0]],
+      [[1, 1, 60], [2, 0, 0], [3, 1, 0], [4, 0, 0], [5, 1, 50], [6, 1, 0]]
+    ], chart.threshold_data
   end
 
   test "generate user chart without data" do
@@ -49,7 +53,11 @@ class PlanChartTest < ActiveSupport::TestCase
     assert_equal 80, chart.ths_ok
     assert_equal 100, chart.ths_over
     assert_equal 3, chart.threshold_data.length
-    assert_equal [[0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [1, 1, 1, 1, 1, 1]], chart.threshold_data
+    assert_equal [
+      [[1, 0, 0], [2, 0, 0], [3, 0, 0], [4, 0, 0], [5, 0, 0], [6, 0, 0]],
+      [[1, 0, 0], [2, 0, 0], [3, 0, 0], [4, 0, 0], [5, 0, 0], [6, 0, 0]],
+      [[1, 1, 0], [2, 1, 0], [3, 1, 0], [4, 1, 0], [5, 1, 0], [6, 1, 0]]
+    ], chart.threshold_data
   end
 
   test "generate group chart" do
@@ -76,7 +84,11 @@ class PlanChartTest < ActiveSupport::TestCase
     assert_equal 160, chart.ths_ok
     assert_equal 200, chart.ths_over
     assert_equal 3, chart.threshold_data.length
-    assert_equal [[0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [1, 1, 1, 1, 1, 1]], chart.threshold_data
+    assert_equal [
+      [[1, 0, 0], [2, 0, 0], [3, 0, 0], [4, 0, 0], [5, 0, 0], [6, 0, 0]],
+      [[1, 0, 0], [2, 0, 0], [3, 0, 0], [4, 0, 0], [5, 0, 0], [6, 0, 0]],
+      [[1, 1, 120], [2, 1, 80], [3, 1, 0], [4, 1, 130], [5, 1, 50], [6, 1, 0]]
+    ], chart.threshold_data
   end
 
   test "generate group chart without data" do
@@ -103,7 +115,11 @@ class PlanChartTest < ActiveSupport::TestCase
     assert_equal 160, chart.ths_ok
     assert_equal 200, chart.ths_over
     assert_equal 3, chart.threshold_data.length
-    assert_equal [[0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [1, 1, 1, 1, 1, 1]], chart.threshold_data
+    assert_equal [
+      [[1, 0, 0], [2, 0, 0], [3, 0, 0], [4, 0, 0], [5, 0, 0], [6, 0, 0]],
+      [[1, 0, 0], [2, 0, 0], [3, 0, 0], [4, 0, 0], [5, 0, 0], [6, 0, 0]],
+      [[1, 1, 0], [2, 1, 0], [3, 1, 0], [4, 1, 0], [5, 1, 0], [6, 1, 0]]
+    ], chart.threshold_data
   end
 
   test "limit 52 weeks user chart" do
