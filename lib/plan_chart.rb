@@ -119,7 +119,7 @@ private
     @week_idx = {}
     tmp_date = @start_date.dup
     weeks.times do |i|
-      @ticks.push tmp_date.to_s
+      @ticks.push format_date tmp_date
       @week_ticks.push 'W' + ("%02d" % tmp_date.cweek)
       @week_idx[plan_week tmp_date] = i
       tmp_date += 7
