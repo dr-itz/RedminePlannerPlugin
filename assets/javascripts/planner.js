@@ -12,6 +12,11 @@ function miniAccordion(topdiv)
 
     me.toggleClass('expanded collapsed').next('.accordion-content').slideToggle(300).toggleClass('expanded collapsed');
   });
+
+  acc.children('a').click(function() {
+    window.location = jQuery(this).attr('href');
+    return false;
+  });
 }
 
 function plannerChartLegendHighlight(chartid)
