@@ -2,19 +2,19 @@
 <legend>Charts</legend>
 <p>
   <label for="settings_graph_weeks_past"><%= l(:field_planner_plan_weeks_past) %></label>
-  <%= text_field_tag 'settings[graph_weeks_past]', @settings['graph_weeks_past'], :size => 3 %>
+  <%= text_field_tag 'settings[graph_weeks_past]', @settings['graph_weeks_past'], :size => 3, :class => 'right' %>
 </p>
 <p>
   <label for="settings_graph_weeks"><%= l(:field_planner_plan_weeks_show) %></label>
-  <%= text_field_tag 'settings[graph_weeks]', @settings['graph_weeks'], :size => 3 %>
+  <%= text_field_tag 'settings[graph_weeks]', @settings['graph_weeks'], :size => 3, :class => 'right' %>
 </p>
 <p>
   <label for="settings_graph_ths_ok"><%= l(:field_planner_chart_ths_ok) %></label>
-  <%= text_field_tag 'settings[graph_ths_ok]', @settings['graph_ths_ok'], :size => 3 %>%
+  <%= text_field_tag 'settings[graph_ths_ok]', @settings['graph_ths_ok'], :size => 3, :class => 'right' %>%
 </p>
 <p>
   <label for="settings_graph_ths_overload"><%= l(:field_planner_chart_ths_overload) %></label>
-  <%= text_field_tag 'settings[graph_ths_overload]', @settings['graph_ths_overload'], :size => 3 %>%
+  <%= text_field_tag 'settings[graph_ths_overload]', @settings['graph_ths_overload'], :size => 3, :class => 'right' %>%
 </p>
 
 </fieldset>

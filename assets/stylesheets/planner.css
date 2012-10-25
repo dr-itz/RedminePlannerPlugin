@@ -7,11 +7,11 @@ table.planner th {
   padding-left: 2px;
 }
 
-td.center, th.center {
+.center {
   text-align: center !important;
 }
 
-td.right, th.right {
+.right {
   text-align: right !important;
 }
 
