@@ -38,11 +38,13 @@ function plannerChartLegendHighlight(chartid)
 
 function plannerChart(data)
 {
+  var notIE = !jQuery.jqplot.use_excanvas;
   jQuery.jqplot(data.chartid, data.data, {
-    animate: !jQuery.jqplot.use_excanvas,
+    animate: notIE,
     stackSeries: true,
     showMarker: false,
     seriesDefaults:{
+      shadow: notIE,
       renderer:jQuery.jqplot.BarRenderer,
       pointLabels: { show: true, hideZeros: true, formatString: '%d\%' },
       rendererOptions: {
@@ -79,7 +81,7 @@ function plannerChart(data)
     grid: {
       background: 'white',
       drawBorder: false,
-      shadow: true,
+      shadow: notIE,
       gridLineWidth: 1
     },
     gridPadding: { left: 65 },
@@ -105,6 +107,7 @@ function plannerChart(data)
     stackSeries: true,
     showMarker: false,
     seriesDefaults:{
+      shadow: notIE,
       renderer:jQuery.jqplot.BarRenderer,
       pointLabels: { show: true, hideZeros: true, formatString: '%d\%' }
     },
@@ -123,7 +126,7 @@ function plannerChart(data)
     grid: {
       background: 'white',
       drawBorder: false,
-      shadow: true,
+      shadow: notIE,
       gridLineWidth: 1
     },
     gridPadding: { left: 65 },
