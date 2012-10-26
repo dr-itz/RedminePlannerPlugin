@@ -30,7 +30,7 @@ class PlanChart
 
   def generate_user_chart(project, user, start_date, weeks)
     setup_chart start_date, weeks
-    @limit = 100
+    @limit = (@settings['graph_target'] || 100).to_i
     @max = 120
     @height = 300
     @tick_interval = 20
@@ -60,7 +60,7 @@ class PlanChart
   def generate_group_chart(project, group, start_date, weeks)
     setup_chart start_date, weeks
     @tick_interval = 50
-    @limit = group.users.length * 100
+    @limit = (@settings['graph_target'] || 100).to_i * group.users.length
     @max = @limit + @tick_interval
     @height = (@max * 0.7).to_i + 73
 

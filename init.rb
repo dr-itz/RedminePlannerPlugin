@@ -53,6 +53,7 @@ Redmine::Plugin.register :planner do
     :default => {
       'graph_weeks' => '8',
       'graph_weeks_past' => '1',
+      'graph_target' => '100',
       'graph_ths_ok' => '80',
       'graph_ths_overload' => '100'
     }
