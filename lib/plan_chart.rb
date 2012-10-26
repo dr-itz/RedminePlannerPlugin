@@ -31,8 +31,6 @@ class PlanChart
   def generate_user_chart(project, user, start_date, weeks)
     setup_chart start_date, weeks
     @limit = (@settings['graph_target'] || 100).to_i
-    @max = 120
-    @height = 300
     @tick_interval = 20
 
     series_hash = {}
@@ -61,8 +59,6 @@ class PlanChart
     setup_chart start_date, weeks
     @tick_interval = 50
     @limit = (@settings['graph_target'] || 100).to_i * group.users.length
-    @max = @limit + @tick_interval
-    @height = (@max * 0.7).to_i + 73
 
     series_hash = {}
     details = PlanDetail.group_overview(group, plan_week(@start_date), plan_week(@end_date))
@@ -141,11 +137,14 @@ private
     @ths_over = (@ths_over * @limit / 100.0).to_i
     @ths_ok = (@ths_ok * @limit / 100.0).to_i
 
+    max = 0
     @weeks.times do |i|
       sum = 0
       sets.times do |j|
         sum += @data[j][i]
       end
+
+      max = sum if sum > max;
 
       idx = i + 1;
       @threshold_data[0][i] = [idx, 0, 0]
@@ -160,5 +159,9 @@ private
         @threshold_data[2][i] = [idx, 1, sum]
       end
     end
+
+    @max = max % @tick_interval == 0 ? max : max + @tick_interval - (max % @tick_interval)
+    @max = @limit + @tick_interval if @max < @limit + @tick_interval
+    @height = (@max * 35 / @tick_interval).to_i + 73
   end
 end
