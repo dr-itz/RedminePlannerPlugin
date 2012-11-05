@@ -88,8 +88,6 @@ class PlanRequestsController < ApplicationController
 
     @plan_request.send_request
 
-    PlannerMailer.request_ready(@plan_request).deliver
-
     respond_to do |format|
       format.html { redirect_to plan_request_url(@plan_request) }
       format.json { head :no_content }
@@ -103,12 +101,6 @@ class PlanRequestsController < ApplicationController
     attrs = params[:plan_request]
     status = attrs[:status]
     @plan_request.approve_deny_request(status, attrs[:approver_notes])
-
-    if status.to_i == PlanRequest::STATUS_APPROVED
-      PlannerMailer.request_approved(@plan_request).deliver
-    else
-      PlannerMailer.request_denied(@plan_request).deliver
-    end
 
     respond_to do |format|
       format.html { redirect_to plan_request_url(@plan_request) }

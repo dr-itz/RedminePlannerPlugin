@@ -107,7 +107,7 @@ class PlanRequest < ActiveRecord::Base
     self.status = STATUS_READY
     save
 
-    # FIXME: send mail
+    PlannerMailer.request_ready(self).deliver
   end
 
   def approve_deny_request(new_status, note)
@@ -119,7 +119,12 @@ class PlanRequest < ActiveRecord::Base
     self.approver_notes = note
     save
 
-    # FIXME: send mail
+    if new_status == STATUS_APPROVED
+      PlannerMailer.request_approved(self).deliver
+    else
+      PlannerMailer.request_denied(self).deliver
+    end
+
     true
   end
 
