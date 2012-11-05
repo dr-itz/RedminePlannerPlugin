@@ -78,3 +78,5 @@ en:
   field_planner_chart_target: Target workload
   field_planner_chart_ths_ok: Threshold OK
   field_planner_chart_ths_overload: Threshold overload
+
+  mail_subject_planner_ready: "[Planner] Request %{id} ready for approval"

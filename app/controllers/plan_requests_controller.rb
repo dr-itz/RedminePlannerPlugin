@@ -88,6 +88,8 @@ class PlanRequestsController < ApplicationController
 
     @plan_request.send_request
 
+    PlannerMailer.request_ready(@plan_request).deliver
+
     respond_to do |format|
       format.html { redirect_to plan_request_url(@plan_request) }
       format.json { head :no_content }
