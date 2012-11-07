@@ -1,35 +1,25 @@
 class PlannerMailer < Mailer
-  # sends mails when a resource +request+ is ready. to: approver, resource
-  def request_ready(request)
-    recipients = []
-    recipients << request.approver
-    recipients << request.resource
+  # sends a mail notification when the status of a +request+ changes
+  def plan_request_notification(request)
+    case request.status
+    when PlanRequest::STATUS_READY
+      subject = l(:mail_subject_planner_ready, :id => request.id)
+      recipients = [request.approver, request.resource]
+      @author = request.requester
+    when PlanRequest::STATUS_APPROVED
+      subject = l(:mail_subject_planner_approved, :id => request.id)
+      recipients = [request.requester, request.resource]
+      @author = request.approver
+    when PlanRequest::STATUS_DENIED
+      subject = l(:mail_subject_planner_denied, :id => request.id)
+      recipients = [request.requester, request.resource]
+      @author = request.approver
+    else
+      return false
+    end
+
     @request = request
-
-    subject = l(:mail_subject_planner_ready, :id => request.id)
-    mail :to => recipients.collect(&:mail), :subject => subject
+    recipients << @author unless @author.pref[:no_self_notified]
+    mail :to => recipients.collect(&:mail), :subject => "[Planner] " + subject
   end
-
-  # sends mails when a resource +request+ is approved. to: requester, resource
-  def request_approved(request)
-    recipients = []
-    recipients << request.requester
-    recipients << request.resource
-    @request = request
-
-    subject = l(:mail_subject_planner_approved, :id => request.id)
-    mail :to => recipients.collect(&:mail), :subject => subject
-  end
-
-  # sends mails when a resource +request+ is denied. to: requester, resource
-  def request_denied(request)
-    recipients = []
-    recipients << request.requester
-    recipients << request.resource
-    @request = request
-
-    subject = l(:mail_subject_planner_denied, :id => request.id)
-    mail :to => recipients.collect(&:mail), :subject => subject
-  end
-
 end

@@ -99,8 +99,7 @@ class PlanRequestsController < ApplicationController
     return render_404 unless params[:plan_request]
 
     attrs = params[:plan_request]
-    status = attrs[:status]
-    @plan_request.approve_deny_request(status, attrs[:approver_notes])
+    @plan_request.approve_deny_request(attrs[:status], attrs[:approver_notes])
 
     respond_to do |format|
       format.html { redirect_to plan_request_url(@plan_request) }
