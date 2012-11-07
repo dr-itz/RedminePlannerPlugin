@@ -51,3 +51,12 @@ four:
   task_id: 3
   description: Descr. Four
   status: 0
+
+five:
+  id: 5
+  requester_id: 3
+  resource_id: 5
+  approver_id: 2
+  task_id: 2
+  description: Descr. Five
+  status: 1

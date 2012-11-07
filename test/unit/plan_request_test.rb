@@ -67,10 +67,11 @@ class PlanRequestTest < ActiveSupport::TestCase
 
   test "all project requests" do
     requests = PlanRequest.all_project_requests(1)
-    assert_equal 3, requests.length
+    assert_equal 4, requests.length
     assert_equal requests[0], PlanRequest.find(1)
     assert_equal requests[1], PlanRequest.find(2)
     assert_equal requests[2], PlanRequest.find(3)
+    assert_equal requests[3], PlanRequest.find(5)
   end
 
   test "all open requests requester" do
@@ -81,7 +82,7 @@ class PlanRequestTest < ActiveSupport::TestCase
 
   test "all open requests approver" do
     requests = PlanRequest.all_open_requests_approver(1)
-    assert_equal 1, requests.length
+    assert_equal 2, requests.length
     assert_equal requests[0], PlanRequest.find(3)
   end
 
@@ -98,6 +99,8 @@ class PlanRequestTest < ActiveSupport::TestCase
     assert req.requested_on
     assert_equal PlanRequest::STATUS_READY, req.status
     assert_equal User.find(1), req.approver
+
+    assert !ActionMailer::Base.deliveries.empty?
   end
 
   test "approve request" do
@@ -107,6 +110,18 @@ class PlanRequestTest < ActiveSupport::TestCase
     assert_equal PlanRequest::STATUS_APPROVED, req.status
     assert req.approved_on
     assert_equal 'note', req.approver_notes
+
+    assert !ActionMailer::Base.deliveries.empty?
+  end
+
+  test "deny request" do
+    req = PlanRequest.find(3)
+    req.approve_deny_request(PlanRequest::STATUS_DENIED, 'note')
+
+    assert_equal PlanRequest::STATUS_DENIED, req.status
+    assert req.approved_on
+    assert_equal 'note', req.approver_notes
+    assert !ActionMailer::Base.deliveries.empty?
   end
 
   test "test can_edit" do
