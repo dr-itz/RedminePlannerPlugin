@@ -105,23 +105,25 @@ class PlanRequestTest < ActiveSupport::TestCase
 
   test "approve request" do
     req = PlanRequest.find(3)
-    req.approve_deny_request(PlanRequest::STATUS_APPROVED, 'note')
+    assert_difference('ActionMailer::Base.deliveries.size', +1) do
+      req.approve_deny_request(PlanRequest::STATUS_APPROVED, 'note')
+    end
 
     assert_equal PlanRequest::STATUS_APPROVED, req.status
     assert req.approved_on
     assert_equal 'note', req.approver_notes
-
-    assert !ActionMailer::Base.deliveries.empty?
   end
 
   test "deny request" do
     req = PlanRequest.find(3)
-    req.approve_deny_request(PlanRequest::STATUS_DENIED, 'note')
+
+    assert_difference('ActionMailer::Base.deliveries.size', +1) do
+      req.approve_deny_request(PlanRequest::STATUS_DENIED, 'note')
+    end
 
     assert_equal PlanRequest::STATUS_DENIED, req.status
     assert req.approved_on
     assert_equal 'note', req.approver_notes
-    assert !ActionMailer::Base.deliveries.empty?
   end
 
   test "test can_edit" do
@@ -160,11 +162,21 @@ class PlanRequestTest < ActiveSupport::TestCase
   test "delete dependent" do
     tmp = PlanRequest.find(2)
     assert tmp.details.any?
-    tmp.destroy
+    assert_no_difference('ActionMailer::Base.deliveries.size') do
+      tmp.destroy
+    end
 
     details = PlanDetail.where(:request_id => 2)
     assert details.empty?
   end
+
+  test "delete notification" do
+    tmp = PlanRequest.find(5)
+    assert_difference('ActionMailer::Base.deliveries.size', +1) do
+      tmp.destroy
+    end
+  end
+
 private
   def test_status(status, string)
     tmp = PlanRequest.new

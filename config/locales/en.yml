@@ -82,3 +82,4 @@ en:
   mail_subject_planner_ready: "Request #%{id} READY for approval"
   mail_subject_planner_approved: "Request #%{id} has been APPROVED"
   mail_subject_planner_denied: "Request #%{id} has been DENIED"
+  mail_subject_planner_deleted: "Request #%{id} has been DELETED"

@@ -24,4 +24,15 @@ class PlannerMailer < Mailer
     cc = @author.pref[:no_self_notified] ? "" : @author.mail
     mail :to => recipients.collect(&:mail), :cc => cc, :subject => "[Planner] " + @status
   end
+
+  def plan_request_deleted(request)
+    if request.status == PlanRequest::STATUS_NEW
+      return mail :to => "", :subject => "dummy"
+    end
+
+    @request = request
+    @status = l(:mail_subject_planner_deleted, :id => request.id)
+    recipients = [request.requester, request.resource, request.approver]
+    mail :to => recipients.collect(&:mail), :subject => "[Planner] " + @status
+  end
 end

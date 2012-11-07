@@ -31,6 +31,8 @@ class PlanRequest < ActiveRecord::Base
 
   attr_protected :requested_on, :approver_id, :approved_on, :status, :approver_notes
 
+  before_destroy :destroy_notification
+
   STATUS_NEW = 0
   STATUS_READY = 1
   STATUS_APPROVED = 2
@@ -134,5 +136,11 @@ class PlanRequest < ActiveRecord::Base
 
   def can_approve?
     User.current == approver && status == STATUS_READY
+  end
+
+private
+
+  def destroy_notification
+    PlannerMailer.plan_request_deleted(self).deliver
   end
 end
