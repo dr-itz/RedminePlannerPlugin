@@ -15,6 +15,9 @@
   <div class="box">
     <h3><%= l(:label_planner_manage) %></h3>
     <ul>
+      <% if User.current.member_of? @project %>
+        <li><%= link_to l(:label_planner_own_plan), planner_show_user_path(@project, User.current) %></li>
+      <% end %>
       <li><%= link_to l(:label_planner_requests), project_plan_requests_path() %></li>
       <li><%= link_to l(:label_planner_groups), project_plan_groups_path(@project) %></li>
       <li><%= link_to l(:label_planner_tasks), project_plan_tasks_path(@project) %></li>

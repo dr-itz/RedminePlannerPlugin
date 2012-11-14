@@ -10,6 +10,7 @@ en:
   label_planner_planning: Planning
   label_planner_manage: Manage
   label_planner_overview: Overview
+  label_planner_own_plan: My planning
 
   label_planner_group: Team/Group
   label_planner_groups: Teams and Groups
