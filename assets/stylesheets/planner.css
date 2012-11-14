@@ -35,13 +35,14 @@ ul.planner {
   padding-left: 30px;
 }
 
-.accordion-header.expanded {
+.accordion-header {
+  margin-top: 9px;
   padding-left: 16px;
+}
+.accordion-header.expanded {
   background: url(../../../images/arrow_expanded.png) no-repeat -3px 40%;
 }
-
 .accordion-header.collapsed {
-  padding-left: 16px;
   background: url(../../../images/arrow_collapsed.png) no-repeat -3px 40%;
 }
 .accordion-content {
