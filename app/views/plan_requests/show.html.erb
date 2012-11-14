@@ -1,6 +1,10 @@
 <div class="contextual">
-  <%= link_to(l(:button_edit), edit_plan_request_path(@plan_request),
-    :class => 'icon icon-edit') if @plan_request.can_edit? %>
+  <% if @plan_request.can_edit? %>
+    <%= link_to(l(:button_delete), @plan_request, :data => { :confirm => l(:text_are_you_sure)},
+      :method => :delete, :class => 'icon icon-del')%>
+    <%= link_to(l(:button_edit), edit_plan_request_path(@plan_request),
+      :class => 'icon icon-edit') %>
+  <% end %>
 </div>
 
 <h2><%= l(:label_planner_request) + " \##{@plan_request.id}" %></h2>

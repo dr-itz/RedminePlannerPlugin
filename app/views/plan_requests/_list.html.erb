@@ -17,10 +17,12 @@
       <td><%= plan_request.approver ? plan_request.approver.name : "-" %></td>
       <td><%= plan_request.status_string %></td>
       <td class="buttons">
-        <%= link_to(l(:button_edit), edit_plan_request_path(plan_request),
-         :class => 'icon icon-edit') if plan_request.can_edit? %>
-        <%= link_to(l(:button_delete), plan_request, :data => { :confirm => l(:text_are_you_sure)},
-          :method => :delete, :class => 'icon icon-del') if plan_request.can_edit? %>
+        <% if plan_request.can_edit? %>
+          <%= link_to(l(:label_planner_planning), plan_request,
+           :class => 'icon icon-time') %>
+          <%= link_to(l(:button_edit), edit_plan_request_path(plan_request),
+           :class => 'icon icon-edit') %>
+        <% end %>
       </td>
     </tr>
   <% end %>
