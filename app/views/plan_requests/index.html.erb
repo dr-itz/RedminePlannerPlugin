@@ -20,11 +20,15 @@
     <th></th>
   </tr></thead>
   <tbody>
-    <%= render :partial => "list", :locals => {
-      :row_label => :label_planner_req_my, :requests => @requests_requester } %>
+    <% if @requests_requester.any? %>
+      <%= render :partial => "list", :locals => {
+        :row_label => :label_planner_req_my, :requests => @requests_requester } %>
+    <% end %>
 
-    <%= render :partial => "list", :locals => {
-      :row_label => :label_planner_req_approvals, :requests => @requests_approver } %>
+    <% if @requests_approver.any? %>
+      <%= render :partial => "list", :locals => {
+        :row_label => :label_planner_req_approvals, :requests => @requests_approver } %>
+    <% end %>
 
     <%= render :partial => "list", :locals => {
       :row_label => :label_planner_req_requestee, :requests => @requests_requestee } %>
