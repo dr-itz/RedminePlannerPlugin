@@ -1,0 +1,14 @@
+<%= l(:label_planner_request) + " \##{@request.id}" %>
+ - <%= l(:field_planner_req_prio) %>: <%= @request.priority_string %>
+ - <%= l(:field_planner_req_requester) %>: <%= @request.requester.name %>
+ - <%= l(:field_planner_req_resource) %>: <%= @request.resource.name %>
+ - <%= l(:field_planner_task) %>: <%= @request.task.name %>
+ - <%= l(:field_description) %>: <%= @request.description %>
+ - <%= l(:field_planner_req_date) %>: <%= format_time @request.requested_on %>
+ - <%= l(:field_planner_req_approver) %>: <%= @request.approver ? @request.approver.name : "-" %>
+ - <%= l(:field_planner_req_status) %>: <%= @request.status_string %>
+
+<%= l(:label_planner_req_assoc_plan)%>
+<% @request.details.each do |detail| %>
+ - <%= detail.cwyear %>-<%= detail.cweek %> (<%= format_date detail.week_start_date %>): <%= detail.percentage %>%
+<% end %>

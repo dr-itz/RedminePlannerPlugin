@@ -2,6 +2,7 @@ class PlannerMailer < Mailer
   # sends a mail notification when the status of a +request+ changes
   def plan_request_notification(request)
     @request = request
+    @request_url = url_for(:controller => 'plan_requests', :action => 'show', :id => request.id)
 
     case request.status
     when PlanRequest::STATUS_READY
@@ -26,10 +27,6 @@ class PlannerMailer < Mailer
   end
 
   def plan_request_deleted(request)
-    if request.status == PlanRequest::STATUS_NEW
-      return mail :to => "", :subject => "dummy"
-    end
-
     @request = request
     @status = l(:mail_subject_planner_deleted, :id => request.id)
     recipients = [request.requester, request.resource, request.approver]

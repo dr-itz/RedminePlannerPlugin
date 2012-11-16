@@ -141,6 +141,7 @@ class PlanRequest < ActiveRecord::Base
 private
 
   def destroy_notification
+    return if (status == STATUS_NEW)
     PlannerMailer.plan_request_deleted(self).deliver
   end
 end
