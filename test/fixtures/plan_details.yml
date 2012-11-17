@@ -92,3 +92,16 @@ six:
   ok_fri: true
   ok_sat: false
   ok_sun: false
+
+seven:
+  id: 7
+  request_id: 6
+  week: 201241
+  percentage: 60
+  ok_mon: true
+  ok_tue: true
+  ok_wed: true
+  ok_thu: true
+  ok_fri: true
+  ok_sat: false
+  ok_sun: false

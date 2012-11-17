@@ -67,17 +67,19 @@ class PlanRequestTest < ActiveSupport::TestCase
 
   test "all project requests" do
     requests = PlanRequest.all_project_requests(1)
-    assert_equal 4, requests.length
+    assert_equal 5, requests.length
     assert_equal requests[0], PlanRequest.find(1)
     assert_equal requests[1], PlanRequest.find(2)
     assert_equal requests[2], PlanRequest.find(3)
     assert_equal requests[3], PlanRequest.find(5)
+    assert_equal requests[4], PlanRequest.find(6)
   end
 
   test "all open requests requester" do
     requests = PlanRequest.all_open_requests_requester(1)
-    assert_equal 1, requests.length
+    assert_equal 2, requests.length
     assert_equal requests[0], PlanRequest.find(2)
+    assert_equal requests[1], PlanRequest.find(6)
   end
 
   test "all open requests approver" do

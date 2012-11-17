@@ -30,7 +30,9 @@ class PlanDetail < ActiveRecord::Base
 
   scope :user_details, lambda { |user, startweek, endweek|
     joins(:request).where(
-      "plan_requests.resource_id = :user_id AND week >= :startweek AND week <= :endweek",
+      "plan_requests.resource_id = :user_id" +
+      " AND plan_requests.status <> #{PlanRequest::STATUS_DENIED}" +
+      " AND week >= :startweek AND week <= :endweek",
       :user_id => user.is_a?(User) ? user.id : user, :startweek => startweek, :endweek => endweek)
   }
 
@@ -38,6 +40,7 @@ class PlanDetail < ActiveRecord::Base
     select("sum(percentage) AS percentage, resource_id, week").joins(:request).group("resource_id, week").where(
       "plan_requests.resource_id IN (" +
         "SELECT user_id FROM plan_group_members WHERE plan_group_id = :group_id) " +
+      " AND plan_requests.status <> #{PlanRequest::STATUS_DENIED}" +
       " AND week >= :startweek AND week <= :endweek",
       :group_id => group.is_a?(PlanGroup) ? group.id : group, :startweek => startweek, :endweek => endweek)
   }
