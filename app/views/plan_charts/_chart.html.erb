@@ -26,6 +26,11 @@ jQuery(document).ready(function() {
   jQuery('#num_weeks').val('<%= @chart.weeks %>');
 });
 </script>
+<!--
+  limit: <%= @chart.limit %>
+  over: <%= @chart.ths_over %>
+  ok: <%= @chart.ths_ok %>
+-->
 
 <div id="<%= chart_name %>-legend" class="chart-legend">
   <%= render :partial => legend_partial, :locals => {:chart => chart, :chart_name => chart_name} %>

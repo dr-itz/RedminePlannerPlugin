@@ -90,8 +90,9 @@ class PlanChartsControllerTest < ActionController::TestCase
     assert_include '#num_weeks', response.body
     assert_include '2012-09-17', response.body
     assert_include "data: [[60,80,0,60,0,0],[0,0,0,70,50,0]]", response.body
-    assert_include 'Req. #2: Task 2', response.body
-    assert_include 'Req. #3: Task 2', response.body
+    assert_include 'Req. #2 (John Smith)', response.body
+    assert_include 'Task 2', response.body
+    assert_include 'Req. #3 (Dave Lopper)', response.body
     assert_include 'xWeekTicks: [\"W38\",\"W39\",\"W40\",\"W41\",\"W42\",\"W43\"]', response.body
     assert_include 'threshold_data: [[[', response.body
   end
