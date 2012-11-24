@@ -28,6 +28,7 @@ class PlanTasksController < ApplicationController
 
     @plan_task = PlanTask.new
     @plan_task.project = @project
+    @plan_task.owner = User.current
 
     respond_to do |format|
       format.html # new.html.erb

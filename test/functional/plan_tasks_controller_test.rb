@@ -174,6 +174,7 @@ private
     assert_equal 'New descr', tmp.description
     assert_equal 'New WBS', tmp.wbs
     assert tmp.is_open
+    assert_equal tmp.owner, User.current
   end
 
   def put_update
