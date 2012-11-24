@@ -157,6 +157,7 @@ private
       :name => 'New name',
       :description => 'New descr',
       :wbs => 'New WBS',
+      :is_open => false,
       :parent_task => @plan_task.parent_task
     }
   end
@@ -172,6 +173,7 @@ private
     assert_equal 'New name', tmp.name
     assert_equal 'New descr', tmp.description
     assert_equal 'New WBS', tmp.wbs
+    assert tmp.is_open
   end
 
   def put_update

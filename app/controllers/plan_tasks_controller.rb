@@ -44,6 +44,7 @@ class PlanTasksController < ApplicationController
 
     @plan_task = PlanTask.new(params[:plan_task])
     @plan_task.project = @project
+    @plan_task.is_open = true
 
     respond_to do |format|
       if @plan_task.save
