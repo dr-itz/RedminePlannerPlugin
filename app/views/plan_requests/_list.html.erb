@@ -22,6 +22,12 @@
            :class => 'icon icon-time') %>
           <%= link_to(l(:button_edit), edit_plan_request_path(plan_request),
            :class => 'icon icon-edit') %>
+        <% elsif plan_request.can_approve? %>
+          <%= link_to(l(:label_planner_req_review), plan_request,
+           :class => 'icon icon-details') %>
+        <% else %>
+          <%= link_to(l(:label_planner_req_view), plan_request,
+           :class => 'icon icon-details') %>
         <% end %>
       </td>
     </tr>

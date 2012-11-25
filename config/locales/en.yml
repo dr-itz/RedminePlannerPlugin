@@ -43,6 +43,8 @@ en:
   label_planner_req_approve_deny: Approve/Deny
   label_planner_req_approve: Approve
   label_planner_req_deny: Deny
+  label_planner_req_view: View
+  label_planner_req_review: Review
 
   label_planner_req_prio_lowest: Lowest
   label_planner_req_prio_low: Low
