@@ -67,19 +67,21 @@ class PlanRequestTest < ActiveSupport::TestCase
 
   test "all project requests" do
     requests = PlanRequest.all_project_requests(1)
-    assert_equal 5, requests.length
+    assert_equal 6, requests.length
     assert_equal requests[0], PlanRequest.find(1)
     assert_equal requests[1], PlanRequest.find(2)
     assert_equal requests[2], PlanRequest.find(3)
     assert_equal requests[3], PlanRequest.find(5)
     assert_equal requests[4], PlanRequest.find(6)
+    assert_equal requests[5], PlanRequest.find(7)
   end
 
   test "all open requests requester" do
     requests = PlanRequest.all_open_requests_requester(1)
-    assert_equal 2, requests.length
+    assert_equal 3, requests.length
     assert_equal requests[0], PlanRequest.find(2)
     assert_equal requests[1], PlanRequest.find(6)
+    assert_equal requests[2], PlanRequest.find(7)
   end
 
   test "all open requests approver" do
@@ -96,13 +98,22 @@ class PlanRequestTest < ActiveSupport::TestCase
 
   test "send request" do
     req = PlanRequest.find(2)
-    req.send_request
+
+    assert_difference('ActionMailer::Base.deliveries.size', +1) do
+      req.send_request
+    end
 
     assert req.requested_on
     assert_equal PlanRequest::STATUS_READY, req.status
     assert_equal User.find(1), req.approver
+  end
 
-    assert !ActionMailer::Base.deliveries.empty?
+  test "send request without teamleader" do
+    req = PlanRequest.find(7)
+
+    assert_no_difference('ActionMailer::Base.deliveries.size') do
+      assert !req.send_request
+    end
   end
 
   test "approve request" do

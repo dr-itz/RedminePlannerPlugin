@@ -49,6 +49,8 @@
 
 <% if @plan_request.can_request? %>
   <div class="splitcontentright">
+    <%= error_messages_for 'plan_request' %>
+
     <%= form_for(@plan_request, { :url => plan_request_send_request_path(@plan_request), :method => :put
       } ) do |f| %>
       <fieldset>

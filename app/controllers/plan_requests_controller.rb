@@ -86,11 +86,16 @@ class PlanRequestsController < ApplicationController
   def send_request
     return render_403 unless @plan_request.can_request?
 
-    @plan_request.send_request
-
-    respond_to do |format|
-      format.html { redirect_to plan_request_url(@plan_request) }
-      format.json { head :no_content }
+    if @plan_request.send_request
+      respond_to do |format|
+        format.html { redirect_to plan_request_url(@plan_request) }
+        format.json { head :no_content }
+      end
+    else
+      respond_to do |format|
+        format.html { render :action => "show" }
+        format.json { render :json => @plan_request.errors, :status => :unprocessable_entity }
+      end
     end
   end
 

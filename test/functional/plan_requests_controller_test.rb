@@ -155,6 +155,16 @@ class PlanRequestsControllerTest < ActionController::TestCase
     assert_equal User.find(1), tmp.approver
   end
 
+  test "should not send request without teamleader" do
+    put :send_request, :id => 7
+
+    assert_template 'show'
+
+    tmp = PlanRequest.find(7)
+    assert_equal PlanRequest::STATUS_NEW, tmp.status
+    assert_nil tmp.approver
+  end
+
   test "should forbid send request" do
     put :send_request, :id => 1
     assert_response 403

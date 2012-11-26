@@ -3,7 +3,7 @@
   <h3><%= l(:label_planner_req_add_plan) %> </h3>
   <%= labelled_form_for([@plan_request, PlanDetail.new], :remote => true,
     :html => {:class => 'multiple-submit'} ) do |f| %>
-    <%= error_messages_for 'plan_request' %>
+    <%= error_messages_for 'plan_detail' %>
 
     <div class="box tabular">
       <p>

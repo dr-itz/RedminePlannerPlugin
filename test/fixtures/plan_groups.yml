@@ -29,7 +29,7 @@ two:
 three:
   id: 3
   project_id: 2
-  name: Group 1
+  name: Group 2
   group_type: 2
   leader_id: 2
   parent_group: NULL

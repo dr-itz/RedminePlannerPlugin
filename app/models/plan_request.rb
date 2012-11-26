@@ -105,6 +105,11 @@ class PlanRequest < ActiveRecord::Base
 
   def send_request
     self.approver = PlanGroup.find_teamleader(resource)
+    if self.approver == nil
+      self.errors[:base] << l(:error_teamleader_not_found)
+      return false
+    end
+
     self.requested_on = DateTime.current
     self.status = STATUS_READY
     save
