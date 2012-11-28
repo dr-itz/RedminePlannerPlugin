@@ -1,0 +1,3 @@
+jQuery('#task-chart-display').html('<%= escape_javascript(
+  render :partial => 'chart', :locals => {
+    :chart => @chart, :chart_name => 'chartTask', :legend_partial => 'legend_task'}) %>');

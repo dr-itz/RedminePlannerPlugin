@@ -38,6 +38,19 @@ function plannerChartLegendHighlight(chartid)
 
 function plannerChart(data)
 {
+  var limitLine = null;
+  if (data.yLimit > 0) {
+    limitLine = [ {
+      horizontalLine: {
+        y: data.yLimit,
+        lineWidth: 2,
+        xOffset: 0,
+        color: '#2ca02c',
+        shadow: false
+      }
+    } ];
+  }
+
   var notIE = !jQuery.jqplot.use_excanvas;
   jQuery.jqplot(data.chartid, data.data, {
     animate: jQuery.browser.mozilla,
@@ -88,17 +101,7 @@ function plannerChart(data)
     legend: { show: false },
     canvasOverlay: {
       show: true,
-      objects: [
-        {
-          horizontalLine: {
-            y: data.yLimit,
-            lineWidth: 2,
-            xOffset: 0,
-            color: '#2ca02c',
-            shadow: false
-          }
-        }
-      ]
+      objects: limitLine
     }
   });
   plannerChartLegendHighlight(data.chartid);

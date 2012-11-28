@@ -33,16 +33,29 @@ class PlanDetail < ActiveRecord::Base
       "plan_requests.resource_id = :user_id" +
       " AND plan_requests.status <> #{PlanRequest::STATUS_DENIED}" +
       " AND week >= :startweek AND week <= :endweek",
-      :user_id => user.is_a?(User) ? user.id : user, :startweek => startweek, :endweek => endweek)
+      :user_id => user.is_a?(User) ? user.id : user, :startweek => startweek, :endweek => endweek
+    ).order("week, plan_requests.id")
   }
 
   scope :group_overview, lambda { |group, startweek, endweek|
-    select("sum(percentage) AS percentage, resource_id, week").joins(:request).group("resource_id, week").where(
+    select("sum(percentage) AS percentage, resource_id, week").joins(:request).group(
+      "resource_id, week"
+    ).where(
       "plan_requests.resource_id IN (" +
         "SELECT user_id FROM plan_group_members WHERE plan_group_id = :group_id) " +
       " AND plan_requests.status <> #{PlanRequest::STATUS_DENIED}" +
       " AND week >= :startweek AND week <= :endweek",
-      :group_id => group.is_a?(PlanGroup) ? group.id : group, :startweek => startweek, :endweek => endweek)
+      :group_id => group.is_a?(PlanGroup) ? group.id : group, :startweek => startweek, :endweek => endweek
+    )
+  }
+
+  scope :task_details, lambda { |task, startweek, endweek|
+    joins(:request).where(
+      "plan_requests.task_id = :task_id" +
+      " AND plan_requests.status <> #{PlanRequest::STATUS_DENIED}" +
+      " AND week >= :startweek AND week <= :endweek",
+      :task_id => task.is_a?(PlanTask) ? task.id : task, :startweek => startweek, :endweek => endweek
+    ).order("week, plan_requests.id")
   }
 
   def self.bulk_update(request, detail_params, num)

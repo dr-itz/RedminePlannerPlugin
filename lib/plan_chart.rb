@@ -33,26 +33,8 @@ class PlanChart
     @scale = 1
     @tick_interval = 20
 
-    series_hash = {}
     details = PlanDetail.user_details(user, plan_week(@start_date), plan_week(@end_date))
-    details.each do |detail|
-      series_hash[detail.request_id] ||= week_array
-
-      series_hash[detail.request_id][@week_idx[detail.week]] = detail.percentage
-    end
-
-    requests = series_hash.keys.sort
-    @data = Array.new(requests.length)
-    @series = Array.new(requests.length)
-    @series_details = Array.new(requests.length)
-    requests.each_with_index do |req, i|
-      data[i] = series_hash[req]
-      @series_details[i] = PlanRequest.find(req, :include => :task)
-      @series[i] = {}
-      @series[i][:color] = get_color i
-    end
-
-    finalize_chart
+    process_request_chart(details)
   end
 
   def generate_group_chart(project, group, start_date, weeks)
@@ -64,7 +46,6 @@ class PlanChart
     details = PlanDetail.group_overview(group, plan_week(@start_date), plan_week(@end_date))
     details.each do |detail|
       series_hash[detail.resource_id.to_s] ||= week_array
-
       series_hash[detail.resource_id.to_s][@week_idx[detail.week]] = detail.percentage
     end
 
@@ -80,6 +61,15 @@ class PlanChart
     end
 
     finalize_chart
+  end
+
+  def generate_task_chart(project, task, start_date, weeks)
+    setup_chart start_date, weeks
+    @scale = 0
+    @tick_interval = 20
+
+    details = PlanDetail.task_details(task, plan_week(@start_date), plan_week(@end_date))
+    process_request_chart(details)
   end
 
   def get_color(i)
@@ -98,6 +88,27 @@ private
 
   def week_array
     Array.new(@weeks, 0)
+  end
+
+  def process_request_chart(details)
+    series_hash = {}
+    details.each do |detail|
+      series_hash[detail.request_id] ||= week_array
+      series_hash[detail.request_id][@week_idx[detail.week]] = detail.percentage
+    end
+
+    requests = series_hash.keys.sort
+    @data = Array.new(requests.length)
+    @series = Array.new(requests.length)
+    @series_details = Array.new(requests.length)
+    requests.each_with_index do |req, i|
+      data[i] = series_hash[req]
+      @series_details[i] = PlanRequest.find(req, :include => :task)
+      @series[i] = {}
+      @series[i][:color] = get_color i
+    end
+
+    finalize_chart
   end
 
   def setup_chart(start_date, weeks)
@@ -154,7 +165,7 @@ private
       @threshold_data[1][i] = [idx, 0, 0]
       @threshold_data[2][i] = [idx, 0, 0]
 
-      if sum > @ths_over
+      if @ths_over > 0 && sum > @ths_over
         @threshold_data[0][i] = [idx, 1, sum]
       elsif sum >= @ths_ok
         @threshold_data[1][i] = [idx, 1, sum]
@@ -164,7 +175,7 @@ private
     end
 
     @max = max % @tick_interval == 0 ? max : max + @tick_interval - (max % @tick_interval)
-    @max = @limit + @tick_interval if @max < @limit + @tick_interval
+    @max = @limit + @tick_interval if @limit > 0 && @max < @limit + @tick_interval
     @height = (@max * 35 / @tick_interval).to_i + 73
   end
 end

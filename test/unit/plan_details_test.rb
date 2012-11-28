@@ -192,4 +192,14 @@ class PlanDetailsTest < ActiveSupport::TestCase
     assert_equal 3, detail.resource_id
     assert_equal 50, detail.percentage
   end
+
+  test "scope task_details" do
+    list = PlanDetail.task_details(2, 201239, 201242)
+
+    assert_equal 5, list.length
+    assert_equal 1, list[0].id
+    assert_equal 6, list[1].id
+    assert_equal 4, list[2].id
+    assert_equal 8, list[3].id
+  end
 end

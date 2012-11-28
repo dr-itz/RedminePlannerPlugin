@@ -28,6 +28,14 @@ class PlanChartsControllerTest < ActionController::TestCase
     assert_response 403
   end
 
+  test "should deny show_task" do
+    @request.session[:user_id] = 3
+    get :show_task, :project_id => 1, :id => 3
+
+    assert_response 403
+  end
+
+
   test "should get show_user defaults" do
     get :show_user, :project_id => 1, :id => 3
 
@@ -195,5 +203,68 @@ class PlanChartsControllerTest < ActionController::TestCase
     chart = assigns(:chart)
     assert chart
     assert_equal 52, chart.weeks
+  end
+
+  test "should get show_task defaults" do
+    get :show_task, :project_id => 1, :id => 2
+
+    assert_response :success
+
+    assert_equal 2, assigns(:task).id
+    chart = assigns(:chart)
+    assert chart
+    assert_equal 8, chart.data[0].length
+    assert_equal 8, chart.ticks.length
+    # hint: can't assert on data: moving date window - too complicated with fixtures
+
+    date = Date.today - 7
+    date = Date.commercial(date.cwyear, date.cweek, 1)
+    assert_equal date, assigns(:start_date)
+    assert_equal 8, assigns(:num_weeks)
+  end
+
+  test "should get show_task user settings" do
+    get :show_task, :project_id => 1, :id => 2, :week_start_date => '2012-9-19', :num_weeks => 10
+
+    assert_response :success
+
+    assert_equal 2, assigns(:task).id
+
+    chart = assigns(:chart)
+    assert chart
+    assert_equal 4, chart.data.length
+    assert_equal 10, chart.data[0].length
+    assert_equal 10, chart.ticks.length
+    assert_equal 4, chart.series.length
+    assert_equal 4, chart.series_details.length
+
+    assert_equal Date.parse('2012-9-17'), assigns(:start_date)
+    assert_equal 10, assigns(:num_weeks)
+  end
+
+  test "should get show_task user settings XHR" do
+    xhr :get, :show_task, :project_id => 1, :id => 2, :week_start_date => '2012-9-19', :num_weeks => 6
+
+    assert_response :success
+    assert_equal 'text/javascript', response.content_type
+
+    assert_equal 2, assigns(:task).id
+    chart = assigns(:chart)
+    assert chart
+    assert_equal 4, chart.data.length
+    assert_equal 6, chart.data[0].length
+    assert_equal 6, chart.ticks.length
+    assert_equal 4, chart.series.length
+    assert_equal 4, chart.series_details.length
+
+    assert_include '#task-chart-display', response.body
+    assert_include '#week_start_date', response.body
+    assert_include '#num_weeks', response.body
+    assert_include '2012-09-17', response.body
+    assert_include "data: [[60,0,0,0,0,0],[60,80,0,60,0,0],[0,0,0,70,50,0],[0,0,0,60,0,0]]", response.body
+    assert_include 'Req. #2 (John Smith)', response.body
+    assert_include 'Req. #3 (Dave Lopper)', response.body
+    assert_include 'xWeekTicks: [\"W38\",\"W39\",\"W40\",\"W41\",\"W42\",\"W43\"]', response.body
+    assert_include 'threshold_data: [[[', response.body
   end
 end
