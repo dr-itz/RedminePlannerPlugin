@@ -35,6 +35,10 @@ ul.planner {
   padding-left: 30px;
 }
 
+.icon-overview {
+  background-image: url(../images/table.png);
+}
+
 .accordion-header {
   margin-top: 9px;
   padding-left: 16px;

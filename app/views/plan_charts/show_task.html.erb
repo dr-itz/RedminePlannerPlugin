@@ -1,5 +1,7 @@
 <%= render :partial => "jqplot" %>
 <div class="contextual">
+  <%= link_to l(:label_overview), project_plan_tasks_path(@project),
+      :class => 'icon icon-overview' %>
   <%= link_to(l(:button_edit), edit_plan_task_path(@task),
       :class => 'icon icon-edit') if @task.can_edit? %>
 </div>
@@ -31,9 +33,4 @@
 <div id="task-chart-display">
   <%= render :partial => 'chart', :locals => {
     :chart => @chart, :chart_name => 'chartTask', :legend_partial => 'legend_task'} %>
-</div>
-
-<div style="clear:both; padding-top:5px;">
-  <hr/>
-  <%= link_to l(:label_planner_tasks), project_plan_tasks_path(@project) %>
 </div>

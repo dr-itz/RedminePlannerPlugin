@@ -1,4 +1,6 @@
 <div class="contextual">
+  <%= link_to l(:label_overview), project_plan_requests_path(@project),
+      :class => 'icon icon-overview' %>
   <% if @plan_request.can_edit? %>
     <%= link_to(l(:button_delete), @plan_request, :data => { :confirm => l(:text_are_you_sure)},
       :method => :delete, :class => 'icon icon-del')%>
@@ -89,9 +91,4 @@
   </div>
 
   <%= render :partial => "plan_details/new" %>
-</div>
-
-<div style="clear:both; padding-top:5px;">
-  <hr/>
-  <%= link_to l(:button_back), project_plan_requests_path(@project) %>
 </div>
