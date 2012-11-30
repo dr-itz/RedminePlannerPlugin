@@ -1,4 +1,34 @@
-Copyright (C) 2012 by Daniel Ritz <daniel.ritz@gmx.ch>
+Planner - A resource planning for Redmine
+
+Copyright (C) 2012 Daniel Ritz <daniel.ritz@gmx.ch>
 
 This software is licensed under the terms of the GNU General Public License
-(GPL) v2.  See COPYING for details.
+(GPL) v2. See COPYING for details.
+
+===============================================================================
+
+This Software contains third party components as follows:
+
+
+jQuery
+------
+
+Copyright 2012 jQuery Foundation and other contributors.
+MIT License
+http://jquery.com/
+
+
+jpPlot
+------
+
+Copyright (C) 2009-2011 Chris Leonello
+MIT and GPLv2 Licenses
+http://www.jqplot.com/
+
+
+famfamfam.com Silk Icons
+------------------------
+
+Copyright by Mark James
+Creative Commons Attribution 2.5 License and Creative Commons Attribution 3.0 License
+http://www.famfamfam.com/lab/icons/silk/
