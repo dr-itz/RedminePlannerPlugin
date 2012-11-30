@@ -26,7 +26,7 @@
   </tr>
   <tr>
     <th><%= l(:field_planner_task) %></th>
-    <td><%= link_to @plan_request.task.name, plan_task_path(@plan_request.task) %></td>
+    <td><%= link_to_task_plan_view @plan_request.task %></td>
   </tr>
   <tr>
     <th><%= l(:field_description) %></th>

@@ -8,4 +8,8 @@ module PlannerHelper
     name = h(group.name)
     link_to name, planner_show_group_path(project, group)
   end
+
+  def link_to_task_plan_view(task)
+    link_to task.name, planner_show_task_path(task.project, task)
+  end
 end

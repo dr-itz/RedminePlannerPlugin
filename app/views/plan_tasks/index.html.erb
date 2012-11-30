@@ -16,7 +16,7 @@
   <tbody>
   <% @plan_tasks.each do |plan_task| %>
     <tr id="plan_task-<%= plan_task.id %>" class="<%= cycle 'odd', 'even' %> plantask">
-      <td><%= link_to plan_task.name, plan_task %></td>
+      <td><%= link_to_task_plan_view plan_task %></td>
       <td><%= plan_task.owner ? link_to_user_plan_view(@project, plan_task.owner) : "-" %></td>
       <td class="center"><%= checked_image plan_task.is_open? %></td>
       <td><%= plan_task.wbs %></td>

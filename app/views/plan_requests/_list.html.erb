@@ -11,7 +11,7 @@
       <td><%= plan_request.priority_string %></td>
       <td><%= plan_request.requester.name %></td>
       <td><%= link_to_user_plan_view(@project, plan_request.resource) %></td>
-      <td><%= link_to plan_request.task.name, plan_task_path(plan_request.task) %></td>
+      <td><%= link_to_task_plan_view plan_request.task %></td>
       <td><%= plan_request.description %></td>
       <td><%= format_time(plan_request.requested_on) %></td>
       <td><%= plan_request.approver ? plan_request.approver.name : "-" %></td>

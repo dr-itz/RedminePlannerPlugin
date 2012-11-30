@@ -1,10 +1,39 @@
 <%= render :partial => "jqplot" %>
+<div class="contextual">
+  <%= link_to(l(:button_edit), edit_plan_task_path(@task),
+      :class => 'icon icon-edit') if @task.can_edit? %>
+</div>
 
 <h2><%= l(:label_planner_planning) %>: <%= @task.name %></h2>
+
+<table class="attributes" style="width: 500px;">
+  <tr>
+    <th><%= l(:field_planner_owner) %></th>
+    <td><%= @task.owner ? link_to_user_plan_view(@project, @task.owner) : "-" %></td>
+  </tr>
+  <tr>
+    <th><%= l(:field_planner_is_open) %></th>
+    <td><%= checked_image @task.is_open? %></td>
+  </tr>
+  <tr>
+    <th><%= l(:field_description) %></th>
+    <td><%= @task.description %></td>
+  </tr>
+  <tr>
+    <th><%= l(:field_planner_wbs) %></th>
+    <td><%= @task.wbs %></td>
+  </tr>
+</table>
+
 
 <%= render :partial => 'range_selection', :locals => { :chart_url => planner_show_task_path(@project, @task)} %>
 
 <div id="task-chart-display">
   <%= render :partial => 'chart', :locals => {
     :chart => @chart, :chart_name => 'chartTask', :legend_partial => 'legend_task'} %>
+</div>
+
+<div style="clear:both; padding-top:5px;">
+  <hr/>
+  <%= link_to l(:label_planner_tasks), project_plan_tasks_path(@project) %>
 </div>
