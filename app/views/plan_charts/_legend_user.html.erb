@@ -12,7 +12,8 @@
     <tr>
       <td>&nbsp;</td>
       <td class="jqplot-table-legend-label">
-        <%= link_to_task_plan_view req.task %>
+        <%= link_to_task_plan_view(req.task, {
+              :week_start_date => chart.start_date.to_s, :num_weeks => chart.weeks}) %>
       </td>
     </tr>
   <% end %>
