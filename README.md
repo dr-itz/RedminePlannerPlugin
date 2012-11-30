@@ -129,18 +129,15 @@ installed in `/usr/local`
 	best. Note however, that the official repository is maintained using the toy
 	tool Subversion, the Git and Mercurial repositories are just mirrors and might
 	not always be up to date.
-
 	  * Download an official release package from
 
 		http://rubyforge.org/frs/?group_id=1850
-
 	  * Checkout the official repository using SVN
 
 		```
 		svn co http://redmine.rubyforge.org/svn/branches/2.0-stable redmine
 		cd redmine
 		```
-
 	  * Clone the repository mirror using Git
 
 		```
@@ -148,7 +145,6 @@ installed in `/usr/local`
 		cd redmine
 		git checkout 2.0-stable
 		```
-
 	  * Clone the repository mirror using Mercurial
 
 		```
@@ -185,7 +181,7 @@ installed in `/usr/local`
 	```
 
 	Give WEBrick a moment to boot, then point the web browser at
-	\url{http://localhost:3000/} and login using the user "admin" with the same
+	http://localhost:3000 and login using the user "admin" with the same
 	passrod.
 
 
