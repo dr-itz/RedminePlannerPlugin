@@ -66,7 +66,7 @@ class PlanChart
   def generate_task_chart(project, task, start_date, weeks)
     setup_chart start_date, weeks
     @scale = 0
-    @tick_interval = 20
+    @tick_interval = 40
 
     details = PlanDetail.task_details(task, plan_week(@start_date), plan_week(@end_date))
     process_request_chart(details)
