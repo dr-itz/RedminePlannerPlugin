@@ -23,7 +23,7 @@ easy steps are enough to get the plugin going:
 
 	```
 	cd plugins
-	tar zxf planner-1.0.tar.gz
+	tar zxf planner-v0.3.tar.gz
 	```
 
 	Alternatively, Git can be used to clone the source repository. Using this
@@ -33,7 +33,6 @@ easy steps are enough to get the plugin going:
 	cd plugins
 	git clone git://github.com/dr-itz/RedminePlannerPlugin.git planner
 	cd planner
-	git checkout v1.0-stable
 	```
 
  2. **Install Gems**
