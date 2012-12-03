@@ -32,9 +32,11 @@
         <td class="center"><%= checked_image plan_detail.ok_sat %></td>
         <td class="center"><%= checked_image plan_detail.ok_sun %></td>
         <td class="buttons">
-          <%= link_to_remote(l(:button_delete),
-            { :url => plan_detail_path(plan_detail), :method => :delete },
-            :title => l(:button_delete), :class => 'icon icon-del') if @plan_request.can_edit? %>
+          <% if @plan_request.can_edit? %>
+            <%= link_to(l(:button_delete), plan_detail_path(plan_detail),
+                  :method => :delete, :remote => true,
+                  :title => l(:button_delete), :class => 'icon icon-del') %>
+          <% end %>
         </td>
       </tr>
     <% end %>
