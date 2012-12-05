@@ -4,6 +4,14 @@ Planner is a plugin in it's early stages. A lot of the planned features are not
 yet implemented. This list gives a rough overview of what's planned.
 
 
+## Improve resource request planning
+
+Resource request planning should display a warning when the free capacities are
+exceeded on a weekly basis to lower the effort of team leaders.
+
+HIGH PRIO.
+
+
 ## Better task management
 
 The current task management is only very basic. It will be extended with search
@@ -83,3 +91,10 @@ before requesting resources. A chart will show target vs actual planning for a
 task.
 
 MEDIUM PRIO.
+
+
+## D3.js
+
+Switch the charts to a solution based on d3.js.
+
+VERY LOW PRIO.
