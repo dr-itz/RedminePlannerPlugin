@@ -35,8 +35,8 @@ class PlanGroup < ActiveRecord::Base
       'group_type, name')
   }
 
-  scope :teams, where(:group_type => TYPE_TEAM)
-  scope :groups, where(:group_type => TYPE_GROUP)
+  scope :teams, lambda { where(:group_type => TYPE_TEAM) }
+  scope :groups, lambda { where(:group_type => TYPE_GROUP) }
 
   # Returns an array of group types for ERB select
   def self.group_types_select

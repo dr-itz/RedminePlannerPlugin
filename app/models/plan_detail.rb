@@ -26,7 +26,7 @@ class PlanDetail < ActiveRecord::Base
 
   attr_protected :request_id, :year, :week, :week_start_date
 
-  default_scope order(:week)
+  default_scope { order(:week) }
 
   scope :user_details, lambda { |user, startweek, endweek|
     joins(:request).where(
