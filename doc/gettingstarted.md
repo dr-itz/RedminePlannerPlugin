@@ -99,6 +99,9 @@ members to them.
 Once teams are defined, groups can be defined too. If a group has a "leader"
 assigned, it's possible for this person to manage the members of the group.
 
+![Group management](https://github.com/dr-itz/RedminePlannerPlugin/raw/master/doc/img/scr-planner-groups.png)
+![Edit group members](https://github.com/dr-itz/RedminePlannerPlugin/raw/master/doc/img/scr-planner-group-edit.png)
+
 
 ## Create some tasks
 
@@ -107,6 +110,8 @@ Defining tasks is easily achieved under "Tasks" in the resource planner. A task
 also has an owner. The owner can close a task which means it can no longer be
 used in new resource requests. This allows project leaders to control the tasks
 belonging to their projects.
+
+![Task management](https://github.com/dr-itz/RedminePlannerPlugin/raw/master/doc/img/scr-planner-tasks.png)
 
 
 ## Make a first resource request
@@ -124,3 +129,12 @@ to overwrite the existing entries.
 Once the planning is complete, the request can be "Sent" to the approver by
 using the "Send request" form in top right part of the planning. The approver
 and the resource should get notified by email about the request.
+
+![A resource request](https://github.com/dr-itz/RedminePlannerPlugin/raw/master/doc/img/scr-planner-resource-request.png)
+
+## Tweak the visualization
+
+The generated charts can be tweaked. Planner has some settings under
+Administration -> Plugins -> Planner -> Configure
+
+![Planner settings](https://github.com/dr-itz/RedminePlannerPlugin/raw/master/doc/img/scr-planner-settings.png)

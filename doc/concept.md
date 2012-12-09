@@ -65,6 +65,7 @@ fuzzy.
 A resource request can be made by anyone who needs somebody else to do work.
 It also requires the permission to create a resource request.
 
+![A resource request](https://github.com/dr-itz/RedminePlannerPlugin/raw/master/doc/img/scr-planner-resource-request.png)
 
 ### Team
 
@@ -117,6 +118,8 @@ The main page consists of three areas:
 	Allows managing everything. Tasks, Resource requests, teams and groups. The
 	actual possibilities depend of the permissions of the user.
 
+![Planner main screen](https://github.com/dr-itz/RedminePlannerPlugin/raw/master/doc/img/scr-planner-main.png)
+
 
 ## Resource requests
 
@@ -141,6 +144,7 @@ The resource requests page is divided in three areas:
 Resource requests can be created, viewed, edited here. Planning is possible as
 long as request is still in the status new.
 
+![Resource request overview](https://github.com/dr-itz/RedminePlannerPlugin/raw/master/doc/img/scr-planner-resource-request-overview.png)
 
 ## Charts
 
@@ -152,10 +156,14 @@ Planner visualizes workload in charts. These charts are supported:
 	Shows the workload of a single person over the specified amount of weeks.
 	Each resource request within the displayed range is visible.
 
+	![Chart of a person](https://github.com/dr-itz/RedminePlannerPlugin/raw/master/doc/img/scr-planner-chart-person.png)
+
   * **Team view**
 
 	Shows the workload of team with all members. The workload of the individual
 	members is shows as total, without showing the resource request.
+
+	![Chart of a team](https://github.com/dr-itz/RedminePlannerPlugin/raw/master/doc/img/scr-planner-chart-team.png)
 
   * **Group view**
 
@@ -166,3 +174,6 @@ Planner visualizes workload in charts. These charts are supported:
 
 	Shows the weekly booking of a task. Shows each resource request for a task
 	in the specified range.
+
+	![Chart of a task](https://github.com/dr-itz/RedminePlannerPlugin/raw/master/doc/img/scr-planner-chart-task.png)
+
