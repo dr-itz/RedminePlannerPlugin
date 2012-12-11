@@ -21,6 +21,13 @@ classify them a bit.
 HIGH PRIO.
 
 
+## Per project configuration
+
+Currently, all plugin configuration is global. Move it to project level.
+
+HIGH PRIO.
+
+
 ## Weekly view
 
 Currently it's possible to specify on which week days a task should/can be
@@ -91,6 +98,23 @@ before requesting resources. A chart will show target vs actual planning for a
 task.
 
 MEDIUM PRIO.
+
+
+## Planning Redmine project versions
+
+Tasks should be able to link a Redmine project "version". With some
+configuration like "weekly target working hours" it should allow to show the
+workload to plan based on the issue estimates in the selected "version".
+
+LOW PRIO.
+
+
+## Synchronize Planner "team" with Redmine group
+
+Allow teams (and groups) to link to a Redmine group and provide a button to
+synchronize the Planner team with the selected Redmine group.
+
+LOW PRIO.
 
 
 ## D3.js
