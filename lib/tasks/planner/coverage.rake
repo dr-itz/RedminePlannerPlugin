@@ -1,5 +1,5 @@
 # this is an ugly hack, but it works somehow
-if RUBY_VERSION < "1.9"
+if RUBY_VERSION < "1.9" && Gem.available?(/-?rcov$/)
   require 'rcov/rcovtask'
 
   namespace :planner do
