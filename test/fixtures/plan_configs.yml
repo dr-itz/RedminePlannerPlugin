@@ -1,0 +1,4 @@
+one:
+  id: 1
+  project_id: 2
+  config: <%= { 'graph_weeks' => '10', 'graph_weeks_past' => '3' }.to_yaml.inspect %>

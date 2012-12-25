@@ -1,0 +1,32 @@
+<% @config = PlanConfig.project_config(@project) %>
+<%= form_tag(planner_config_url(@project), :method => 'put') do%>
+  <fieldset class="box tabular">
+    <legend>Workload</legend>
+    <p>
+      <label for="config_workload_target"><%= l(:field_planner_workload_target) %></label>
+      <%= text_field_tag 'config[workload_target]', @config['workload_target'], :size => 3, :class => 'right' %>%
+    </p>
+    <p>
+      <label for="config_workload_threshold_ok"><%= l(:field_planner_workload_ths_ok) %></label>
+      <%= text_field_tag 'config[workload_threshold_ok]', @config['workload_threshold_ok'], :size => 3, :class => 'right' %>%
+    </p>
+    <p>
+      <label for="config_workload_threshold_overload"><%= l(:field_planner_workload_ths_overload) %></label>
+      <%= text_field_tag 'config[workload_threshold_overload]', @config['workload_threshold_overload'], :size => 3, :class => 'right' %>%
+    </p>
+  </fieldset>
+
+  <fieldset class="box tabular">
+    <legend>Charts</legend>
+    <p>
+      <label for="config_graph_weeks_past"><%= l(:field_planner_plan_weeks_past) %></label>
+      <%= text_field_tag 'config[graph_weeks_past]', @config['graph_weeks_past'], :size => 3, :class => 'right' %>
+    </p>
+    <p>
+      <label for="config_graph_weeks"><%= l(:field_planner_plan_weeks_show) %></label>
+      <%= text_field_tag 'config[graph_weeks]', @config['graph_weeks'], :size => 3, :class => 'right' %>
+    </p>
+  </fieldset>
+
+  <%= submit_tag l(:button_save) %>
+<% end %>

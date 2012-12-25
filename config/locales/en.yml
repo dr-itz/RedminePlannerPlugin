@@ -79,9 +79,10 @@ en:
   field_planner_plan_weeks_past: Past weeks to show
   field_planner_plan_weeks_show: Weeks to show
   field_planner_plan_percent: Weekly Workload
-  field_planner_chart_target: Target workload
-  field_planner_chart_ths_ok: Threshold OK
-  field_planner_chart_ths_overload: Threshold overload
+  field_planner_plan_percent_total: Total
+  field_planner_workload_target: Target workload
+  field_planner_workload_ths_ok: Threshold OK
+  field_planner_workload_ths_overload: Threshold overload
 
   error_teamleader_not_found: Cannot find team leader
 

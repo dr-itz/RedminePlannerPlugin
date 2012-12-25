@@ -9,6 +9,10 @@ RedmineApp::Application.routes.draw do
     end
   end
 
+  match '/projects/:project_id/planner/settings',
+    :to => 'planner_config#update', :via => :put,
+    :as => 'planner_config'
+
   match '/plan_groups/:id/members/:membership_id',
     :to => 'plan_groups#remove_membership', :via => :delete,
     :as => 'plan_group_membership'

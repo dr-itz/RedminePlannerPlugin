@@ -29,7 +29,7 @@ class PlanChart
     "#bcbddc", "#dadaeb", "#636363", "#969696", "#bdbdbd", "#d9d9d9" ];
 
   def generate_user_chart(project, user, start_date, weeks)
-    setup_chart start_date, weeks
+    setup_chart project, start_date, weeks
     @scale = 1
     @tick_interval = 20
 
@@ -38,7 +38,7 @@ class PlanChart
   end
 
   def generate_group_chart(project, group, start_date, weeks)
-    setup_chart start_date, weeks
+    setup_chart project, start_date, weeks
     @tick_interval = 50
     @scale = group.users.length
 
@@ -64,7 +64,7 @@ class PlanChart
   end
 
   def generate_task_chart(project, task, start_date, weeks)
-    setup_chart start_date, weeks
+    setup_chart project, start_date, weeks
     @scale = 0
     @tick_interval = 40
 
@@ -111,11 +111,11 @@ private
     finalize_chart
   end
 
-  def setup_chart(start_date, weeks)
-    @settings = Setting["plugin_planner"]
-    weeks ||= @settings['graph_weeks'].to_i
+  def setup_chart(project, start_date, weeks)
+    @config = PlanConfig.project_config(project)
+    weeks ||= @config[:graph_weeks].to_i
     weeks = 52 if (weeks > 52)
-    start_date ||= Date.today - (7 * @settings['graph_weeks_past'].to_i)
+    start_date ||= Date.today - (7 * @config[:graph_weeks_past].to_i)
 
     @weeks = weeks
     @start_date = normalize_date start_date
@@ -143,9 +143,9 @@ private
     @threshold_data = [ week_array, week_array, week_array ]
     sets = @data.length
 
-    @limit = (@settings['graph_target'] || 100).to_i
-    @ths_over = (@settings['graph_ths_overload'] || 110).to_i
-    @ths_ok = (@settings['graph_ths_ok'] || 80).to_i
+    @limit = @config[:workload_target].to_i
+    @ths_over = @config[:workload_threshold_overload].to_i
+    @ths_ok = @config[:workload_threshold_ok].to_i
 
     @limit = @limit * @scale
     @ths_over = @ths_over * @scale

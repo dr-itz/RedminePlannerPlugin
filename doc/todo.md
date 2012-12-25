@@ -21,13 +21,6 @@ classify them a bit.
 HIGH PRIO.
 
 
-## Per project configuration
-
-Currently, all plugin configuration is global. Move it to project level.
-
-HIGH PRIO.
-
-
 ## Weekly view
 
 Currently it's possible to specify on which week days a task should/can be
@@ -52,14 +45,14 @@ Part time workers can be planned with their work time less than 100%.
 MEDIUM PRIO.
 
 
-# Holiday planning
+## Holiday planning
 
 People should be able to plan their holidays within Planner.
 
 HIGH PRIO.
 
 
-# Unplanned absences
+## Unplanned absences
 
 Unplanned absences like sickness affects projects. Planner should allow a team
 leader to enter these unplanned absences to display and notify resource
@@ -68,7 +61,7 @@ requesters of problems in their projects.
 MEDIUM PRIO.
 
 
-# Bank holidays
+## Bank holidays
 
 There should be an interface to somehow load bank holidays into Planner.
 

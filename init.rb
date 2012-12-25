@@ -1,11 +1,12 @@
 require 'redmine'
 require 'planner/hooks'
+require 'planner/planner_projects_helper_patch'
 
 Redmine::Plugin.register :planner do
   name 'Planner'
   author 'Daniel Ritz'
   description 'Redmine Resource Planner Plugin'
-  version '0.3'
+  version '0.4'
   url 'https://github.com/dr-itz/RedminePlannerPlugin'
   author_url 'mailto:daniel.ritz@gmx.ch'
   requires_redmine :version_or_higher => '2.0.3'
@@ -41,7 +42,8 @@ Redmine::Plugin.register :planner do
         :index, :show, :new, :create, :edit, :update, :destroy],
       :plan_requests => [
         :index, :show, :new, :create, :edit, :update, :destroy, :send_request, :approve],
-      :plan_details => [:index, :create, :destroy]
+      :plan_details => [:index, :create, :destroy],
+      :planner_config => [:show, :update]
     }
   end
 
@@ -49,12 +51,10 @@ Redmine::Plugin.register :planner do
     { :controller => 'planner', :action => 'index' },
     :caption => :label_planner_menu_main, :param => :project_id
 
-  settings :partial => 'settings/planner_settings',
-    :default => {
-      'graph_weeks' => '8',
-      'graph_weeks_past' => '1',
-      'graph_target' => '100',
-      'graph_ths_ok' => '80',
-      'graph_ths_overload' => '110'
-    }
+  Rails.configuration.to_prepare do
+    require_dependency 'projects_helper'
+    unless ProjectsHelper.included_modules.include? PlannerProjectsHelperPatch
+      ProjectsHelper.send(:include, PlannerProjectsHelperPatch)
+    end
+  end
 end
