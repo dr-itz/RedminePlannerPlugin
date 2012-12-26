@@ -1,3 +1,12 @@
+# == Schema Information
+#
+# Table name: plan_configs
+#
+#  id         :integer          not null, primary key
+#  project_id :integer          default(0), not null
+#  config     :string(255)      not null
+#
+
 
 require File.dirname(__FILE__) + '/../test_helper'
 
