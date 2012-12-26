@@ -134,7 +134,7 @@ and the resource should get notified by email about the request.
 
 ## Tweak the visualization
 
-The generated charts can be tweaked. Planner has some settings under
-Administration -> Plugins -> Planner -> Configure
+The generated charts can be tweaked. Planner has some settings in the project
+configuration. Within a planning project, select "Settings -> Resource Planner".
 
 ![Planner settings](https://github.com/dr-itz/RedminePlannerPlugin/raw/master/doc/img/scr-planner-settings.png)
