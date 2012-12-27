@@ -58,7 +58,7 @@
       <fieldset>
         <legend><%=l(:label_planner_req_send)%></legend>
         <%=l(:label_planner_req_send_help)%><br/>
-        <%= submit_tag l(:button_save) %>
+        <%= submit_tag l(:button_submit) %>
       </fieldset>
     <% end %>
   </div>
@@ -77,7 +77,7 @@
            :include_blank => false %>
         </p>
         <p><%= f.text_area :approver_notes, :cols => 30, :rows => 5 %></p>
-        <%= submit_tag l(:button_save) %>
+        <%= submit_tag l(:button_apply) %>
       </fieldset>
     <% end %>
   </div>
