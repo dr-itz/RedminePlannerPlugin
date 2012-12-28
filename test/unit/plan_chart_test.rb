@@ -6,11 +6,12 @@ class PlanChartTest < ActiveSupport::TestCase
   fixtures :projects, :users, :plan_tasks, :plan_groups, :plan_group_members, :plan_requests, :plan_details
 
   setup do
+    @states = [PlanRequest::STATUS_NEW, PlanRequest::STATUS_READY, PlanRequest::STATUS_APPROVED]
   end
 
   test "generate user chart" do
     chart = PlanChart.new
-    chart.generate_user_chart(Project.find(1), User.find(3), Date.parse('2012-9-18'), 6)
+    chart.generate_user_chart(Project.find(1), User.find(3), @states, Date.parse('2012-9-18'), 6)
 
     assert_equal Date.parse('2012-9-17'), chart.start_date
     assert_equal Date.parse('2012-10-22'), chart.end_date
@@ -38,7 +39,7 @@ class PlanChartTest < ActiveSupport::TestCase
 
   test "generate user chart without data" do
     chart = PlanChart.new
-    chart.generate_user_chart(Project.find(1), User.find(3), Date.parse('2012-11-15'), 6)
+    chart.generate_user_chart(Project.find(1), User.find(3), @states, Date.parse('2012-11-15'), 6)
 
     assert_equal Date.parse('2012-11-12'), chart.start_date
     assert_equal Date.parse('2012-12-17'), chart.end_date
@@ -64,7 +65,7 @@ class PlanChartTest < ActiveSupport::TestCase
 
   test "generate group chart" do
     chart = PlanChart.new
-    chart.generate_group_chart(Project.find(1), PlanGroup.find(1), Date.parse('2012-9-18'), 6)
+    chart.generate_group_chart(Project.find(1), PlanGroup.find(1), @states, Date.parse('2012-9-18'), 6)
 
     assert_equal Date.parse('2012-9-17'), chart.start_date
     assert_equal Date.parse('2012-10-22'), chart.end_date
@@ -96,7 +97,7 @@ class PlanChartTest < ActiveSupport::TestCase
 
   test "generate group chart without data" do
     chart = PlanChart.new
-    chart.generate_group_chart(Project.find(1), PlanGroup.find(1), Date.parse('2012-11-15'), 6)
+    chart.generate_group_chart(Project.find(1), PlanGroup.find(1), @states, Date.parse('2012-11-15'), 6)
 
     assert_equal Date.parse('2012-11-12'), chart.start_date
     assert_equal Date.parse('2012-12-17'), chart.end_date
@@ -128,7 +129,7 @@ class PlanChartTest < ActiveSupport::TestCase
 
   test "generate task chart" do
     chart = PlanChart.new
-    chart.generate_task_chart(Project.find(1), PlanTask.find(2), Date.parse('2012-9-18'), 6)
+    chart.generate_task_chart(Project.find(1), PlanTask.find(2), @states, Date.parse('2012-9-18'), 6)
 
     assert_equal Date.parse('2012-9-17'), chart.start_date
     assert_equal Date.parse('2012-10-22'), chart.end_date
@@ -160,7 +161,7 @@ class PlanChartTest < ActiveSupport::TestCase
 
   test "generate task chart without data" do
     chart = PlanChart.new
-    chart.generate_task_chart(Project.find(1), PlanTask.find(2), Date.parse('2012-11-15'), 6)
+    chart.generate_task_chart(Project.find(1), PlanTask.find(2), @states, Date.parse('2012-11-15'), 6)
 
     assert_equal Date.parse('2012-11-12'), chart.start_date
     assert_equal Date.parse('2012-12-17'), chart.end_date
@@ -186,7 +187,7 @@ class PlanChartTest < ActiveSupport::TestCase
 
   test "limit 52 weeks user chart" do
     chart = PlanChart.new
-    chart.generate_user_chart(Project.find(1), User.find(3), Date.parse('2012-11-15'), 77)
+    chart.generate_user_chart(Project.find(1), User.find(3), @states, Date.parse('2012-11-15'), 77)
 
     assert_equal 52, chart.weeks
     assert_equal 52, chart.data[0].length
@@ -194,7 +195,7 @@ class PlanChartTest < ActiveSupport::TestCase
 
   test "limit 52 weeks group chart" do
     chart = PlanChart.new
-    chart.generate_group_chart(Project.find(1), PlanGroup.find(1), Date.parse('2012-11-15'), 78)
+    chart.generate_group_chart(Project.find(1), PlanGroup.find(1), @states, Date.parse('2012-11-15'), 78)
 
     assert_equal 52, chart.weeks
     assert_equal 52, chart.data[0].length
@@ -202,7 +203,7 @@ class PlanChartTest < ActiveSupport::TestCase
 
   test "limit 52 weeks task chart" do
     chart = PlanChart.new
-    chart.generate_task_chart(Project.find(1), PlanTask.find(2), Date.parse('2012-11-15'), 77)
+    chart.generate_task_chart(Project.find(1), PlanTask.find(2), @states, Date.parse('2012-11-15'), 77)
 
     assert_equal 52, chart.weeks
     assert_equal 52, chart.data[0].length

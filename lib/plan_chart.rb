@@ -28,22 +28,22 @@ class PlanChart
     "#fdd0a2", "#31a354", "#74c476", "#a1d99b", "#c7e9c0", "#756bb1", "#9e9ac8",
     "#bcbddc", "#dadaeb", "#636363", "#969696", "#bdbdbd", "#d9d9d9" ];
 
-  def generate_user_chart(project, user, start_date, weeks)
+  def generate_user_chart(project, user, states, start_date, weeks)
     setup_chart project, start_date, weeks
     @scale = 1
     @tick_interval = 20
 
-    details = PlanDetail.user_details(user, plan_week(@start_date), plan_week(@end_date))
+    details = PlanDetail.user_details(user, states, plan_week(@start_date), plan_week(@end_date))
     process_request_chart(details)
   end
 
-  def generate_group_chart(project, group, start_date, weeks)
+  def generate_group_chart(project, group, states, start_date, weeks)
     setup_chart project, start_date, weeks
     @tick_interval = 50
     @scale = group.users.length
 
     series_hash = {}
-    details = PlanDetail.group_overview(group, plan_week(@start_date), plan_week(@end_date))
+    details = PlanDetail.group_overview(group, states, plan_week(@start_date), plan_week(@end_date))
     details.each do |detail|
       series_hash[detail.resource_id.to_s] ||= week_array
       series_hash[detail.resource_id.to_s][@week_idx[detail.week]] = detail.percentage
@@ -63,12 +63,12 @@ class PlanChart
     finalize_chart
   end
 
-  def generate_task_chart(project, task, start_date, weeks)
+  def generate_task_chart(project, task, states, start_date, weeks)
     setup_chart project, start_date, weeks
     @scale = 0
     @tick_interval = 40
 
-    details = PlanDetail.task_details(task, plan_week(@start_date), plan_week(@end_date))
+    details = PlanDetail.task_details(task, states, plan_week(@start_date), plan_week(@end_date))
     process_request_chart(details)
   end
 

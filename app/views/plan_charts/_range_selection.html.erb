@@ -14,6 +14,28 @@
       <%= text_field_tag 'num_weeks', @num_weeks, :size => 2, :class => 'num' %>
     </span>
 
+    <span>
+      <input type="hidden" name="include_ready" value="0"/>
+      <%= check_box_tag 'include_ready', "1", @inc_ready %>
+      <label for="include_ready">
+        <%= l(:label_planner_req_status_ready) %>
+      </label>
+    </span>
+    <span>
+      <input type="hidden" name="include_new" value="0"/>
+      <%= check_box_tag 'include_new', "1", @inc_new %>
+      <label for="include_new">
+        <%= l(:label_planner_req_status_new) %>
+      </label>
+    </span>
+    <span>
+      <input type="hidden" name="include_denied" value="0"/>
+      <%= check_box_tag 'include_denied', "1", @inc_denied %>
+      <label for="include_denied">
+        <%= l(:label_planner_req_status_denied) %>
+      </label>
+    </span>
+
     <%= submit_tag l(:button_update) %>
   <% end %>
 </div>

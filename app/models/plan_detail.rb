@@ -28,34 +28,36 @@ class PlanDetail < ActiveRecord::Base
 
   default_scope { order(:week) }
 
-  scope :user_details, lambda { |user, startweek, endweek|
-    joins(:request).where(
-      "plan_requests.resource_id = :user_id" +
-      " AND plan_requests.status <> #{PlanRequest::STATUS_DENIED}" +
-      " AND week >= :startweek AND week <= :endweek",
-      :user_id => user.is_a?(User) ? user.id : user, :startweek => startweek, :endweek => endweek
-    ).order("week, plan_requests.id")
+  scope :week_range, lambda { |startweek, endweek|
+    where("week >= :startweek AND week <= :endweek",
+      :startweek => startweek, :endweek => endweek)
   }
 
-  scope :group_overview, lambda { |group, startweek, endweek|
-    select("sum(percentage) AS percentage, resource_id, week").joins(:request).group(
-      "resource_id, week"
-    ).where(
+  scope :request_states, lambda { |states|
+    joins(:request).where("plan_requests.status IN (?)", states)
+  }
+
+  scope :user_details, lambda { |user, states, startweek, endweek|
+    request_states(states).where(
+      "plan_requests.resource_id = :user_id",
+      :user_id => user.is_a?(User) ? user.id : user
+    ).week_range(startweek, endweek).order("plan_requests.id")
+  }
+
+  scope :group_overview, lambda { |group, states, startweek, endweek|
+    request_states(states).select(
+      "sum(percentage) AS percentage, resource_id, week"
+    ).group("resource_id, week").where(
       "plan_requests.resource_id IN (" +
-        "SELECT user_id FROM plan_group_members WHERE plan_group_id = :group_id) " +
-      " AND plan_requests.status <> #{PlanRequest::STATUS_DENIED}" +
-      " AND week >= :startweek AND week <= :endweek",
-      :group_id => group.is_a?(PlanGroup) ? group.id : group, :startweek => startweek, :endweek => endweek
-    )
+        "SELECT user_id FROM plan_group_members WHERE plan_group_id = :group_id) ",
+      :group_id => group.is_a?(PlanGroup) ? group.id : group
+    ).week_range(startweek, endweek)
   }
 
-  scope :task_details, lambda { |task, startweek, endweek|
-    joins(:request).where(
-      "plan_requests.task_id = :task_id" +
-      " AND plan_requests.status <> #{PlanRequest::STATUS_DENIED}" +
-      " AND week >= :startweek AND week <= :endweek",
-      :task_id => task.is_a?(PlanTask) ? task.id : task, :startweek => startweek, :endweek => endweek
-    ).order("week, plan_requests.id")
+  scope :task_details, lambda { |task, states, startweek, endweek|
+    request_states(states).where("plan_requests.task_id = :task_id",
+      :task_id => task.is_a?(PlanTask) ? task.id : task
+    ).week_range(startweek, endweek).order("plan_requests.id")
   }
 
   def self.bulk_update(request, detail_params, num)

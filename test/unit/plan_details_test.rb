@@ -8,6 +8,8 @@ class PlanDetailsTest < ActiveSupport::TestCase
 
   setup do
     User.current = User.find(2)
+    # FIXME: test different states
+    @states = [PlanRequest::STATUS_NEW, PlanRequest::STATUS_READY, PlanRequest::STATUS_APPROVED]
   end
 
   test "create new" do
@@ -138,7 +140,7 @@ class PlanDetailsTest < ActiveSupport::TestCase
   end
 
   test "scope user_details range 1" do
-    list = PlanDetail.user_details(3, 201239, 201242)
+    list = PlanDetail.user_details(3, @states, 201239, 201242)
 
     assert_equal 4, list.length
     assert_equal 1, list[0].id
@@ -147,7 +149,7 @@ class PlanDetailsTest < ActiveSupport::TestCase
   end
 
   test "scope user_details range 2" do
-    list = PlanDetail.user_details(3, 201240, 201242)
+    list = PlanDetail.user_details(3, @states, 201240, 201242)
 
     assert_equal 3, list.length
     assert_equal 6, list[0].id
@@ -155,7 +157,7 @@ class PlanDetailsTest < ActiveSupport::TestCase
   end
 
   test "scope user_details range 3" do
-    list = PlanDetail.user_details(3, 201239, 201241)
+    list = PlanDetail.user_details(3, @states, 201239, 201241)
 
     assert_equal 3, list.length
     assert_equal 1, list[0].id
@@ -163,7 +165,7 @@ class PlanDetailsTest < ActiveSupport::TestCase
   end
 
   test "scope group overview" do
-    list = PlanDetail.group_overview(1, 201238, 201242)
+    list = PlanDetail.group_overview(1, @states, 201238, 201242)
 
     assert_equal 5, list.length
 
@@ -194,7 +196,7 @@ class PlanDetailsTest < ActiveSupport::TestCase
   end
 
   test "scope task_details" do
-    list = PlanDetail.task_details(2, 201239, 201242)
+    list = PlanDetail.task_details(2, @states, 201239, 201242)
 
     assert_equal 5, list.length
     assert_equal 1, list[0].id

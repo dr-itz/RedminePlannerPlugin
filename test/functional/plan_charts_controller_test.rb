@@ -56,7 +56,8 @@ class PlanChartsControllerTest < ActionController::TestCase
   end
 
   test "should get show_user user settings" do
-    get :show_user, :project_id => 1, :id => 3, :week_start_date => '2012-9-19', :num_weeks => 10
+    get :show_user, :project_id => 1, :id => 3,
+      :week_start_date => '2012-9-19', :num_weeks => 10, :include_new => "1"
 
     assert_response :success
 
@@ -77,7 +78,8 @@ class PlanChartsControllerTest < ActionController::TestCase
   end
 
   test "should get show_user user settings XHR" do
-    xhr :get, :show_user, :project_id => 1, :id => 3, :week_start_date => '2012-9-19', :num_weeks => 6
+    xhr :get, :show_user, :project_id => 1, :id => 3,
+      :week_start_date => '2012-9-19', :num_weeks => 6, :include_new => "1"
 
     assert_response :success
     assert_equal 'text/javascript', response.content_type
@@ -160,7 +162,8 @@ class PlanChartsControllerTest < ActionController::TestCase
   end
 
   test "should get show_group user settings XHR" do
-    xhr :get, :show_group, :project_id => 1, :id => 1, :week_start_date => '2012-9-19', :num_weeks => 6
+    xhr :get, :show_group, :project_id => 1, :id => 1,
+      :week_start_date => '2012-9-19', :num_weeks => 6, :include_new => "1"
 
     assert_response :success
     assert_equal 'text/javascript', response.content_type
@@ -222,7 +225,8 @@ class PlanChartsControllerTest < ActionController::TestCase
   end
 
   test "should get show_task user settings" do
-    get :show_task, :project_id => 1, :id => 2, :week_start_date => '2012-9-19', :num_weeks => 10
+    get :show_task, :project_id => 1, :id => 2,
+      :week_start_date => '2012-9-19', :num_weeks => 10, :include_new => "1"
 
     assert_response :success
 
@@ -241,7 +245,8 @@ class PlanChartsControllerTest < ActionController::TestCase
   end
 
   test "should get show_task user settings XHR" do
-    xhr :get, :show_task, :project_id => 1, :id => 2, :week_start_date => '2012-9-19', :num_weeks => 6
+    xhr :get, :show_task, :project_id => 1, :id => 2,
+      :week_start_date => '2012-9-19', :num_weeks => 6, :include_new => "1"
 
     assert_response :success
     assert_equal 'text/javascript', response.content_type
