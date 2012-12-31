@@ -30,7 +30,7 @@ class PlanDetail < ActiveRecord::Base
 
   scope :week_range, lambda { |startweek, endweek|
     where("week >= :startweek AND week <= :endweek",
-      :startweek => startweek, :endweek => endweek)
+      :startweek => plan_week(startweek), :endweek => plan_week(endweek))
   }
 
   scope :request_states, lambda { |states|
@@ -60,6 +60,11 @@ class PlanDetail < ActiveRecord::Base
     ).week_range(startweek, endweek).order("plan_requests.id")
   }
 
+  def self.plan_week(date)
+    return date if date.is_a? Numeric
+    date.cwyear * 100 + date.cweek
+  end
+
   def self.bulk_update(request, detail_params, num)
     detail_list = []
 
@@ -71,7 +76,7 @@ class PlanDetail < ActiveRecord::Base
     end
 
     num.times do
-      detail = self.where(:request_id => request.id, :week => date.cwyear * 100 + date.cweek).first_or_initialize
+      detail = self.where(:request_id => request.id, :week => plan_week(date)).first_or_initialize
       detail.update_attributes(detail_params)
       detail_list << detail
       date += 7

@@ -17,7 +17,9 @@ jQuery(document).ready(function() {
     yMax: <%= chart.max %>,
     yLabel: '<%= l(:field_planner_plan_percent) %>',
     yTickInterval: <%= chart.tick_interval %>,
-    yLimit:  <%= chart.limit %>,
+    yLimit:  <%= chart.calc.work_target %>,
+    yThsOk: <%= chart.calc.work_ths_ok %>,
+    yThsOver: <%= chart.calc.work_ths_over %>,
 
     threshold_data: <%= chart.threshold_data.to_json.html_safe %>,
     threshold_series: <%= chart.threshold_series.to_json.html_safe %>
@@ -26,11 +28,6 @@ jQuery(document).ready(function() {
   jQuery('#num_weeks').val('<%= @chart.weeks %>');
 });
 </script>
-<!--
-  limit: <%= @chart.limit %>
-  over: <%= @chart.ths_over %>
-  ok: <%= @chart.ths_ok %>
--->
 
 <div id="<%= chart_name %>-legend" class="chart-legend">
   <%= render :partial => legend_partial, :locals => {:chart => chart, :chart_name => chart_name} %>

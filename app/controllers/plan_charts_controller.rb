@@ -9,53 +9,40 @@ class PlanChartsController < ApplicationController
   end
 
   def show_user
-    set_criteria
+    setup
     @user = User.find(params[:id])
-    @chart = PlanChart.new
-    @chart.generate_user_chart(@project, @user, @states, @start_date, @num_weeks)
-    update_range
+    @chart.generate_user_chart(@user, @states)
   end
 
   def show_group
-    set_criteria
+    setup
     @group = PlanGroup.find(params[:id])
-    @chart = PlanChart.new
-    @chart.generate_group_chart(@project, @group, @states, @start_date, @num_weeks)
-    update_range
+    @chart.generate_group_chart(@group, @states)
   end
 
   def show_task
-    set_criteria
+    setup
     @task = PlanTask.find(params[:id])
-    @chart = PlanChart.new
-    @chart.generate_task_chart(@project, @task, @states, @start_date, @num_weeks)
-    update_range
+    @chart.generate_task_chart(@task, @states)
   end
 
 private
 
-  def set_criteria
+  def setup
     start_date = params[:week_start_date]
-    if start_date
-      @start_date = Date.parse(start_date)
-    else
-      @start_date = nil
-    end
+    start_date = start_date ? Date.parse(start_date) : nil
     num_weeks = params[:num_weeks]
-    @num_weeks = num_weeks ? num_weeks.to_i : nil
+    num_weeks = num_weeks ? num_weeks.to_i : nil
 
-    @inc_ready  = params[:include_ready]  != "0"
-    @inc_new    = params[:include_new]    == "1"
-    @inc_denied = params[:include_denied] == "1"
+    @include_ready  = params[:include_ready]  != "0"
+    @include_new    = params[:include_new]    == "1"
+    @include_denied = params[:include_denied] == "1"
 
     @states = [ PlanRequest::STATUS_APPROVED ]
-    @states << PlanRequest::STATUS_READY  if @inc_ready
-    @states << PlanRequest::STATUS_NEW    if @inc_new
-    @states << PlanRequest::STATUS_DENIED if @inc_denied
-  end
+    @states << PlanRequest::STATUS_READY  if @include_ready
+    @states << PlanRequest::STATUS_NEW    if @include_new
+    @states << PlanRequest::STATUS_DENIED if @include_denied
 
-  def update_range
-    @start_date = @chart.start_date
-    @num_weeks = @chart.weeks
+    @chart = PlanChart.new(@project, start_date, num_weeks)
   end
 end

@@ -6,9 +6,7 @@ class PlanChart
   include Redmine::I18n
 
   attr_reader :weeks, :ticks, :week_ticks, :data, :series, :series_details, :start_date, :end_date,
-    :max, :limit, :width, :height, :tick_interval, :threshold_data, :threshold_series,
-    :ths_ok, :ths_over
-
+    :max, :width, :height, :tick_interval, :threshold_data, :threshold_series, :calc
 
   # d3_category20
   #COLORS = [
@@ -28,22 +26,41 @@ class PlanChart
     "#fdd0a2", "#31a354", "#74c476", "#a1d99b", "#c7e9c0", "#756bb1", "#9e9ac8",
     "#bcbddc", "#dadaeb", "#636363", "#969696", "#bdbdbd", "#d9d9d9" ];
 
-  def generate_user_chart(project, user, states, start_date, weeks)
-    setup_chart project, start_date, weeks
-    @scale = 1
+  def initialize(project, start_date, weeks)
+    @calc = PlanCalc.new(project)
+    weeks ||= @calc.config[:graph_weeks].to_i
+    weeks = 52 if (weeks > 52)
+    start_date ||= Date.today - (7 * @calc.config[:graph_weeks_past].to_i)
+
+    @weeks = weeks
+    @start_date = PlanCalc.normalize_date start_date
+    @end_date = @start_date + 7 * (weeks - 1)
+
+    @ticks = []
+    @week_ticks = []
+    @week_idx = {}
+    tmp_date = @start_date.dup
+    weeks.times do |i|
+      @ticks.push format_date tmp_date
+      @week_ticks.push 'W' + ("%02d" % tmp_date.cweek)
+      @week_idx[PlanDetail.plan_week tmp_date] = i
+      tmp_date += 7
+    end
+  end
+
+  def generate_user_chart(user, states)
     @tick_interval = 20
 
-    details = PlanDetail.user_details(user, states, plan_week(@start_date), plan_week(@end_date))
+    details = PlanDetail.user_details(user, states, @start_date, @end_date)
     process_request_chart(details)
   end
 
-  def generate_group_chart(project, group, states, start_date, weeks)
-    setup_chart project, start_date, weeks
+  def generate_group_chart(group, states)
     @tick_interval = 50
-    @scale = group.users.length
+    @calc.scale = group.users.length
 
     series_hash = {}
-    details = PlanDetail.group_overview(group, states, plan_week(@start_date), plan_week(@end_date))
+    details = PlanDetail.group_overview(group, states, @start_date, @end_date)
     details.each do |detail|
       series_hash[detail.resource_id.to_s] ||= week_array
       series_hash[detail.resource_id.to_s][@week_idx[detail.week]] = detail.percentage
@@ -63,12 +80,11 @@ class PlanChart
     finalize_chart
   end
 
-  def generate_task_chart(project, task, states, start_date, weeks)
-    setup_chart project, start_date, weeks
-    @scale = 0
+  def generate_task_chart(task, states)
+    @calc.scale = 0
     @tick_interval = 40
 
-    details = PlanDetail.task_details(task, states, plan_week(@start_date), plan_week(@end_date))
+    details = PlanDetail.task_details(task, states, @start_date, @end_date)
     process_request_chart(details)
   end
 
@@ -77,14 +93,6 @@ class PlanChart
   end
 
 private
-
-  def normalize_date(date)
-    Date.commercial(date.cwyear, date.cweek, 1)
-  end
-
-  def plan_week(date)
-    date.cwyear * 100 + date.cweek
-  end
 
   def week_array
     Array.new(@weeks, 0)
@@ -111,45 +119,13 @@ private
     finalize_chart
   end
 
-  def setup_chart(project, start_date, weeks)
-    @config = PlanConfig.project_config(project)
-    weeks ||= @config[:graph_weeks].to_i
-    weeks = 52 if (weeks > 52)
-    start_date ||= Date.today - (7 * @config[:graph_weeks_past].to_i)
-
-    @weeks = weeks
-    @start_date = normalize_date start_date
-    @end_date = @start_date + 7 * (weeks - 1)
-
-    @ticks = []
-    @week_ticks = []
-    @week_idx = {}
-    tmp_date = @start_date.dup
-    weeks.times do |i|
-      @ticks.push format_date tmp_date
-      @week_ticks.push 'W' + ("%02d" % tmp_date.cweek)
-      @week_idx[plan_week tmp_date] = i
-      tmp_date += 7
-    end
-
-    @width = @weeks * 53 + 66
-  end
-
   def finalize_chart
     @data.push Array.new(@weeks, 0) unless @data.any?
 
-    # 0: overload, 1: ok, 2: not enough
+    # 0: overload, 1: ok, 2: not enough, see PlanCalc
     @threshold_series = [ {:color => "#d62728"}, {:color => "#2ca02c"}, {:color => "gold"} ]
     @threshold_data = [ week_array, week_array, week_array ]
     sets = @data.length
-
-    @limit = @config[:workload_target].to_i
-    @ths_over = @config[:workload_threshold_overload].to_i
-    @ths_ok = @config[:workload_threshold_ok].to_i
-
-    @limit = @limit * @scale
-    @ths_over = @ths_over * @scale
-    @ths_ok = @ths_ok * @scale
 
     max = 0
     @weeks.times do |i|
@@ -165,17 +141,13 @@ private
       @threshold_data[1][i] = [idx, 0, 0]
       @threshold_data[2][i] = [idx, 0, 0]
 
-      if @ths_over > 0 && sum > @ths_over
-        @threshold_data[0][i] = [idx, 1, sum]
-      elsif sum >= @ths_ok
-        @threshold_data[1][i] = [idx, 1, sum]
-      else
-        @threshold_data[2][i] = [idx, 1, sum]
-      end
+      @threshold_data[@calc.workload_class(sum)][i] = [idx, 1, sum]
     end
 
+    target = @calc.work_target
     @max = max % @tick_interval == 0 ? max : max + @tick_interval - (max % @tick_interval)
-    @max = @limit + @tick_interval if @limit > 0 && @max < @limit + @tick_interval
+    @max = target + @tick_interval if target > 0 && @max < target + @tick_interval
     @height = (@max * 35 / @tick_interval).to_i + 73
+    @width = @weeks * 53 + 66
   end
 end

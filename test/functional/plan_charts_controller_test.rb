@@ -51,8 +51,8 @@ class PlanChartsControllerTest < ActionController::TestCase
 
     date = Date.today - 7
     date = Date.commercial(date.cwyear, date.cweek, 1)
-    assert_equal date, assigns(:start_date)
-    assert_equal 8, assigns(:num_weeks)
+    assert_equal date, assigns(:chart).start_date
+    assert_equal 8, assigns(:chart).weeks
   end
 
   test "should get show_user user settings" do
@@ -73,8 +73,8 @@ class PlanChartsControllerTest < ActionController::TestCase
     assert_equal 2, chart.series.length
     assert_equal 2, chart.series_details.length
 
-    assert_equal Date.parse('2012-9-17'), assigns(:start_date)
-    assert_equal 10, assigns(:num_weeks)
+    assert_equal Date.parse('2012-9-17'), assigns(:chart).start_date
+    assert_equal 10, assigns(:chart).weeks
   end
 
   test "should get show_user user settings XHR" do
@@ -132,8 +132,8 @@ class PlanChartsControllerTest < ActionController::TestCase
 
     date = Date.today - 7
     date = Date.commercial(date.cwyear, date.cweek, 1)
-    assert_equal date, assigns(:start_date)
-    assert_equal 8, assigns(:num_weeks)
+    assert_equal date, assigns(:chart).start_date
+    assert_equal 8, assigns(:chart).weeks
   end
 
   test "should get show_group user settings" do
@@ -157,8 +157,8 @@ class PlanChartsControllerTest < ActionController::TestCase
     assert chart.series_details[1].is_a?(User)
     assert_equal 2, chart.series_details[1].id
 
-    assert_equal Date.parse('2012-9-17'), assigns(:start_date)
-    assert_equal 10, assigns(:num_weeks)
+    assert_equal Date.parse('2012-9-17'), assigns(:chart).start_date
+    assert_equal 10, assigns(:chart).weeks
   end
 
   test "should get show_group user settings XHR" do
@@ -220,8 +220,8 @@ class PlanChartsControllerTest < ActionController::TestCase
 
     date = Date.today - 7
     date = Date.commercial(date.cwyear, date.cweek, 1)
-    assert_equal date, assigns(:start_date)
-    assert_equal 8, assigns(:num_weeks)
+    assert_equal date, assigns(:chart).start_date
+    assert_equal 8, assigns(:chart).weeks
   end
 
   test "should get show_task user settings" do
@@ -240,8 +240,8 @@ class PlanChartsControllerTest < ActionController::TestCase
     assert_equal 4, chart.series.length
     assert_equal 4, chart.series_details.length
 
-    assert_equal Date.parse('2012-9-17'), assigns(:start_date)
-    assert_equal 10, assigns(:num_weeks)
+    assert_equal Date.parse('2012-9-17'), assigns(:chart).start_date
+    assert_equal 10, assigns(:chart).weeks
   end
 
   test "should get show_task user settings XHR" do
