@@ -29,19 +29,19 @@ class PlanChartsController < ApplicationController
 private
 
   def setup
-    start_date = params[:week_start_date]
+    start_date = params[:start]
     start_date = start_date ? Date.parse(start_date) : nil
-    num_weeks = params[:num_weeks]
+    num_weeks = params[:weeks]
     num_weeks = num_weeks ? num_weeks.to_i : nil
 
-    @include_ready  = params[:include_ready]  != "0"
-    @include_new    = params[:include_new]    == "1"
-    @include_denied = params[:include_denied] == "1"
+    @inc_ready  = params[:inc_ready]  != "0"
+    @inc_new    = params[:inc_new]    == "1"
+    @inc_denied = params[:inc_denied] == "1"
 
     @states = [ PlanRequest::STATUS_APPROVED ]
-    @states << PlanRequest::STATUS_READY  if @include_ready
-    @states << PlanRequest::STATUS_NEW    if @include_new
-    @states << PlanRequest::STATUS_DENIED if @include_denied
+    @states << PlanRequest::STATUS_READY  if @inc_ready
+    @states << PlanRequest::STATUS_NEW    if @inc_new
+    @states << PlanRequest::STATUS_DENIED if @inc_denied
 
     @chart = PlanChart.new(@project, start_date, num_weeks)
   end

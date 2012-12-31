@@ -1,9 +1,9 @@
 <h4><%= l(:label_planner_requests) %></h4>
 <table class="planner">
-  <% chart.series_details.each_with_index do |req, i| %>
+  <% @chart.series_details.each_with_index do |req, i| %>
     <tr class="jqplot-table-legend">
       <td>
-        <div class="chart-legend-color" style="background-color: <%= chart.get_color i %>;"></div>
+        <div class="chart-legend-color" style="background-color: <%= @chart.get_color i %>;"></div>
       </td>
       <td class="jqplot-table-legend-label">
         <%= link_to l(:label_planner_request_short) + " #" + req.id.to_s + " (" + req.requester.name + ")", req %>
@@ -12,8 +12,7 @@
     <tr>
       <td>&nbsp;</td>
       <td class="jqplot-table-legend-label">
-        <%= link_to_user_plan_view(@project, req.resource, {
-              :week_start_date => chart.start_date.to_s, :num_weeks => chart.weeks}) %>
+        <%= link_to_user_plan_view(@project, req.resource, chart_link_args(@chart, @states)) %>
       </td>
     </tr>
   <% end %>

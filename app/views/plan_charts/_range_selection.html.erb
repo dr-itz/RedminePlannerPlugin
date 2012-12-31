@@ -4,34 +4,34 @@
       <label for="week_start_date" class="bold">
         <%= l(:field_planner_plan_week_date) %>
       </label>
-      <%= text_field_tag :week_start_date, @chart.start_date, :size => 10 %><%= calendar_for('week_start_date') %>
+      <%= text_field_tag :start, @chart.start_date, :size => 10 %><%= calendar_for('start') %>
     </span>
 
     <span>
       <label for="num_weeks" class="bold">
         <%= l(:field_planner_plan_weeks_show) %>
       </label>
-      <%= text_field_tag 'num_weeks', @chart.weeks, :size => 2, :class => 'num' %>
+      <%= text_field_tag 'weeks', @chart.weeks, :size => 2, :class => 'num' %>
     </span>
 
     <span>
-      <input type="hidden" name="include_ready" value="0"/>
-      <%= check_box_tag 'include_ready', "1", @include_ready %>
-      <label for="include_ready">
+      <input type="hidden" name="inc_ready" value="0"/>
+      <%= check_box_tag 'inc_ready', "1", @inc_ready %>
+      <label for="inc_ready">
         <%= l(:label_planner_req_status_ready) %>
       </label>
     </span>
     <span>
-      <input type="hidden" name="include_new" value="0"/>
-      <%= check_box_tag 'include_new', "1", @include_new %>
-      <label for="include_new">
+      <input type="hidden" name="inc_new" value="0"/>
+      <%= check_box_tag 'inc_new', "1", @inc_new %>
+      <label for="inc_new">
         <%= l(:label_planner_req_status_new) %>
       </label>
     </span>
     <span>
-      <input type="hidden" name="include_denied" value="0"/>
-      <%= check_box_tag 'include_denied', "1", @include_denied %>
-      <label for="include_denied">
+      <input type="hidden" name="inc_denied" value="0"/>
+      <%= check_box_tag 'inc_denied', "1", @inc_denied %>
+      <label for="inc_denied">
         <%= l(:label_planner_req_status_denied) %>
       </label>
     </span>

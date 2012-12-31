@@ -57,7 +57,7 @@ class PlanChartsControllerTest < ActionController::TestCase
 
   test "should get show_user user settings" do
     get :show_user, :project_id => 1, :id => 3,
-      :week_start_date => '2012-9-19', :num_weeks => 10, :include_new => "1"
+      :start => '2012-9-19', :weeks => 10, :inc_new => "1"
 
     assert_response :success
 
@@ -79,7 +79,7 @@ class PlanChartsControllerTest < ActionController::TestCase
 
   test "should get show_user user settings XHR" do
     xhr :get, :show_user, :project_id => 1, :id => 3,
-      :week_start_date => '2012-9-19', :num_weeks => 6, :include_new => "1"
+      :start => '2012-9-19', :weeks => 6, :inc_new => "1"
 
     assert_response :success
     assert_equal 'text/javascript', response.content_type
@@ -94,8 +94,8 @@ class PlanChartsControllerTest < ActionController::TestCase
     assert_equal 2, chart.series_details.length
 
     assert_include '#user-chart-display', response.body
-    assert_include '#week_start_date', response.body
-    assert_include '#num_weeks', response.body
+    assert_include '#start', response.body
+    assert_include '#weeks', response.body
     assert_include '2012-09-17', response.body
     assert_include "data: [[60,80,0,60,0,0],[0,0,0,70,50,0]]", response.body
     assert_include 'Req. #2 (John Smith)', response.body
@@ -106,7 +106,7 @@ class PlanChartsControllerTest < ActionController::TestCase
   end
 
   test "should get show_user limit 52 weeks" do
-    get :show_user, :project_id => 1, :id => 3, :week_start_date => '2012-9-19', :num_weeks => 77
+    get :show_user, :project_id => 1, :id => 3, :start => '2012-9-19', :weeks => 77
 
     assert_response :success
 
@@ -137,7 +137,7 @@ class PlanChartsControllerTest < ActionController::TestCase
   end
 
   test "should get show_group user settings" do
-    get :show_group, :project_id => 1, :id => 1, :week_start_date => '2012-9-19', :num_weeks => 10
+    get :show_group, :project_id => 1, :id => 1, :start => '2012-9-19', :weeks => 10
 
     assert_response :success
 
@@ -163,7 +163,7 @@ class PlanChartsControllerTest < ActionController::TestCase
 
   test "should get show_group user settings XHR" do
     xhr :get, :show_group, :project_id => 1, :id => 1,
-      :week_start_date => '2012-9-19', :num_weeks => 6, :include_new => "1"
+      :start => '2012-9-19', :weeks => 6, :inc_new => "1"
 
     assert_response :success
     assert_equal 'text/javascript', response.content_type
@@ -186,8 +186,8 @@ class PlanChartsControllerTest < ActionController::TestCase
     assert project.is_a?(Project)
 
     assert_include '#group-chart-display', response.body
-    assert_include '#week_start_date', response.body
-    assert_include '#num_weeks', response.body
+    assert_include '#start', response.body
+    assert_include '#weeks', response.body
     assert_include '2012-09-17', response.body
     assert_include "data: [[60,80,0,130,50,0],[60,0,0,0,0,0]]", response.body
     assert_include 'John Smith', response.body
@@ -197,7 +197,7 @@ class PlanChartsControllerTest < ActionController::TestCase
   end
 
   test "should get show_group limit 52 weeks" do
-    get :show_group, :project_id => 1, :id => 1, :week_start_date => '2012-9-19', :num_weeks => 77
+    get :show_group, :project_id => 1, :id => 1, :start => '2012-9-19', :weeks => 77
 
     assert_response :success
 
@@ -226,7 +226,7 @@ class PlanChartsControllerTest < ActionController::TestCase
 
   test "should get show_task user settings" do
     get :show_task, :project_id => 1, :id => 2,
-      :week_start_date => '2012-9-19', :num_weeks => 10, :include_new => "1"
+      :start => '2012-9-19', :weeks => 10, :inc_new => "1"
 
     assert_response :success
 
@@ -246,7 +246,7 @@ class PlanChartsControllerTest < ActionController::TestCase
 
   test "should get show_task user settings XHR" do
     xhr :get, :show_task, :project_id => 1, :id => 2,
-      :week_start_date => '2012-9-19', :num_weeks => 6, :include_new => "1"
+      :start => '2012-9-19', :weeks => 6, :inc_new => "1"
 
     assert_response :success
     assert_equal 'text/javascript', response.content_type
@@ -261,8 +261,8 @@ class PlanChartsControllerTest < ActionController::TestCase
     assert_equal 4, chart.series_details.length
 
     assert_include '#task-chart-display', response.body
-    assert_include '#week_start_date', response.body
-    assert_include '#num_weeks', response.body
+    assert_include '#start', response.body
+    assert_include '#weeks', response.body
     assert_include '2012-09-17', response.body
     assert_include "data: [[60,0,0,0,0,0],[60,80,0,60,0,0],[0,0,0,70,50,0],[0,0,0,60,0,0]]", response.body
     assert_include 'Req. #2 (John Smith)', response.body

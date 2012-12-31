@@ -1,31 +1,31 @@
 <div class="chart-graphic">
   <div class="jqPlot chart-summary" id="<%= chart_name %>-summary"
-    style="margin-left:5px; width:<%= chart.width %>px; height:60px;"></div>
+    style="margin-left:5px; width:<%= @chart.width %>px; height:60px;"></div>
   <div class="jqPlot chart-full" id="<%= chart_name %>"
-    style="top: -6px; margin-left:5px; width:<%= chart.width %>px; height:<%= chart.height %>px;"></div>
+    style="top: -6px; margin-left:5px; width:<%= @chart.width %>px; height:<%= @chart.height %>px;"></div>
 </div>
 
 <script type="text/javascript">
 jQuery(document).ready(function() {
   plannerChart({
     chartid: '<%= chart_name %>',
-    data: <%= chart.data.to_json.html_safe %>,
-    series: <%= chart.series.to_json.html_safe %>,
-    xTicks: <%= chart.ticks.to_json.html_safe %>,
-    xWeekTicks: <%= chart.week_ticks.to_json.html_safe %>,
+    data: <%= @chart.data.to_json.html_safe %>,
+    series: <%= @chart.series.to_json.html_safe %>,
+    xTicks: <%= @chart.ticks.to_json.html_safe %>,
+    xWeekTicks: <%= @chart.week_ticks.to_json.html_safe %>,
     xLabel: null,
-    yMax: <%= chart.max %>,
+    yMax: <%= @chart.max %>,
     yLabel: '<%= l(:field_planner_plan_percent) %>',
-    yTickInterval: <%= chart.tick_interval %>,
-    yLimit:  <%= chart.calc.work_target %>,
-    yThsOk: <%= chart.calc.work_ths_ok %>,
-    yThsOver: <%= chart.calc.work_ths_over %>,
+    yTickInterval: <%= @chart.tick_interval %>,
+    yLimit:  <%= @chart.calc.work_target %>,
+    yThsOk: <%= @chart.calc.work_ths_ok %>,
+    yThsOver: <%= @chart.calc.work_ths_over %>,
 
-    threshold_data: <%= chart.threshold_data.to_json.html_safe %>,
-    threshold_series: <%= chart.threshold_series.to_json.html_safe %>
+    threshold_data: <%= @chart.threshold_data.to_json.html_safe %>,
+    threshold_series: <%= @chart.threshold_series.to_json.html_safe %>
   });
-  jQuery('#week_start_date').val('<%= @chart.start_date.to_s %>');
-  jQuery('#num_weeks').val('<%= @chart.weeks %>');
+  jQuery('#start').val('<%= @chart.start_date.to_s %>');
+  jQuery('#weeks').val('<%= @chart.weeks %>');
 });
 </script>
 
