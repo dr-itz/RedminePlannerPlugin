@@ -38,7 +38,7 @@ class PlanDetail < ActiveRecord::Base
   }
 
   scope :user_details, lambda { |user, states, startweek, endweek|
-    request_states(states).where(
+    request_states(states).includes(:request => :task).where(
       "plan_requests.resource_id = :user_id",
       :user_id => user.is_a?(User) ? user.id : user
     ).week_range(startweek, endweek).order("plan_requests.id")
@@ -55,7 +55,8 @@ class PlanDetail < ActiveRecord::Base
   }
 
   scope :task_details, lambda { |task, states, startweek, endweek|
-    request_states(states).where("plan_requests.task_id = :task_id",
+    request_states(states).includes(:request, :request => :task).where(
+      "plan_requests.task_id = :task_id",
       :task_id => task.is_a?(PlanTask) ? task.id : task
     ).week_range(startweek, endweek).order("plan_requests.id")
   }

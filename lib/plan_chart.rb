@@ -100,9 +100,11 @@ private
 
   def process_request_chart(details)
     series_hash = {}
+    req_hash = {}
     details.each do |detail|
       series_hash[detail.request_id] ||= week_array
       series_hash[detail.request_id][@week_idx[detail.week]] = detail.percentage
+      req_hash[detail.request_id] ||= detail.request
     end
 
     requests = series_hash.keys.sort
@@ -111,7 +113,7 @@ private
     @series_details = Array.new(requests.length)
     requests.each_with_index do |req, i|
       data[i] = series_hash[req]
-      @series_details[i] = PlanRequest.find(req, :include => :task)
+      @series_details[i] = req_hash[req]
       @series[i] = {}
       @series[i][:color] = get_color i
     end
