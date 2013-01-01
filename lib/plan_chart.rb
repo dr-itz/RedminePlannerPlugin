@@ -126,6 +126,11 @@ private
 
     # 0: overload, 1: ok, 2: not enough, see PlanCalc
     @threshold_series = [ {:color => "#d62728"}, {:color => "#2ca02c"}, {:color => "gold"} ]
+    @threshold_series = [
+      {:color => PlanCalc::WORKLOAD_CLASS_COLORS[0]},
+      {:color => PlanCalc::WORKLOAD_CLASS_COLORS[1]},
+      {:color => PlanCalc::WORKLOAD_CLASS_COLORS[2]}
+    ]
     @threshold_data = [ week_array, week_array, week_array ]
     sets = @data.length
 

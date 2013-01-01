@@ -11,6 +11,7 @@ class PlanDetailsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to plan_request_url(@plan_request)}
       format.json { render :json => @plan_request.details }
+      format.js   { render :action => "refresh" }
     end
   end
 

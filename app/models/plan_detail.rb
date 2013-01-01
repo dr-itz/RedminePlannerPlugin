@@ -46,7 +46,7 @@ class PlanDetail < ActiveRecord::Base
 
   scope :group_overview, lambda { |group, states, startweek, endweek|
     request_states(states).select(
-      "sum(percentage) AS percentage, resource_id, week"
+      "SUM(percentage) AS percentage, resource_id, week"
     ).group("resource_id, week").where(
       "plan_requests.resource_id IN (" +
         "SELECT user_id FROM plan_group_members WHERE plan_group_id = :group_id) ",
@@ -59,6 +59,17 @@ class PlanDetail < ActiveRecord::Base
       "plan_requests.task_id = :task_id",
       :task_id => task.is_a?(PlanTask) ? task.id : task
     ).week_range(startweek, endweek).order("plan_requests.id")
+  }
+
+  scope :user_req_workload, lambda { |req, states|
+    joins(:request).select(
+      "SUM(percentage) AS percentage, week"
+    ).where(
+      "plan_requests.resource_id = :user_id" +
+      " AND (plan_requests.status IN (:states) OR plan_requests.id = :req_id)" +
+      " AND week IN (SELECT week FROM plan_details WHERE request_id = :req_id)",
+      :user_id => req.resource_id, :req_id => req.id, :states => states
+    ).group(:week)
   }
 
   def self.plan_week(date)
