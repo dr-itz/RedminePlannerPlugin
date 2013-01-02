@@ -17,7 +17,6 @@ class PlanCalc
   def initialize(project)
     @config = PlanConfig.project_config(project)
     self.scale = 1
-    @states = [ PlanRequest::STATUS_APPROVED, PlanRequest::STATUS_READY ]
   end
 
   def scale=(val)
@@ -43,9 +42,9 @@ class PlanCalc
       ";color: " + WORKLOAD_CLASS_FONT_COLORS[clazz] + ";"
   end
 
-  def prepare_user_req_workload(req)
+  def prepare_user_req_workload(req, states)
     @weekly_load = {}
-    list = PlanDetail.user_req_workload(req, @states)
+    list = PlanDetail.user_req_workload(req, states)
     list.each do |det|
       @weekly_load[det.week] = det.percentage
     end

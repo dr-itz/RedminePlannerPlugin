@@ -1,0 +1,21 @@
+<span>
+  <input type="hidden" name="inc_ready" value="0"/>
+  <%= check_box_tag 'inc_ready', "1", @inc_ready %>
+  <label for="inc_ready">
+    <%= l(:label_planner_req_status_ready) %>
+  </label>
+</span>
+<span>
+  <input type="hidden" name="inc_new" value="0"/>
+  <%= check_box_tag 'inc_new', "1", @inc_new %>
+  <label for="inc_new">
+    <%= l(:label_planner_req_status_new) %>
+  </label>
+</span>
+<span>
+  <input type="hidden" name="inc_denied" value="0"/>
+  <%= check_box_tag 'inc_denied', "1", @inc_denied %>
+  <label for="inc_denied">
+    <%= l(:label_planner_req_status_denied) %>
+  </label>
+</span>

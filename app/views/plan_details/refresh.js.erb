@@ -1,1 +1,4 @@
 jQuery('#detail-list').html('<%= escape_javascript(render :partial => 'plan_details/index') %>');
+jQuery('#upd_inc_ready').val('<%= @inc_ready ? "1" : "0" %>');
+jQuery('#upd_inc_new').val('<%= @inc_new ? "1" : "0" %>');
+jQuery('#upd_inc_denied').val('<%= @inc_denied ? "1" : "0" %>');

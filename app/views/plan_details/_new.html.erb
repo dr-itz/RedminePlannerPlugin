@@ -54,6 +54,9 @@
         </span>
       </p>
     </div>
+    <%= hidden_field_tag("inc_ready", @inc_ready ? "1" : "0", :id => "upd_inc_ready") %>
+    <%= hidden_field_tag("inc_new", @inc_new ? "1" : "0", :id => "upd_inc_new") %>
+    <%= hidden_field_tag("inc_denied", @inc_denied ? "1" : "0", :id => "upd_inc_denied") %>
     <%= submit_tag l(:button_apply) %>
   <% end %>
 <% end %>

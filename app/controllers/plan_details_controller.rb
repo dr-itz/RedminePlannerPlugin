@@ -1,6 +1,10 @@
 class PlanDetailsController < ApplicationController
   unloadable
+
+  include PlanRequestStateHandling
+
   menu_item :planner
+  helper :planner
 
   before_filter :find_project_by_request_id, :only => [:index, :new, :create]
   before_filter :find_plan_detail, :only => [:show, :edit, :update, :destroy]
@@ -8,6 +12,7 @@ class PlanDetailsController < ApplicationController
   before_filter :authorize
 
   def index
+    process_request_states
     respond_to do |format|
       format.html { redirect_to plan_request_url(@plan_request)}
       format.json { render :json => @plan_request.details }
@@ -19,6 +24,7 @@ class PlanDetailsController < ApplicationController
     details = PlanDetail.bulk_update(@plan_request, params[:plan_detail], params[:num_week].to_i || 1)
     @plan_request.details << details
 
+    process_request_states
     respond_to do |format|
       format.html { redirect_to plan_request_url(@plan_request), :notice => l(:notice_successful_create) }
       format.json { render :json => details, :status => :created, :location => details }
@@ -29,6 +35,7 @@ class PlanDetailsController < ApplicationController
   def destroy
     @plan_detail.destroy
 
+    process_request_states
     respond_to do |format|
       format.html { redirect_to plan_request_url(@plan_request), :notice => l(:notice_successful_delete) }
       format.json { head :no_content }

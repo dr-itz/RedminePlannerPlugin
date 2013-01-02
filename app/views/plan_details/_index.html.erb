@@ -1,9 +1,16 @@
 <% if @plan_request.details.any? %>
+<div class="box planner-range">
+  <%= form_tag(plan_request_plan_details_url(@plan_request), :remote => true, :method => 'get') do %>
+    <%= l(:field_planner_plan_percent_total_descr) %>
+    <%= render :partial => 'plan_requests/state_form' %>
+    <%= submit_tag l(:button_update) %>
+  <% end %>
+</div>
 <table class="list planner">
   <thead><tr>
     <th><%= l(:field_planner_plan_year) %>/<%= l(:field_planner_plan_week) %></th>
     <th><%= l(:field_planner_plan_week_date) %></th>
-    <th class="right"><%= l(:field_planner_plan_percent_total) %></th>
+    <th class="right" style="width:45px;"><%= l(:field_planner_plan_percent_total) %></th>
     <th class="center" colspan="2"><%= l(:field_planner_plan_percent) %></th>
     <th class="center"><%= l('date.abbr_day_names')[1] %></th>
     <th class="center"><%= l('date.abbr_day_names')[2] %></th>
@@ -17,7 +24,7 @@
   <tbody>
     <%
       calc = PlanCalc.new(@project)
-      calc.prepare_user_req_workload(@plan_request)
+      calc.prepare_user_req_workload(@plan_request, @states)
 
       @plan_request.details.each do |plan_detail|
     %>
@@ -29,8 +36,8 @@
         <td class="right" style="<%= calc.workload_color(total) %>">
           <%= total %>%
         </td>
-        <td class="right"><%= plan_detail.percentage %>%</td>
-        <td><%= progress_bar(plan_detail.percentage, :width => '80px') %></td>
+        <td class="right" style="width:45px;"><%= plan_detail.percentage %>%</td>
+        <td style="width:90px;"><%= progress_bar(plan_detail.percentage, :width => '80px') %></td>
         <td class="center"><%= checked_image plan_detail.ok_mon %></td>
         <td class="center"><%= checked_image plan_detail.ok_tue %></td>
         <td class="center"><%= checked_image plan_detail.ok_wed %></td>
@@ -40,7 +47,7 @@
         <td class="center"><%= checked_image plan_detail.ok_sun %></td>
         <td class="buttons">
           <% if @plan_request.can_edit? %>
-            <%= link_to(l(:button_delete), plan_detail_path(plan_detail),
+            <%= link_to(l(:button_delete), plan_detail_path(plan_detail, request_states_link_args(@states)),
                   :method => :delete, :remote => true,
                   :title => l(:button_delete), :class => 'icon icon-del') %>
           <% end %>

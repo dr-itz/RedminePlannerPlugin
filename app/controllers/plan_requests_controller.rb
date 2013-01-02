@@ -1,5 +1,8 @@
 class PlanRequestsController < ApplicationController
   unloadable
+
+  include PlanRequestStateHandling
+
   menu_item :planner
   helper :planner
 
@@ -21,6 +24,7 @@ class PlanRequestsController < ApplicationController
   end
 
   def show
+    process_request_states
     respond_to do |format|
       format.html # show.html.erb
       format.json { render :json => @plan_request }

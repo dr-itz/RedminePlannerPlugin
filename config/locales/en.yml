@@ -80,6 +80,7 @@ en:
   field_planner_plan_weeks_show: Weeks to show
   field_planner_plan_percent: Weekly Workload
   field_planner_plan_percent_total: Total
+  field_planner_plan_percent_total_descr: Total column also shows
   field_planner_workload_target: Target workload
   field_planner_workload_ths_ok: Threshold OK
   field_planner_workload_ths_overload: Threshold overload

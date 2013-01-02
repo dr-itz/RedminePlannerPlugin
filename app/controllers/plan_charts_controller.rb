@@ -1,5 +1,8 @@
 class PlanChartsController < ApplicationController
   unloadable
+
+  include PlanRequestStateHandling
+
   menu_item :planner
   helper :planner
 
@@ -34,14 +37,7 @@ private
     num_weeks = params[:weeks]
     num_weeks = num_weeks ? num_weeks.to_i : nil
 
-    @inc_ready  = params[:inc_ready]  != "0"
-    @inc_new    = params[:inc_new]    == "1"
-    @inc_denied = params[:inc_denied] == "1"
-
-    @states = [ PlanRequest::STATUS_APPROVED ]
-    @states << PlanRequest::STATUS_READY  if @inc_ready
-    @states << PlanRequest::STATUS_NEW    if @inc_new
-    @states << PlanRequest::STATUS_DENIED if @inc_denied
+    process_request_states
 
     @chart = PlanChart.new(@project, start_date, num_weeks)
   end
