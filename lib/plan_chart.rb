@@ -125,7 +125,6 @@ private
     @data.push Array.new(@weeks, 0) unless @data.any?
 
     # 0: overload, 1: ok, 2: not enough, see PlanCalc
-    @threshold_series = [ {:color => "#d62728"}, {:color => "#2ca02c"}, {:color => "gold"} ]
     @threshold_series = [
       {:color => PlanCalc::WORKLOAD_CLASS_COLORS[0]},
       {:color => PlanCalc::WORKLOAD_CLASS_COLORS[1]},
