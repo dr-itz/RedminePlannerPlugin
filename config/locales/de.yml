@@ -1,0 +1,92 @@
+de:
+  permission_planner_view: Ressourcenplan anzeigen
+  permission_planner_edit: Ressourcenplan ändern
+  permission_planner_admin: Ressourcenplan administrieren
+  permission_planner_task_create: Aufgabe erstellen
+  permission_planner_requests: Ressourcenanfrage erstellen
+
+  label_planner_menu_main: Ressourcenplan
+  label_planner_planning: Planung
+  label_planner_manage: Verwalten
+  label_planner_overview: Übersicht
+  label_planner_own_plan: Meine Planung
+
+  label_planner_group: Team/Gruppe
+  label_planner_groups: Teams und Gruppen
+  label_planner_group_edit: Team/Gruppe ändern
+  label_planner_group_new: Team/Gruppe anlegen
+  label_planner_group_team: Team
+  label_planner_group_teams: Teams
+  label_planner_group_group: Gruppe
+  label_planner_group_groups: Gruppen
+
+  label_planner_task: Aufgabe
+  label_planner_tasks: Aufgaben
+  label_planner_task_edit: Aufgabe ändern
+  label_planner_task_new: Aufgabe erstellen
+
+  label_planner_requests: Ressourcenanfragen
+  label_planner_request: Ressourcenanfrage
+  label_planner_request_short: Anfrage
+  label_planner_req_new: Ressourcenanfrage erstellen
+  label_planner_req_edit: Ressourcenanfrage ändern
+  label_planner_req_status_new: Neu
+  label_planner_req_status_ready: Bereit
+  label_planner_req_status_approved: Genehmigt
+  label_planner_req_status_denied: Abgelehnt
+  label_planner_req_my: Meine offenen Ressourcenanfragen
+  label_planner_req_approvals: Zu prüfende Ressourcenanfragen
+  label_planner_req_requestee: Ressourcenanfragen für mich
+  label_planner_req_send: Anfrage senden
+  label_planner_req_send_help: Wenn Sie die Anfrage ausgefüllt haben, klicken Sie 'Anfrage senden' um die Anfrage zur Genehmigung weiterzuleiten.
+  label_planner_req_approve_deny: Genehmigen oder ablehnen
+  label_planner_req_approve: Genehmigen
+  label_planner_req_deny: Ablehnen
+  label_planner_req_view: Anzeigen
+  label_planner_req_review: Prüfen
+
+  label_planner_req_prio_lowest: Sehr gering
+  label_planner_req_prio_low: Gering
+  label_planner_req_prio_normal: Normal
+  label_planner_req_prio_high: Hoch
+  label_planner_req_prio_highest: Sehr hoch
+  label_planner_req_assoc_plan: Zugehörige Planung
+  label_planner_req_add_plan: Planung anpassen/erweitern
+
+  field_planner_group_type: Gruppenart
+  field_planner_leader: Leiter
+  field_planner_owner: Eigentümer
+  field_planner_is_open: Noch offen?
+  field_planner_wbs: WBS Nummer
+  field_planner_task: Aufgabe
+
+  field_planner_req_prio: Priorität
+  field_planner_req_id: Anfragenummer
+  field_planner_req_resource: Ressource
+  field_planner_req_requester: Angefragt von
+  field_planner_req_approver: Genehmigt durch
+  field_planner_req_status: Status
+  field_planner_req_date: Datum
+  field_planner_req_approval_date: Genehmigungsdatum
+  field_planner_req_note: Hinweis
+
+  field_planner_plan_year: Jahr
+  field_planner_plan_week: Woche
+  field_planner_plan_weekdays: Wochentage
+  field_planner_plan_week_date: Beginn
+  field_planner_plan_week_repeat: Anzahl Folgewochen
+  field_planner_plan_weeks_past: Anzahl vergangener Wochen anzeigen
+  field_planner_plan_weeks_show: Anzahl Folgewochen anzeigen
+  field_planner_plan_percent: Auslastung
+  field_planner_plan_percent_total: Summe
+  field_planner_plan_percent_total_descr: Die Summen berücksichtigen auch Anfragen mit Status
+  field_planner_workload_target: Zielauslastung
+  field_planner_workload_ths_ok: Schwellwert gute Auslastung
+  field_planner_workload_ths_overload: Schwellwert Überlast
+
+  error_teamleader_not_found: Teamleiter kann nicht gefunden werden
+
+  mail_subject_planner_ready: "Ressourcenanfrage #%{id} ist bereit zur Genehmigung"
+  mail_subject_planner_approved: "Ressourcenanfrage #%{id} wurde genehmigt"
+  mail_subject_planner_denied: "Ressourcenanfrage #%{id} wurde abgelehnt"
+  mail_subject_planner_deleted: "Ressourcenanfrage #%{id} wurde gelöscht"

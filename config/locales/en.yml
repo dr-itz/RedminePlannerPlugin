@@ -40,7 +40,7 @@ en:
   label_planner_req_requestee: Open requests for me
   label_planner_req_send: Send Request
   label_planner_req_send_help: When the request is ready, click Save to request approval
-  label_planner_req_approve_deny: Approve/Deny
+  label_planner_req_approve_deny: Approve or deny
   label_planner_req_approve: Approve
   label_planner_req_deny: Deny
   label_planner_req_view: View
@@ -78,9 +78,9 @@ en:
   field_planner_plan_week_repeat: Weeks to repeat
   field_planner_plan_weeks_past: Past weeks to show
   field_planner_plan_weeks_show: Weeks to show
-  field_planner_plan_percent: Weekly Workload
+  field_planner_plan_percent: Workload
   field_planner_plan_percent_total: Total
-  field_planner_plan_percent_total_descr: Total column also shows
+  field_planner_plan_percent_total_descr: Total column also shows requests with status
   field_planner_workload_target: Target workload
   field_planner_workload_ths_ok: Threshold OK
   field_planner_workload_ths_overload: Threshold overload
