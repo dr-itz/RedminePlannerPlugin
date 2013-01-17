@@ -59,7 +59,7 @@ easy steps are enough to get the plugin going:
 	root directory.
 
 	```
-	rake db:migrate_plugins NAME=planner RAILS_ENV=production
+	rake redmine:plugins:migrate NAME=planner RAILS_ENV=production
 	```
 
  4. **Restart Redmine**
@@ -77,7 +77,7 @@ Redmine root directory.
  1. **Dropping the database tables**
 
 	```
-	rake db:migrate_plugins NAME=planner VERSION=0 RAILS_ENV=production
+	rake redmine:plugins:migrate NAME=planner VERSION=0 RAILS_ENV=production
 	```
 
  2. **Removing the plugin directory**
