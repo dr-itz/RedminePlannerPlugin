@@ -18,12 +18,12 @@
     <td><%= checked_image @task.is_open? %></td>
   </tr>
   <tr>
-    <th><%= l(:field_description) %></th>
-    <td><%= @task.description %></td>
-  </tr>
-  <tr>
     <th><%= l(:field_planner_wbs) %></th>
     <td><%= @task.wbs %></td>
+  </tr>
+  <tr>
+    <th><%= l(:field_description) %></th>
+    <td><div class="wiki"><%= textilizable @task.description %></div></td>
   </tr>
 </table>
 

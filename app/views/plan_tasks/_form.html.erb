@@ -10,6 +10,10 @@
   <% unless @plan_task.new_record? %>
     <p><%= f.check_box :is_open, :label => :field_planner_is_open %></p>
   <% end %>
-  <p><%= f.text_field :description, :size => 60 %></p>
   <p><%= f.text_field :wbs, :size => 60, :label => :field_planner_wbs%></p>
+  <p>
+    <label for="description"><%= l(:field_description) %></label>
+    <%= f.text_area :description, :cols => 60, :rows => 8, :class => 'wiki-edit' %>
+    <%= wikitoolbar_for 'plan_task_description' %>
+  </p>
 </div>
