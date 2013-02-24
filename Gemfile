@@ -2,9 +2,9 @@ source 'http://rubygems.org'
 
 group :development, :test do
   gem 'annotate'
-  gem 'rspec-rails'
-  gem 'capybara'
-  gem 'database_cleaner'
+#  gem 'rspec-rails'
+#  gem 'capybara'
+#  gem 'database_cleaner'
 
   # hack - :platforms => [:mri_18] does not always work
   if RUBY_VERSION < "1.9"
