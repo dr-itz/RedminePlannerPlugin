@@ -92,7 +92,7 @@ Redmine root directory.
 
 
 
-## Development setup on OS X 10.7
+## Development setup on OS X 10.7
 
 ### Installing and setting up Redmine #
 
@@ -213,7 +213,7 @@ resulting emails can be manually verified. Also, this does not send unwanted
 emails to people when working on a copy of a production database.
 
 
-#### Running the tests
+#### Running the tests
 
 If everything is set up correctly, running the automatic tests of Planner can
 be done via some Rakes tasks. The names should speak for themselves.
