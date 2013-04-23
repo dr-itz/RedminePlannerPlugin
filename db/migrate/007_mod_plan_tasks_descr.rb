@@ -7,7 +7,7 @@ class ModPlanTasksDescr < ActiveRecord::Migration
   end
 
   def down
-    remove_column :created_at
-    remove_column :updated_at
+    remove_column :plan_tasks, :created_at
+    remove_column :plan_tasks, :updated_at
   end
 end
