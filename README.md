@@ -24,6 +24,7 @@ easy steps are enough to get the plugin going:
 	```
 	cd plugins
 	tar zxf planner-v0.3.tar.gz
+	mv RedminePlanner* planner
 	```
 
 	Alternatively, Git can be used to clone the source repository. Using this
