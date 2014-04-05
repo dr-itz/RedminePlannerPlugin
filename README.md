@@ -35,7 +35,7 @@ easy steps are enough to get the plugin going:
 
 	```
 	cd plugins
-	tar zxf planner-v0.3.tar.gz
+	tar zxf planner-v0.4.tar.gz
 	mv RedminePlanner* planner
 	```
 
