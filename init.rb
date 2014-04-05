@@ -9,7 +9,7 @@ Redmine::Plugin.register :planner do
   version '0.4'
   url 'https://github.com/dr-itz/RedminePlannerPlugin'
   author_url 'mailto:daniel.ritz@gmx.ch'
-  requires_redmine :version_or_higher => '2.0.3'
+  requires_redmine :version_or_higher => '2.2.0'
 
   project_module :planner do
     permission :planner_view, {

@@ -1,19 +1,17 @@
-if !(RUBY_VERSION < "1.9")
-  require 'simplecov'
+require 'simplecov'
 
-  if Dir.pwd.match(/plugins\/planner/)
-    covdir = 'coverage'
-  else
-    covdir = 'plugins/planner/coverage'
-  end
+if Dir.pwd.match(/plugins\/planner/)
+  covdir = 'coverage'
+else
+  covdir = 'plugins/planner/coverage'
+end
 
-  SimpleCov.coverage_dir(covdir)
-  SimpleCov.start 'rails' do
-    add_filter do |source_file|
-      # only show files belonging to planner, except init.rb which is not fully testable
-      source_file.filename.match(/planner/) == nil ||
-        source_file.filename.match(/planner\/init.rb/) != nil
-    end
+SimpleCov.coverage_dir(covdir)
+SimpleCov.start 'rails' do
+  add_filter do |source_file|
+    # only show files belonging to planner, except init.rb which is not fully testable
+    source_file.filename.match(/planner/) == nil ||
+      source_file.filename.match(/planner\/init.rb/) != nil
   end
 end
 

@@ -5,10 +5,22 @@ A Redmine plugin for resource planning with a request/confirm scheme.
 This software is licensed under the terms of the GNU General Public License (GPL) v2.
 See COPYRIGHT and COPYING for details.
 
+For more information about the plugin, see:
+
+  * [Concepts](doc/concept.md)
+  * [Getting Started](doc/gettingstarted.md)
+
+
+Requirements:
+
+  * Redmine 2.2 or higher
+  * Ruby 1.9.3 or higher
+  * PostgreSQL or MySQL. Other DBs might work as well but are untested.
+
 
 ## Installation
 
-Installing Planner requires a running Redmine v2.0.3 or higher. Once Redmine is
+Installing Planner requires a running Redmine v2.2.x or higher. Once Redmine is
 up and running, the standard procedure for plugin installation applies. Three
 easy steps are enough to get the plugin going:
 
@@ -59,9 +71,16 @@ easy steps are enough to get the plugin going:
 	Rake task to execute plugin migrations. Again, execute from within the Redmine
 	root directory.
 
-	```
-	rake redmine:plugins:migrate NAME=planner RAILS_ENV=production
-	```
+	  * For production
+
+		```
+		RAILS_ENV=production rake redmine:plugins:migrate NAME=planner
+		```
+	  * For development
+
+		```
+		RAILS_ENV=development rake redmine:plugins:migrate NAME=planner
+		```
 
  4. **Restart Redmine**
 
@@ -93,7 +112,7 @@ Redmine root directory.
 
 
 
-## Development setup on OS X 10.7
+## Development setup on OS X 10.7 or higher
 
 ### Installing and setting up Redmine #
 
@@ -101,11 +120,10 @@ Setting up a development environment on Lion for Redmine development is straight
 forward. Prerequisites are Xcode command line tools and Git (Xcode ships with Git
 too, but an older version with a, at least in some cases, broken Git GUI).
 
-OSX 10.7 already ships with Ruby 1.8.7. This does not really perform all that
-well with Rails 3.x and won't be supported any more starting with Rails 4.x, but
-will do fine for now. To install an up-to-date Ruby version like 1.9.3-p286, RVM
-(http://rvm.io/) can be used. When using RVM, make sure to select
-the @global Gemset.
+OS X already ships with Ruby. But it's a good idea to use a more recent version,
+or even required as 10.7 only includes 1.8.7. To install an up-to-date Ruby
+version, use RVM, see http://rvm.io/.
+When using RVM, make sure to select the @global Gemset.
 
 Redmine can work fine with SQLite, but a MySQL is recommended. The MySQL server
 can be local or remote. Alternatively, PostgreSQL works fine too. Only MySQL is
@@ -135,7 +153,7 @@ installed in `/usr/local`
 	  * Checkout the official repository using SVN
 
 		```
-		svn co http://redmine.rubyforge.org/svn/branches/2.0-stable redmine
+		svn co http://redmine.rubyforge.org/svn/branches/2.5-stable redmine
 		cd redmine
 		```
 	  * Clone the repository mirror using Git
@@ -143,27 +161,26 @@ installed in `/usr/local`
 		```
 		git clone git://github.com/redmine/redmine.git
 		cd redmine
-		git checkout 2.0-stable
+		git checkout 2.5-stable
 		```
 	  * Clone the repository mirror using Mercurial
 
 		```
-		hg clone --updaterev 2.0-stable https://bitbucket.org/redmine/redmine-all redmine
+		hg clone --updaterev 2.5-stable https://bitbucket.org/redmine/redmine-all redmine
 		cd redmine
 		```
 
- 3. **Installing required dependencies**
-
-	```
-	bundle install --without postgresql rmagick
-	```
-
- 4. **Setting up database connectivity**
+ 3. **Setting up database connectivity**
 
 	Start by `cp config/database.yml{.example,}`, edit the resulting
-	file and change configuration as required. It's the normal Rails way. When
-	using Ruby 1.9.3, make sure to use the "mysql2" adapter instead of just
-	"mysql".
+	file and change configuration as required. It's the normal Rails way.
+	Make sure to use the "mysql2" adapter instead of just "mysql".
+
+ 4. **Installing required dependencies**
+
+	```
+	bundle install --without rmagick
+	```
 
  5. **Initialize Redmine**
 
@@ -182,7 +199,7 @@ installed in `/usr/local`
 
 	Give WEBrick a moment to boot, then point the web browser at
 	http://localhost:3000 and login using the user "admin" with the same
-	passrod.
+	password.
 
 
 ### Development and testing of Planner
@@ -201,11 +218,11 @@ this step, tests will fail. The email configuration is done in Redmine's
 
 ```
 development:
-   email_delivery:
-     delivery_method: :file
+  email_delivery:
+    delivery_method: :file
 test:
-   email_delivery:
-     delivery_method: :test
+  email_delivery:
+    delivery_method: :test
 ```
 
 The important one is for the "test" environment. The "development"
@@ -226,9 +243,9 @@ rake planner:test:integration
 rake planner:test:all
 ```
 
-When using Ruby 1.9.3 coverage tests are ran automatically with SimpleCov. Once
-a testrun is complete, open `coverage/index.html` in your browser to
-see the results. On Mac, this is easy also from within the terminal:
+Coverage tests are ran automatically with SimpleCov. Once a test run is
+complete, open `coverage/index.html` in your browser to see the results. On Mac,
+this is easy also from within the terminal:
 
 ```
 open coverage/index.html
