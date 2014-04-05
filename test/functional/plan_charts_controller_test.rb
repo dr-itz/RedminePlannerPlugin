@@ -2,7 +2,7 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class PlanChartsControllerTest < ActionController::TestCase
   fixtures :projects, :users, :roles, :members, :member_roles,
-    :plan_requests, :plan_details
+    :plan_groups, :plan_group_members, :plan_tasks, :plan_requests, :plan_details
 
   include PlannerHelper
 
