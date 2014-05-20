@@ -97,7 +97,7 @@ class PlanRequestsController < ApplicationController
       end
     else
       respond_to do |format|
-        format.html { render :action => "show" }
+        format.html { process_request_states; render :action => "show" }
         format.json { render :json => @plan_request.errors, :status => :unprocessable_entity }
       end
     end
