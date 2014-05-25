@@ -76,6 +76,7 @@ class PlanRequestsControllerTest < ActionController::TestCase
 
     assert_response :success
     assert_template 'show'
+    assert_not_nil assigns(:states)
     assert_equal @plan_request, assigns(:plan_request)
   end
 
@@ -163,6 +164,7 @@ class PlanRequestsControllerTest < ActionController::TestCase
     tmp = PlanRequest.find(7)
     assert_equal PlanRequest::STATUS_NEW, tmp.status
     assert_nil tmp.approver
+    assert_not_nil assigns(:states)
   end
 
   test "should forbid send request" do
