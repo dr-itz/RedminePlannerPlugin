@@ -56,7 +56,7 @@ ru:
 
   field_planner_group_type: Тип группы
   field_planner_leader: Лидер
-  field_planner_owner: Владелей
+  field_planner_owner: Владелец
   field_planner_is_open: Открыто?
   field_planner_wbs: WBS номер
   field_planner_task: Задача
