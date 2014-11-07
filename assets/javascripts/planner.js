@@ -53,7 +53,7 @@ function plannerChart(data)
 
   var notIE = !jQuery.jqplot.use_excanvas;
   jQuery.jqplot(data.chartid, data.data, {
-    animate: jQuery.browser.mozilla,
+    animate: false,
     stackSeries: true,
     showMarker: false,
     seriesDefaults:{
