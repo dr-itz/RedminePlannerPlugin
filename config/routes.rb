@@ -1,5 +1,5 @@
 RedmineApp::Application.routes.draw do
-  match 'projects/:project_id/planner', :to => 'planner#index'
+  match 'projects/:project_id/planner', :to => 'planner#index', :via => [ :get ]
 
   resources :projects, :shallow => true do
     resources :plan_groups
