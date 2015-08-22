@@ -1,5 +1,8 @@
 # Redmine Planner Plugin
 
+**Please note that this plugin is currently not under active development due to
+lack of time. Proper pull requests are welcome.**
+
 A Redmine plugin for resource planning with a request/confirm scheme.
 
 This software is licensed under the terms of the GNU General Public License (GPL) v2.
@@ -13,7 +16,7 @@ For more information about the plugin, see:
 
 Requirements:
 
-  * Redmine 2.2 or higher
+  * Redmine 2.2 or higher (currently tested: Redmine 2.6, 3.1)
   * Ruby 1.9.3 or higher
   * PostgreSQL or MySQL. Other DBs might work as well but are untested.
 
@@ -35,7 +38,7 @@ easy steps are enough to get the plugin going:
 
 	```
 	cd plugins
-	tar zxf planner-v0.4.tar.gz
+	tar zxf planner-v0.5.tar.gz
 	mv RedminePlanner* planner
 	```
 
@@ -50,8 +53,7 @@ easy steps are enough to get the plugin going:
 
  2. **Install Gems**
 
-	Planner also comes with a Gemfile. To install the required Gems, assuming the
-	current directory is still `plugins/planner`:
+	Planner also comes with a Gemfile. To install the required Gems:
 
 	```
 	bundle install --without development test
@@ -153,7 +155,7 @@ installed in `/usr/local`
 	  * Checkout the official repository using SVN
 
 		```
-		svn co http://redmine.rubyforge.org/svn/branches/2.5-stable redmine
+		svn co http://redmine.rubyforge.org/svn/branches/3.1-stable redmine
 		cd redmine
 		```
 	  * Clone the repository mirror using Git
@@ -161,20 +163,13 @@ installed in `/usr/local`
 		```
 		git clone git://github.com/redmine/redmine.git
 		cd redmine
-		git checkout 2.5-stable
-		```
-	  * Clone the repository mirror using Mercurial
-
-		```
-		hg clone --updaterev 2.5-stable https://bitbucket.org/redmine/redmine-all redmine
-		cd redmine
+		git checkout 3.1-stable
 		```
 
  3. **Setting up database connectivity**
 
 	Start by `cp config/database.yml{.example,}`, edit the resulting
 	file and change configuration as required. It's the normal Rails way.
-	Make sure to use the "mysql2" adapter instead of just "mysql".
 
  4. **Installing required dependencies**
 
@@ -194,7 +189,7 @@ installed in `/usr/local`
  6. **Test**
 
 	```
-	ruby script/rails server webrick -e development
+	rails s
 	```
 
 	Give WEBrick a moment to boot, then point the web browser at
@@ -234,7 +229,14 @@ emails to people when working on a copy of a production database.
 #### Running the tests
 
 If everything is set up correctly, running the automatic tests of Planner can
-be done via some Rakes tasks. The names should speak for themselves.
+be done via the standard Redmine way:
+
+```
+rake redmine:plugins:test NAME=planner
+```
+
+Alternatively, mainly for historical reasons, there are also some Rakes tasks.
+The names should speak for themselves.
 
 ```
 rake planner:test:units
