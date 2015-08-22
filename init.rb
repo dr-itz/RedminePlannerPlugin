@@ -6,7 +6,7 @@ Redmine::Plugin.register :planner do
   name 'Planner'
   author 'Daniel Ritz'
   description 'Redmine Resource Planner Plugin'
-  version '0.4'
+  version '0.5'
   url 'https://github.com/dr-itz/RedminePlannerPlugin'
   author_url 'mailto:daniel.ritz@gmx.ch'
   requires_redmine :version_or_higher => '2.2.0'
