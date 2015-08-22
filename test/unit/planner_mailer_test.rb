@@ -4,6 +4,9 @@ class PlannerMailerTest < ActionMailer::TestCase
   include Redmine::I18n
 
   fixtures :projects, :users, :plan_tasks, :plan_requests, :plan_details
+  if Redmine::VERSION::MAJOR == 3
+    fixtures :email_addresses
+  end
 
   setup do
     Setting.bcc_recipients = false

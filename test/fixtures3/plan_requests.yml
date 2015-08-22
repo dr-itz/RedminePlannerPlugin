@@ -1,0 +1,80 @@
+# == Schema Information
+#
+# Table name: plan_requests
+#
+#  id             :integer          not null, primary key
+#  requester_id   :integer          default(0), not null
+#  resource_id    :integer          default(0), not null
+#  approver_id    :integer          default(0)
+#  task_id        :integer          default(0), not null
+#  req_type       :integer          default(0), not null
+#  priority       :integer          default(3), not null
+#  description    :text
+#  status         :integer          default(0), not null
+#  requested_on   :datetime
+#  approved_on    :datetime
+#  approver_notes :text
+#
+
+one:
+  id: 1
+  requester_id: 3
+  resource_id: 2
+  approver_id: null
+  task_id: 2
+  description: Descr. One
+  status: 1
+
+two:
+  id: 2
+  requester_id: 2
+  resource_id: 3
+  approver_id: null
+  task_id: 2
+  description: Descr. Two
+  status: 0
+
+three:
+  id: 3
+  requester_id: 3
+  resource_id: 3
+  approver_id: 2
+  task_id: 2
+  description: Descr. Three
+  status: 1
+
+four:
+  id: 4
+  requester_id: 3
+  resource_id: 3
+  approver_id: 2
+  task_id: 3
+  description: Descr. Four
+  status: 0
+
+five:
+  id: 5
+  requester_id: 3
+  resource_id: 5
+  approver_id: 2
+  task_id: 2
+  description: Descr. Five
+  status: 1
+
+six:
+  id: 6
+  requester_id: 2
+  resource_id: 3
+  approver_id: 2
+  task_id: 2
+  description: Denied request
+  status: 3
+
+seven:
+  id: 7
+  requester_id: 2
+  resource_id: 5
+  approver_id: null
+  task_id: 2
+  description: Descr. Five
+  status: 0
