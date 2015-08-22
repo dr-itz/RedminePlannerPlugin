@@ -82,7 +82,7 @@ class PlanRequest < ActiveRecord::Base
   end
 
   scope :all_project_requests, lambda { |project|
-    includes(:task, :requester, :resource, :approver).where(
+    includes(:task, :requester, :resource, :approver).joins(:task).where(
       "plan_tasks.project_id = :project_id",
       :project_id => project.is_a?(Project) ? project.id : project).order(
         'plan_requests.id')

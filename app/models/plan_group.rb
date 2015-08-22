@@ -56,7 +56,7 @@ class PlanGroup < ActiveRecord::Base
   end
 
   def self.find_teamleader(user)
-    group = PlanGroup.includes(:plan_group_members).where(
+    group = PlanGroup.joins(:plan_group_members).where(
       'group_type = :type AND plan_group_members.user_id = :user_id',
       :type => TYPE_TEAM, :user_id => user.id).first
     group ? group.team_leader : nil

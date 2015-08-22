@@ -1,7 +1,8 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
 class PlannerControllerTest < ActionController::TestCase
-  fixtures :projects, :users, :roles, :members, :member_roles
+  fixtures :projects, :users, :roles, :members, :member_roles,
+    :plan_groups, :plan_group_members
 
   setup do
     @request.session[:user_id] = 2
