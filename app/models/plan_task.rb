@@ -18,7 +18,11 @@ class PlanTask < ActiveRecord::Base
 
   belongs_to :project
   belongs_to :owner, :class_name => 'User', :foreign_key => 'owner_id'
-  has_many :requests, :class_name => 'PlanRequest', :foreign_key => 'task_id', :dependent => :restrict
+  if Redmine::VERSION::MAJOR == 3
+    has_many :requests, :class_name => 'PlanRequest', :foreign_key => 'task_id', :dependent => :restrict_with_exception
+  else
+    has_many :requests, :class_name => 'PlanRequest', :foreign_key => 'task_id', :dependent => :restrict
+  end
 
   validates_presence_of :name
   validates_uniqueness_of :name, :scope => [:project_id]
