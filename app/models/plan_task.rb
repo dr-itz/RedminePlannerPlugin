@@ -27,6 +27,8 @@ class PlanTask < ActiveRecord::Base
   validates_presence_of :name
   validates_uniqueness_of :name, :scope => [:project_id]
 
+  attr_protected :project
+
   # Returns all PlanTasks belonging to the specified +project+
   scope :all_project_tasks, lambda { |project|
     where(:project_id => project.is_a?(Project) ? project.id : project).order(:name)

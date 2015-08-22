@@ -46,13 +46,13 @@ class PlanDetailsController < ApplicationController
 private
 
   def find_project_by_request_id
-    @plan_request = PlanRequest.find(params[:plan_request_id], :include => { :task => :project })
+    @plan_request = PlanRequest.includes({ :task => :project }).find(params[:plan_request_id])
     return render_403 unless @plan_request.present?
     @project = @plan_request.task.project
   end
 
   def find_plan_detail
-    @plan_detail = PlanDetail.find(params[:id], :include => [ {:request => :task} ])
+    @plan_detail = PlanDetail.includes({ :request => :task }).find(params[:id])
     return render_403 unless @plan_detail.present?
 
     @plan_request = @plan_detail.request

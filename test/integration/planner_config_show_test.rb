@@ -12,7 +12,8 @@ class PlannerConfigShowTest < ActionDispatch::IntegrationTest
   end
 
   test "should show settings" do
-    log_user('jsmith', 'jsmith')
+    #log_user('jsmith', 'jsmith')
+    post "/login", :username => 'jsmith', :password => 'jsmith'
     get "/projects/1/settings/planner"
 
     assert_response 200

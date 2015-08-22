@@ -30,5 +30,5 @@ jQuery(document).ready(function() {
 </script>
 
 <div id="<%= chart_name %>-legend" class="chart-legend">
-  <%= render :partial => legend_partial, :locals => {:chart => chart, :chart_name => chart_name} %>
+  <%= render :partial => legend_partial, :locals => {:chart => @chart, :chart_name => chart_name} %>
 </div>

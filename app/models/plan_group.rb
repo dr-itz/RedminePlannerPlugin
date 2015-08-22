@@ -29,6 +29,8 @@ class PlanGroup < ActiveRecord::Base
   validates_uniqueness_of :name, :scope => [:project_id]
   validates_inclusion_of :group_type, :in => [TYPE_TEAM, TYPE_GROUP]
 
+  attr_protected :project
+
   # Returns all PlanGroups belonging to the specified +project+
   scope :all_project_groups, lambda { |project|
     where(:project_id => project.is_a?(Project) ? project.id : project).order(

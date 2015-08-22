@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../../test_helper'
 
-class RoutingPlanDetailsTest < ActionController::IntegrationTest
+class RoutingPlanDetailsTest < ActionDispatch::IntegrationTest
   def test_plan_details_scoped_under_plan_requests
     assert_routing(
         { :method => 'get', :path => "/plan_requests/1/plan_details" },

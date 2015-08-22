@@ -88,7 +88,7 @@ class PlanTasksController < ApplicationController
   end
 private
   def find_plan_task
-    @plan_task = PlanTask.find(params[:id], :include => [:project])
+    @plan_task = PlanTask.includes(:project).find(params[:id])
     @project = @plan_task.project
   end
 end

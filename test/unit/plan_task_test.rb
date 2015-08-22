@@ -37,15 +37,15 @@ class PlanTaskTest < ActiveSupport::TestCase
   end
 
   test "create new" do
-    tmp = PlanTask.new(
-      :project => Project.find(1), :name => 'New task', :owner => User.find(2))
+    tmp = PlanTask.new(:name => 'New task', :owner => User.find(2))
+    tmp.project = Project.find(1)
     assert tmp.save
   end
 
   test "validations" do
     # duplicate name for project 1
-    tmp = PlanTask.new(
-      :project => Project.find(1), :name => 'Task 1', :owner => User.find(2))
+    tmp = PlanTask.new(:name => 'Task 1', :owner => User.find(2))
+    tmp.project = Project.find(1)
     assert !tmp.valid?
     assert tmp.errors[:name]
   end
