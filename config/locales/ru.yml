@@ -1,0 +1,93 @@
+# English strings go here for Rails i18n
+ru:
+  permission_planner_view: View Resource Plan
+  permission_planner_edit: Edit Resource Plan
+  permission_planner_admin: Administer Resource Plan
+  permission_planner_task_create: Create Task
+  permission_planner_requests: Create Requests
+
+  label_planner_menu_main: Resource Planner
+  label_planner_planning: Planning
+  label_planner_manage: Manage
+  label_planner_overview: Overview
+  label_planner_own_plan: My planning
+
+  label_planner_group: Team/Group
+  label_planner_groups: Teams and Groups
+  label_planner_group_edit: Edit Team/Group
+  label_planner_group_new: New Team/Group
+  label_planner_group_team: Team
+  label_planner_group_teams: Teams
+  label_planner_group_group: Group
+  label_planner_group_groups: Groups
+
+  label_planner_task: Task
+  label_planner_tasks: Tasks
+  label_planner_task_edit: Edit Task
+  label_planner_task_new: New Task
+
+  label_planner_requests: Resource Requests
+  label_planner_request: Resource Request
+  label_planner_request_short: Req.
+  label_planner_req_new: New Resource Request
+  label_planner_req_edit: Edit Resource Request
+  label_planner_req_status_new: New
+  label_planner_req_status_ready: Ready
+  label_planner_req_status_approved: Approved
+  label_planner_req_status_denied: Denied
+  label_planner_req_my: My open requests
+  label_planner_req_approvals: My open approvals
+  label_planner_req_requestee: Open requests for me
+  label_planner_req_send: Send Request
+  label_planner_req_send_help: When the request is ready, click Save to request approval
+  label_planner_req_approve_deny: Approve or deny
+  label_planner_req_approve: Approve
+  label_planner_req_deny: Deny
+  label_planner_req_view: View
+  label_planner_req_review: Review
+
+  label_planner_req_prio_lowest: Lowest
+  label_planner_req_prio_low: Low
+  label_planner_req_prio_normal: Normal
+  label_planner_req_prio_high: High
+  label_planner_req_prio_highest: Highest
+  label_planner_req_assoc_plan: Associated planning
+  label_planner_req_add_plan: Add/update planning
+
+  field_planner_group_type: Group Type
+  field_planner_leader: Leader
+  field_planner_owner: Owner
+  field_planner_is_open: Is open?
+  field_planner_wbs: WBS Number
+  field_planner_task: Task
+
+  field_planner_req_prio: Priority
+  field_planner_req_id: Request ID
+  field_planner_req_resource: Resource
+  field_planner_req_requester: Requested by
+  field_planner_req_approver: Approver
+  field_planner_req_status: Status
+  field_planner_req_date: Date
+  field_planner_req_approval_date: Approval Date
+  field_planner_req_note: Note
+
+  field_planner_plan_year: Year
+  field_planner_plan_week: Week
+  field_planner_plan_weekdays: Weekdays
+  field_planner_plan_week_date: Starting on
+  field_planner_plan_week_repeat: Weeks to repeat
+  field_planner_plan_weeks_past: Past weeks to show
+  field_planner_plan_weeks_show: Weeks to show
+  field_planner_plan_percent: Workload
+  field_planner_plan_percent_total: Total
+  field_planner_plan_percent_total_descr: Total column also shows requests with status
+  field_planner_workload_target: Target workload
+  field_planner_workload_ths_ok: Threshold OK
+  field_planner_workload_ths_overload: Threshold overload
+
+  error_teamleader_not_found: Cannot find team leader
+
+  mail_subject_planner_ready: "Request #%{id} READY for approval"
+  mail_subject_planner_approved: "Request #%{id} has been APPROVED"
+  mail_subject_planner_denied: "Request #%{id} has been DENIED"
+  mail_subject_planner_deleted: "Request #%{id} has been DELETED"
