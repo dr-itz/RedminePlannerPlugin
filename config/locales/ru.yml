@@ -1,0 +1,93 @@
+# English strings go here for Rails i18n
+ru:
+  permission_planner_view: Просмотр ресурсного плана
+  permission_planner_edit: Редактирование ресурсного плана
+  permission_planner_admin: Администрирование ресурсного плана
+  permission_planner_task_create: Создание задач
+  permission_planner_requests: Создание запросов на ресурсы
+
+  label_planner_menu_main: Ресурсное планирование
+  label_planner_planning: Планирование
+  label_planner_manage: Управление
+  label_planner_overview: Обзор
+  label_planner_own_plan: Мое планирование
+
+  label_planner_group: Команда/Группа
+  label_planner_groups: Команды и Группы
+  label_planner_group_edit: Изменить Команду/Группу
+  label_planner_group_new: Новая Команда/Группа
+  label_planner_group_team: Команда
+  label_planner_group_teams: Команды
+  label_planner_group_group: Группа
+  label_planner_group_groups: Группы
+
+  label_planner_task: Задача
+  label_planner_tasks: Задачи
+  label_planner_task_edit: Изменить задачу
+  label_planner_task_new: Новая задача
+
+  label_planner_requests: Запросы ресурсов
+  label_planner_request: Запрос ресурса
+  label_planner_request_short: Запрос.
+  label_planner_req_new: Новый запрос ресурса
+  label_planner_req_edit: Изменить запрос ресурса
+  label_planner_req_status_new: Новый
+  label_planner_req_status_ready: Готовый
+  label_planner_req_status_approved: Одобренный
+  label_planner_req_status_denied: Отлоненный
+  label_planner_req_my: Мои открытые запросы
+  label_planner_req_approvals: Мои открытые одобренные запросы
+  label_planner_req_requestee: Открытые запросы для меня
+  label_planner_req_send: Отправить запрос
+  label_planner_req_send_help: Когда запрос готов, нажмите 'Сохранить' для отправки запрос на одобрение
+  label_planner_req_approve_deny: Одобрить или отклонить
+  label_planner_req_approve: Одобрить
+  label_planner_req_deny: Отклонить
+  label_planner_req_view: Вид
+  label_planner_req_review: Обзор
+
+  label_planner_req_prio_lowest: Самый низкий
+  label_planner_req_prio_low: Низкий
+  label_planner_req_prio_normal: Нормальный
+  label_planner_req_prio_high: Высокий
+  label_planner_req_prio_highest: Самый высокий
+  label_planner_req_assoc_plan: Связанные планирования
+  label_planner_req_add_plan: Добавить/обновить планирование
+
+  field_planner_group_type: Тип группы
+  field_planner_leader: Лидер
+  field_planner_owner: Владелец
+  field_planner_is_open: Открыто?
+  field_planner_wbs: WBS номер
+  field_planner_task: Задача
+
+  field_planner_req_prio: Приоритет
+  field_planner_req_id: ID запроса
+  field_planner_req_resource: Ресурс
+  field_planner_req_requester: Запрошен
+  field_planner_req_approver: Одобряющий
+  field_planner_req_status: Статус
+  field_planner_req_date: Дата
+  field_planner_req_approval_date: Дата одобрения
+  field_planner_req_note: Примечание
+
+  field_planner_plan_year: Год
+  field_planner_plan_week: Неделя
+  field_planner_plan_weekdays: Будни
+  field_planner_plan_week_date: Начиная с
+  field_planner_plan_week_repeat: Недель для повторения
+  field_planner_plan_weeks_past: Показывать прошедших недель
+  field_planner_plan_weeks_show: Показывать недель
+  field_planner_plan_percent: Рабочая нагрузка
+  field_planner_plan_percent_total: Итог
+  field_planner_plan_percent_total_descr: Столбец 'Итог' также показывает запросы со статусом
+  field_planner_workload_target: Целевая рабочая нагрузка
+  field_planner_workload_ths_ok: OK Порог
+  field_planner_workload_ths_overload: Порог перегрузки
+
+  error_teamleader_not_found: Не найден лидер команды
+
+  mail_subject_planner_ready: "Запрос #%{id} ГОТОВ для одобрения"
+  mail_subject_planner_approved: "Запрос #%{id} был одобрен"
+  mail_subject_planner_denied: "Запрос #%{id} был отклонен"
+  mail_subject_planner_deleted: "Запрос #%{id} был удален"
