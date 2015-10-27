@@ -7,11 +7,14 @@ table.planner th {
   padding-left: 2px;
 }
 
-.center {
+td.center,
+th.center {
   text-align: center !important;
 }
 
-.right {
+input.right,
+td.right,
+th.right {
   text-align: right !important;
 }
 
